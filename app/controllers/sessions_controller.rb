@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     else
       user = User.create_with_auth_and_hash(authentication, auth_hash)
       # page for editing user details on first creation
-      @next = edit_user_path(user)
+      # @next = edit_user_path(user)
       @notice = "User created. Please confirm or edit details"
     end
 
@@ -47,6 +47,19 @@ class SessionsController < ApplicationController
       flash.now.alert = "Incorrect email or password, try again."
       render :new
     end
+  end
+
+  def sign_in(user)
+    session[:user_id] = user.id
+  end
+
+    #redirect back to current path when Omniauth
+  def callback
+    request.env['omniauth.origin'] || '/default'
+  end
+
+  def show
+    redirect_to root_url
   end
 
   def destroy
