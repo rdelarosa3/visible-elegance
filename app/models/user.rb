@@ -10,22 +10,22 @@ class User < ApplicationRecord
 	# Oauth USER creation #####
 	def self.create_with_auth_and_hash(authentication, auth_hash)
 		# in case of loggin in through facebook
-		# birthday = auth_hash['extra']['raw_info']["birthday"]
-		# if birthday.nil?
-	 #     	birthday = Date.new(1970,1,1)
-	 #    end
-	 #    gender = auth_hash['extra']['raw_info']['gender']
-	 #    if gender.nil?
-	 #    	gender = "unknown"
-	 #    end
+		birthday = auth_hash['extra']['raw_info']["birthday"]
+		if birthday.nil?
+	     	birthday = Date.new(1970,1,1)
+	    end
+	    gender = auth_hash['extra']['raw_info']['gender']
+	    if gender.nil?
+	    	gender = "unknown"
+	    end
 
 		user = self.create!(
 		 email: auth_hash["info"]["email"],
-		 name: auth_hash["info"]["first_name"],
-	     # last_name: auth_hash["info"]["last_name"], 
-      #    birthday: birthday,
-      #    gender: gender,
-	     # phone_number: auth_hash["info"]["phone"],
+		 first_name: auth_hash["info"]["first_name"],
+	     last_name: auth_hash["info"]["last_name"], 
+         birthday: birthday,
+         gender: gender,
+	     phone_number: auth_hash["info"]["phone"],
 		 password: SecureRandom.hex(10),
 		 # remote_avatar_url: auth_hash["info"]["image"]
 		)

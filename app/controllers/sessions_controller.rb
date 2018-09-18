@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-    # Ominauth sign in and create
+  # Ominauth sign in and create
   def create_from_omniauth
     
     auth_hash = request.env["omniauth.auth"]
@@ -10,7 +10,8 @@ class SessionsController < ApplicationController
     if authentication.user
       user = authentication.user
       authentication.update_token(auth_hash)
-      @next = callback #redirect back to current
+      @next = root_path 
+      # @next = callback #redirect back to current
       @notice = "Signed in!"
     # else: user logs in with OAuth for the first time
     else
@@ -24,15 +25,12 @@ class SessionsController < ApplicationController
     redirect_to @next, :notice => @notice
   end
 
-
-
   def new
-    # No need for anything in here, we are just going to render our
-    # new.html.erb AKA the login page
+
   end
 
   def create
-    # Look up User in db by the email address submitted to the login form and
+    
     # convert to lowercase to match email in db in case they had caps lock on:
     user = User.find_by(email: params[:login][:email].downcase)
     
@@ -40,13 +38,23 @@ class SessionsController < ApplicationController
     # method to see if the password submitted on the login form was correct: 
     if user && user.authenticate(params[:login][:password]) 
       # Save the user.id in that user's session cookie:
-      session[:user_id] = user.id.to_s
-      redirect_to root_path, notice: 'Successfully logged in!'
+      sign_in(user)
+      redirect_to root_path, notice: "Welcome!"
     else
       # if email or password incorrect, re-render login page:
       flash.now.alert = "Incorrect email or password, try again."
       render :new
     end
+      # sign_in(user) do |status|
+      #   if status.success?
+      #     if URI(request.referer).path == '/user/new'#'/reservations/new'
+      #       redirect_to root_path, notice: "Welcome!"
+      #       # redirect_to new_reservation_path, notice: "Welcome!" 
+      #     else 
+      #      redirect_to sign_in_path
+      #     end
+      #   end
+      # end
   end
 
   def sign_in(user)
