@@ -7,9 +7,108 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+     <!-- font awesome style sheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+
+    <!-- Custom fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg shadow navbar-dark fixed-top" id="mainNav">
+    
+      <div class="container">
+        <%= link_to "Visible Elegance", root_path, class: "navbar-brand  js-scroll-trigger font-weight-bold " %>
+        <button class="navbar-toggler navbar-toggler-right mr-2" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            <% if controller_name == "welcome" %>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+            </li>
+            <% end %>
+            <li class="nav-item">
+              
+            </li>
+            <% if logged_in? %>
+              <!-- while logged in -->
+              <li class="nav-item">
+                <%= link_to 'Sign out', logout_path, class: "nav-link", method: :delete %>
+              </li>
+              <% if current_user.avatar? %>
+              <li class="nav-item user-avatar"> 
+                  <%= link_to image_tag(current_user.avatar_url,class: 'rounded-circle nav-img',width: '30', height: '30'), current_user, class: "nav-link"%>
+                <% else %>
+                <li class="nav-item"> 
+                  <%= link_to current_user.first_name, current_user, class: "nav-link"%>
+                <% end %>
+              </li>
+              <% else %>
+                <!-- while logged out -->
+                <% if controller_name == "sessions" || controller_name == "users" %>
+                <li></li>
+                <% else %>
+                <li class="nav-item">
+                  <%= link_to 'Sign Up', sign_up_path, class: "nav-link"%>
+                </li>
+                <li class="nav-item">
+                  <a href="#" data-target="#sign-in" data-toggle="modal" class="nav-link">Sign In</a>
+                </li>
+                <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- !Navigation -->
+
     <%= yield %>
+
+    <!---------------- Sign in Modal ---------------------->
+
+    <div class="modal fade" id="sign-in" tabindex="0">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div>
+                <button class="close mr-auto pt-1 pr-4"  data-dismiss="modal">&times;</button>
+                <h4 class="text-center"> Sign In </h4>
+                    
+              </div> 
+                    <div class="modal-body">
+                      <%= simple_form_for :login do |f| %>
+                        <%= f.input :email, placeholder: 'user@domain.com' %>              
+                        <%= f.input :password %>
+                        <%= f.button :submit, "Sign in", class:"btn btn-success btn-block" %>
+                         <div class="or-seperator"><i>or</i></div>
+                        <a href="/auth/google_oauth2" class="btn btn-danger btn-block text-light"><i class="fab fa-google" aria-hidden="true"></i> Sign in with <b>Google</b></a>
+                      <% end %>
+                      <br>
+                        <p class="hint-text text-center small text text-muted">Don’t have an account? <%= link_to 'Sign up', sign_up_path, class: "text-success" %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!---------------- !Sign in Modal ---------------------->  
   </body>
 </html>
+
+

@@ -1,0 +1,166 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap";
+
+
+  /*Styling for the navbar*/
+  #mainNav {
+       background-color: #212529;
+       text-decoration: none;
+         
+  }
+   
+  #mainNav .navbar-toggler {
+       font-size: 12px;
+       right: 0;
+       padding: 13px;
+       text-transform: uppercase;
+       color: #fff;
+       border: 0;
+       background-color: #34b6ce;
+       font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'
+  }
+   
+  #mainNav .navbar-brand {
+     color: #00d8ff;
+     font-family: 'Kaushan Script', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'
+  }
+   
+  #mainNav .navbar-brand.active,
+  #mainNav .navbar-brand:active,
+  #mainNav .navbar-brand:focus,
+  #mainNav .navbar-brand:hover {
+       color: white
+  }
+
+
+  /**********nav customize***********/
+  #mainNav .navbar-nav .nav-item .nav-link {
+    font-size: 110%;
+    font-weight: 400;
+    /*padding: .75em 0;*/
+    padding: 1.1em 1em!important;
+    letter-spacing: 1px;
+    color: #fff;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+/*      .navbar-dark .navbar-nav .nav-link {
+        color: white;
+  }*/
+  #mainNav .navbar-nav .nav-item .nav-link:hover {
+      color: #00d8ff;
+  }
+  .user-avatar{
+  margin-top: -7px;
+  }
+  /******* !Nav customize **********/
+
+  /******* customize **********/
+  a{
+    color: black;
+    text-decoration: none;
+  }
+  body {
+    font-family: 'Fira Sans', sans-serif;
+    padding-bottom:60px;   /* Height of the footer */
+  }
+  footer {
+     position:relative;
+     /*bottom:0;*/
+     width:100%;
+    background-color: rgba(245, 245, 245, 0); 
+    opacity: 1;
+  }
+  /******* Modal -or- seperator **********/
+  .btn-login {
+      color: #fff;
+      background-color: #34b6ce;
+      border-color: #13b2d0;
+  }
+  .or-seperator {
+      margin: 20px 0 10px;
+      text-align: center;
+      border-top: 1px solid #ccc;
+  }
+  .or-seperator i {
+      padding: 0 10px;
+      background: #ffffff;
+      position: relative;
+      top: -11px;
+      z-index: 1;
+  }
+  /******* !Modal or seperator **********/
+
+  /* Set margin between nav and body */
+  main {
+      margin-top: 150px; /* Add a top margin to avoid content overlay */
+  }
+
+/******* Social media button **********/
+  ul.social-buttons {
+    margin-bottom: 0;
+  }
+
+  ul.social-buttons li a {
+    font-size: 20px;
+    line-height: 50px;
+    display: block;
+    width: 50px;
+    height: 50px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    color: white;
+    border-radius: 100%;
+    outline: none;
+    background-color: #212529;
+  }
+
+  ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
+    background-color: #00d8ff;
+  }
+  /******* !Social media button **********/
+
+
+  .fa-youtube:hover {
+    color: red;
+  }
+
+  .fa-instagram:hover{
+    color:purple;
+  }
+  
+  #contact p {
+    color: black!important;;
+  }
+
+  #contact h3, #content h3{
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+  .modal-content {
+    border-radius: 0.8rem;
+    background-color: #f8f9fa;
+  }
+
+  #sign-in h4 {
+
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  margin-top: 28px;
+  }

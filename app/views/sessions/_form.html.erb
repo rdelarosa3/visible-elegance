@@ -1,0 +1,34 @@
+<style type="text/css">
+
+    .or-seperator {
+        margin: 20px 0 10px;
+        text-align: center;
+        border-top: 1px solid #ccc;
+    }
+    .or-seperator i {
+        padding: 0 10px;
+        background: #ffffff;
+        position: relative;
+        top: -11px;
+        z-index: 1;
+    }
+</style>
+
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="card col-md-4 shadow" id="sign-card">
+      <h2 class="text-center mt-4">Sign in</h2> 
+      <%= simple_form_for :login do |f| %>
+        <%= f.input :email, placeholder: 'user@domain.com' %>              
+        <%= f.input :password %>
+        <%= f.button :submit, "Sign in", class:"btn btn-success btn-block" %>
+         <div class="or-seperator"><i>or</i></div>
+        <a href="/auth/google_oauth2" class="btn btn-danger btn-block text-light"><i class="fab fa-google" aria-hidden="true"></i> Sign in with <b>Google</b></a>
+      <% end %>
+      <br>
+        <p class="hint-text text-center small text text-muted">Don’t have an account? <%= link_to 'Sign up', sign_up_path, class: "text-success" %></p>
+    </div>
+  </div>
+</div>
+
