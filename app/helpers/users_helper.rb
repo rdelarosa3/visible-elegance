@@ -22,5 +22,9 @@ module UsersHelper
     session[:user_id] = nil
   end
 
+   def authorize
+      redirect_to login_path, alert: 'You must be logged in to access this page.' if current_user.nil?
+   end
+
 
 end
