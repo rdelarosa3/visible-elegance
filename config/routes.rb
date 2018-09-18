@@ -26,4 +26,7 @@ Rails.application.routes.draw do
 	delete '/logout' => 'sessions#destroy'
 
 	#### !USER LOGIN ##################
+	####  OMNIAUTH LOGIN ####
+	get "/auth/:provider/callback" => "sessions#create_from_omniauth"
+	###  !OMNIAUTH LOGIN ####
 end
