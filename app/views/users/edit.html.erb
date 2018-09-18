@@ -1,6 +1,73 @@
-<h1>Editing User</h1>
 
-<%= render 'form', user: @user %>
+<div class="container mt-100">
+    <div class="row">
+    	<div class="col-md-3 p-4">
+    		<%= simple_form_for @user do |f| %>
+	    		<center>
+		    		<% if @user.avatar? %>
+		          		<%= image_tag(@user.avatar_url,class: 'rounded-circle shadow',width: '200', height: '200') %>
+		          		<br>
+		          		<br>
+					     <%= f.input_field :remove_avatar, as: :hidden, value: "1",id: "user_remove_avatar", name: "user[remove_avatar]"  %>
+					     <%= f.button :submit, "Remove", class: "btn btn-sm btn-danger mt-0 mb-2" %>
+			      	<% else %>
+			          <%= image_tag( "http://hannsaa.com/userfiles/avatars/default.jpg", class: 'rounded-circle',width: '200', height: '200') %>
+		      	
+				         <br>
+				         <br>
+				         <%= f.file_field :avatar,required: true %> 
+				         <%= f.button :submit, "Update", class: "btn btn-sm btn-danger mt-2" %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+				    <% end %>
+		      	</center>
+	      	<% end %>
+	      <br>
+	      <%= link_to 'View Profile', @user, class: "btn btn-block btn-outline-secondary shadow" %>
+		</div>
+		<div class="col-md-9 mb-4">
+			<div class="card shadow">
+				<h4 class="text-center mt-4">Required Information</h4> 
+				<center><p id="notice"><%= notice %></p></center>
+				<div class="card-body">
+					
+					<%= simple_form_for @user do |f| %>
+					<%= f.input :first_name, label: 'First Name', error: 'First name is mandatory, please specify one' %>
+					<%= f.input :last_name, label: 'Last Name', error: 'Last name is mandatory, please specify one', hint: 'Your public profile only shows your first name. When you request a booking, staff will see your first and last name.' %>
+					<%= f.input :birthday, as: :date, start_year: Date.today.year - 16,
+					                  end_year: Date.today.year - 90, discard_day: false,
+					                  order: [:year, :month, :day], hint: "The magical day you were dropped from the sky by a stork. We use this data for analysis and never share it with other users." %>
+					<%= f.input :phone_number, label: 'Telephone Number', hint: 'We won’t share your phone number this is just to help us get in contact with you.' %>
+					<%= f.input :gender, collection: ['Male','Female'], hint: 'All genders are equal but, this helps us match you with the right stylist.' %>
+					<%= f.input :email, placeholder: 'user@domain.com', hint: 'We won’t share your private email address.' %>
+					<%= f.button :submit, "save", class: "btn btn-lg btn-danger" %>  
+					<% end %>       
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
+</div>
+
+
+<style>
+
+  .mt-100 {
+    margin-top: 100px;
+  }
+
+  h2 {
+    font-size: 40px;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+  .appointment-card{
+    margin-top: 2.5rem;
+  }
+</style>
