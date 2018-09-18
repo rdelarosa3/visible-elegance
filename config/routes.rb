@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
-  resources :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+	
+	root 'welcome#homepage'
 
-  	# Add a root route if you don't have one...
-	####
-	root to: 'users#new'
+  resources :users
   	
   	#### CREATE ACCOUNT ################
   	get '/registration' => 'users#new', as: :sign_up
