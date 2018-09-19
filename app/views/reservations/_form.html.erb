@@ -1,4 +1,5 @@
-<%= simple_form_for(@reservation) do |f| %>
+<center><p id="notice"><%= notice %></p></center> 
+<%= simple_form_for @reservation, remote: true do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
@@ -11,9 +12,9 @@
     Which Stylist?
     <%= f.input :stylist_id, :collection => @stylist.order(:first_name), label_method: :first_name, value_method: :id, label: false %>    
     What date?
-    <%= f.text_field :reservation_date, label: false, type: 'date', min: Date.today, required: true, class: 'form-control mt-1 mb-2'%>
+    <%= f.text_field :reservation_date, label: false, type: 'date', min: Date.today, max: Date.today.next_month(3), required: true, class: 'form-control mt-1 mb-2'%>
     What time?
-    <%= f.input :reservation_time, label: false, type: 'time', :hour => {:min =>'9', :max => '19'}, class: 'form-control p-1' %>
+    <%= f.input :reservation_time, as: :time, label: false, ampm: true, start_hour: 9, end_hour: 19, minute_step: 15, class: 'form-control p-1' %>
     <%= f.input :notes, label: 'Special Requests' %> 
   </div>
 

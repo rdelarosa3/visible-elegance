@@ -32,6 +32,7 @@ class ReservationsController < ApplicationController
         format.html { redirect_to new_reservation_path, notice: 'Reservation request submitted.' }
         format.json { render :show, status: :created, location: @reservation }
       else
+        format.js { render :file => "/layouts/application.js"}
         format.html { render :new }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end

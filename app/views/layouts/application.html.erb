@@ -44,7 +44,7 @@
             </li>
             <% end %>
             <li class="nav-item">
-              <%= link_to "contact", new_reservation_path, class: "nav-link"%>
+              <%= link_to "contact", contact_us_path, class: "nav-link"%>
             </li>
             <% if logged_in? %>
               <!-- while logged in -->
@@ -92,16 +92,10 @@
                 <h4 class="text-center"> Sign In </h4>
                     
               </div> 
-                    <div class="modal-body">
-                      <%= simple_form_for :session, url: login_path, defaults: {required:false} do |f| %>
-                          <%= f.input :email, placeholder: 'user@domain.com' %>              
-                          <%= f.input :password, hint: 'No special characters.' %>
-                          <%= f.button :submit, class:"btn btn-login btn-block" %>
-                           <div class="or-seperator"><i>or</i></div>
-                          <a href="/auth/google_oauth2" class="btn btn-danger btn-block"><i class="fab fa-google" aria-hidden="true"></i> Sign in with <b>Google</b></a>
-                      <% end %>
-                      <br>
-                        <p class="hint-text text-center small text text-muted">Don’t have an account? <%= link_to 'Sign up', sign_up_path, class: "text-success" %></p>
+                    <div class="modal-body" id="loginPartial">
+
+                      <%= render partial: '/sessions/form' %>
+
                     </div>
                 </div>
             </div>

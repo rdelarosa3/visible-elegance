@@ -8,7 +8,6 @@ Rails.application.routes.draw do
 	resources :contents
 	resources :businesses
 	resources :reservations
-
 	resources :users
   	
   	#### CREATE ACCOUNT ################
@@ -31,4 +30,6 @@ Rails.application.routes.draw do
 	####  OMNIAUTH LOGIN ####
 	get "/auth/:provider/callback" => "sessions#create_from_omniauth"
 
+	##### CONTACT US PAGE ####
+	get '/contact' => 'reservations#new', as: :contact_us
 end

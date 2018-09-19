@@ -1,3 +1,28 @@
 // Place all the styles related to the sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+#sign-card{
+background-color: rgba(245, 245, 245, 0.8); 
+opacity: .9;
+}
+
+
+.or-seperator {
+  margin: 20px 0 10px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+.or-seperator i {
+  padding: 0 10px;
+  background: #ffffff;
+  position: relative;
+  top: -11px;
+  z-index: 1;
+}
+
+.mt-100 {
+margin-top: 100px;
+}

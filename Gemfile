@@ -74,6 +74,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   #better rails console print
   gem 'pry-rails'
+  #chorme inspect panel tool
+  gem 'meta_request'
 end
 
 group :test do
@@ -83,8 +85,7 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   gem 'faker'
-  #chorme inspect panel tool
-  gem 'meta_request'
+  
 
 end
 
