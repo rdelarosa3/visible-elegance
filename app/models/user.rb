@@ -50,4 +50,9 @@ class User < ApplicationRecord
   		User.where(role: :admin)
   	end
 
+  	##### Admin panel custom label ######
+	def custom_label_method
+    "#{self.email}"
+    end
+
 end

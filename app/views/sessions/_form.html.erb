@@ -20,12 +20,12 @@
     <div class="card col-md-4 shadow" id="sign-card">
       <h2 class="text-center mt-4">Sign in</h2>
       <center><p id="notice"><%= alert %></p></center> 
-      <%= simple_form_for :login do |f| %>
+      <%= simple_form_for :session, url: login_path, defaults: {required:false} do |f| %>
         <%= f.input :email, placeholder: 'user@domain.com' %>              
-        <%= f.input :password %>
-        <%= f.button :submit, "Sign in", class:"btn btn-success btn-block" %>
-         <div class="or-seperator"><i>or</i></div>
-        <a href="/auth/google_oauth2" class="btn btn-danger btn-block text-light"><i class="fab fa-google" aria-hidden="true"></i> Sign in with <b>Google</b></a>
+        <%= f.input :password, hint: 'No special characters.' %>
+        <%= f.button :submit, class:"btn btn-login btn-block" %>
+        <div class="or-seperator"><i>or</i></div>
+        <a href="/auth/google_oauth2" class="btn btn-danger btn-block"><i class="fab fa-google" aria-hidden="true"></i> Sign in with <b>Google</b></a>
       <% end %>
       <br>
         <p class="hint-text text-center small text text-muted">Don’t have an account? <%= link_to 'Sign up', sign_up_path, class: "text-success" %></p>

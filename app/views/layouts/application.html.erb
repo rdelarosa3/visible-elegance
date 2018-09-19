@@ -48,6 +48,7 @@
             </li>
             <% if logged_in? %>
               <!-- while logged in -->
+              <%= admin_status %>
               <li class="nav-item">
                 <%= link_to 'Sign out', logout_path, class: "nav-link", method: :delete %>
               </li>

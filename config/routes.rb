@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 	
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 	root 'welcome#homepage'
 	resources :business_hours
 	resources :service_types

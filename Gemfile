@@ -49,7 +49,7 @@ gem 'mini_magick', '~> 4.5', '>= 4.5.1'
 gem "fog-aws"
 
 #admin panel
-# gem 'rails_admin', '~> 1.4', '>= 1.4.1'
+gem 'rails_admin', '~> 1.4', '>= 1.4.1'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

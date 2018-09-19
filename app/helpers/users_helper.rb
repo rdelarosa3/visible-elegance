@@ -22,9 +22,19 @@ module UsersHelper
     session[:user_id] = nil
   end
 
-   def authorize
+  # to keep users other than admin from accessing
+  def authorize
       redirect_to login_path, alert: 'You must be logged in to access this page.' if current_user.nil?
-   end
+  end
 
+  ######### Admin Panel Link ###########
+  def admin_status
+    admin = '/admin'
+    if current_user.admin?
+      "<li class='nav-item'>
+        <a href='#{admin}' class='nav-link'>Admin Panel</a>
+      </li>".html_safe
+    end
+  end
 
 end
