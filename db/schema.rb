@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_18_154134) do
+ActiveRecord::Schema.define(version: 2018_09_19_134500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,35 @@ ActiveRecord::Schema.define(version: 2018_09_18_154134) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_authentications_on_user_id"
+  end
+
+  create_table "business_hours", force: :cascade do |t|
+    t.bigint "business_id"
+    t.integer "day"
+    t.time "open_time"
+    t.time "close_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_hours_on_business_id"
+  end
+
+  create_table "businesses", force: :cascade do |t|
+    t.string "name"
+    t.string "street"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.string "phone"
+    t.integer "zipcode"
+    t.string "email"
+    t.string "facebook"
+    t.string "instagram"
+    t.string "youtube"
+    t.string "twitter"
+    t.string "logo"
+    t.string "operator"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -45,4 +74,5 @@ ActiveRecord::Schema.define(version: 2018_09_18_154134) do
   end
 
   add_foreign_key "authentications", "users"
+  add_foreign_key "business_hours", "businesses"
 end
