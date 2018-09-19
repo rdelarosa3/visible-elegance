@@ -16,7 +16,7 @@ class ReservationsController < ApplicationController
         @reservations = @reservations.stylist_name(params[:reservation][:stylist]).all 
       end
       if params[:reservation][:service] != ""
-        @reservations = Reservation.service_name(params[:reservation][:service]).all 
+        @reservations = @reservations.service_name(params[:reservation][:service]).all 
       end
       respond_to do |format|    
         format.html {render :index }
