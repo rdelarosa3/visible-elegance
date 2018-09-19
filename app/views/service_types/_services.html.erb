@@ -43,10 +43,11 @@
 <div class="container md-12">
   <h2 class="text-uppercase text-center">PROFESSIONAL SERVICES</h2>
   <div class="row">
+  <% if @service_types.any? %>
     <% @service_types.each do |service_type| %>
     <div class="col-md-12 mb-4">
-      <div class="card h-100 container-fluid stylish-color-dark " id="service-card">
-        <h4 class="text-center mt-3 stylish-color-dark font-weight-bold text-uppercase"><%= service_type.name %></h4> 
+      <div class="card h-100 container-fluid" id="service-card">
+        <h4 class="text-center mt-3 font-weight-bold text-uppercase"><%= service_type.name %></h4> 
         <table class="table-responsive table-hover">
           <thead>
             <tr>
@@ -71,5 +72,6 @@
       </div>
     </div>
     <% end %>
+  <% end %>  
   </div>
 </div>
