@@ -1,0 +1,46 @@
+
+  body {
+    /*background-image: linear-gradient(to top, #0cafcebf 0%, #ffffff 70%);*/
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .mt-100 {
+    margin-top: 100px;
+  }
+
+  .btn-danger {
+    color: #fff;
+    background-color: #d22334d4;
+    border-color: #d42e3ea8;
+  }
+
+  h2 {
+    font-size: 40px;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+  p {
+    font-size: .8rem;
+    font-weight: 400;
+    color: #6c757d;
+    font-family: 'Roboto Slab',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+  #contactPage .table-responsive {
+    display: inline-table;
+  }
+
+  @media (max-width: 1000px) {
+    #contactPage .business-info {
+      margin-left: 50px;
+    }
+  }

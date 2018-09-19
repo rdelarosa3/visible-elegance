@@ -18,7 +18,8 @@
   <br>
   <div class="row">
     <div class="card col-md-4 shadow" id="sign-card">
-      <h2 class="text-center mt-4">Sign in</h2> 
+      <h2 class="text-center mt-4">Sign in</h2>
+      <center><p id="notice"><%= alert %></p></center> 
       <%= simple_form_for :login do |f| %>
         <%= f.input :email, placeholder: 'user@domain.com' %>              
         <%= f.input :password %>

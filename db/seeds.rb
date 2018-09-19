@@ -6,17 +6,108 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user = {}
+# user = {}
 
 
-ActiveRecord::Base.transaction do
+# ActiveRecord::Base.transaction do
 
-    user['first_name'] = 'admin'
-    user['last_name'] = 'admin'
-    user['email'] = "admin@admin.com"
-    user['role'] = 1
-    user['birthday'] = Date.today
-    user['password'] = 'admin'
-    User.create(user)
+#     user['first_name'] = 'admin'
+#     user['last_name'] = 'admin'
+#     user['email'] = "admin@admin.com"
+#     user['role'] = 1
+#     user['birthday'] = Date.today
+#     user['password'] = 'admin'
+#     User.create(user)
 
-end 
+# end 
+
+# user = {}
+
+
+# ActiveRecord::Base.transaction do
+
+#     user['first_name'] = 'SreyNy'
+#     user['last_name'] = 'Met'
+#     user['email'] = "sreyny@email.com"
+#     user['role'] = 1
+#     user['birthday'] = Date.today
+#     user['password'] = '12345'
+#     User.create(user)
+
+# end 
+
+
+
+# business = {}
+
+
+# ActiveRecord::Base.transaction do
+#       business['name'] = "Visible Elegance Hair Salon"
+#       business['street'] = "115 McCauley Ave"
+#       business['city'] = "San Antonio"
+#       business['state'] = "TX"
+#       business['country'] = "USA"
+#       business['phone'] = "+1 (210) 924-5700"
+#       business['zipcode'] = 78211
+#       business['email'] = "info@visible-elegance.com"
+#       business['operator'] = "Sandy"
+#       Business.create(business)
+# end
+
+
+# service_type = {}
+# types = ['Hair','Color','Waxing']
+# ActiveRecord::Base.transaction do
+# 	types.length.times do
+# 	service_type["name"] = types.pop
+# 	ServiceType.create(service_type)
+# 	end
+# end
+
+# service = {}
+# service_names = ["Up-Do","Haircut - Short","Haircut - Long","Haircut - Medium","Kids - Haircut","Kids - Wash & Dry","Shampoo & Blow-Dry","Shampoo, Blow-Dry & Style"]
+# ActiveRecord::Base.transaction do
+	
+# 	service_names.length.times do
+# 		service["service_type"] = ServiceType.find(3)
+# 		service["name"] = service_names.pop
+# 		# service["description"] = Faker::Hipster.sentence
+# 		service["price"] = rand(7..50)
+# 		service["length"] = [15,30,60].sample
+
+# 		Service.create(service)
+# 	end
+# end
+
+
+# service = {}
+# service_names = ["Color Retouch","Color Retouch & Haircut","Highlights - Full set","Highlights - Partial","Highlights - Haircut"]
+# ActiveRecord::Base.transaction do
+	
+# 	service_names.length.times do
+# 		service["service_type"] = ServiceType.find(2)
+# 		service["name"] = service_names.pop
+# 		# service["description"] = Faker::Hipster.sentence
+# 		service["price"] = rand(55..130)
+# 		service["length"] = [60,90,120].sample
+
+# 		Service.create(service)
+# 	end
+# end
+
+# service = {}
+# # service_names = ["Color Retouch","Color Retouch & Haircut","Highlights - Full set","Highlights - Partial","Highlights - Haircut"]
+# service_names = ["Eybrow Maintenance","Eybrow Shaping","Eyebrow Wax","Hairline Removal","Lip Wax","Leg Wax -Full","Leg Wax -Half","Underarm Wax","Back Wax","Arm Wax"]
+# ActiveRecord::Base.transaction do
+	
+# 	service_names.length.times do
+# 		service["service_type"] = ServiceType.find(1)
+# 		service["name"] = service_names.pop
+# 		# service["description"] = Faker::Hipster.sentence
+# 		service["price"] = rand(7..30)
+# 		service["length"] = [15,30,45].sample
+
+# 		Service.create(service)
+# 	end
+# end
+

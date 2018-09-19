@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'Account created successfully!' }
+        format.html { redirect_to edit_user_path(@user), notice: 'Account created successfully!' }
         format.json { render :show, status: :created, location: @user }
       else
         flash.now.alert = "Please make sure you are using a valid email and password and try again."

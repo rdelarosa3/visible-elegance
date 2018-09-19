@@ -10,14 +10,13 @@ class SessionsController < ApplicationController
     if authentication.user
       user = authentication.user
       authentication.update_token(auth_hash)
-      @next = root_path 
-      # @next = callback #redirect back to current
+      @next = callback #redirect back to current
       @notice = "Signed in!"
     # else: user logs in with OAuth for the first time
     else
       user = User.create_with_auth_and_hash(authentication, auth_hash)
       # page for editing user details on first creation
-      # @next = edit_user_path(user)
+      @next = edit_user_path(user)
       @notice = "User created. Please confirm or edit details"
     end
 

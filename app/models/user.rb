@@ -1,10 +1,15 @@
 class User < ApplicationRecord
 	has_secure_password
 	has_many :authentications, dependent: :destroy
-
+	has_many :reservations
+	has_many :appointments, :class_name => 'Reservation', :foreign_key => 'stylist_id'
+	enum role: ["customer","admin","operator"]
+	# mount_uploader :avatar, AvatarUploader
 
 	# Verifys that email field is not blank and that it doesn't already exist in the db (prevents duplicates)#
 	validates :email, presence: true, uniqueness: true
+	validates :first_name, presence: true
+	validates :last_name, presence: true
 
 
 	# Oauth USER creation #####
@@ -39,4 +44,10 @@ class User < ApplicationRecord
 		x = self.authentications.find_by(provider: 'google_oauth2')
 		return x.token unless x.nil?
 	end
+
+	# title to create relation for booking appointment
+	def self.stylist
+  		User.where(role: :admin)
+  	end
+
 end
