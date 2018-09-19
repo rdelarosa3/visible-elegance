@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
 	
 	root 'welcome#homepage'
+	resources :business_hours
+	resources :service_types
+	resources :services
+	resources :contents
+	resources :businesses
 
-  resources :users
+	resources :users
   	
   	#### CREATE ACCOUNT ################
   	get '/registration' => 'users#new', as: :sign_up
