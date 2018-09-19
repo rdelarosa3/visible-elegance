@@ -32,28 +32,25 @@ class SessionsController < ApplicationController
     
     # convert to lowercase to match email in db in case they had caps lock on:
     user = User.find_by(email: params[:session][:email].downcase)
-    
-    # Verify user exists in db and run has_secure_password's .authenticate() 
-    # method to see if the password submitted on the login form was correct: 
-    if user && user.authenticate(params[:session][:password]) 
-      # Save the user.id in that user's session cookie:
-      sign_in(user)
-      redirect_to root_path, notice: "Welcome!"
-    else
-      # if email or password incorrect, re-render login page:
-      flash.now.alert = "Incorrect email or password, try again."
-      render :new
+    respond_to do |format|
+      # Verify user exists in db and run has_secure_password's .authenticate() 
+      # method to see if the password submitted on the login form was correct: 
+      if user && user.authenticate(params[:session][:password]) 
+        # Save the user.id in that user's session cookie:
+        sign_in(user)
+        if URI(request.referer).path == '/contact'
+          format.html {redirect_to new_reservation_path, notice: "Welcome" }
+        else 
+         format.html {redirect_to root_path, notice: "Welcome!"}
+        end
+        
+      else
+        # if email or password incorrect, re-render login page:
+        format.js { render :file => "/layouts/application.js"}
+        flash.now.alert = "Incorrect email or password, try again."
+        # render :new
+      end
     end
-      # sign_in(user) do |status|
-      #   if status.success?
-      #     if URI(request.referer).path == '/user/new'#'/reservations/new'
-      #       redirect_to root_path, notice: "Welcome!"
-      #       # redirect_to new_reservation_path, notice: "Welcome!" 
-      #     else 
-      #      redirect_to sign_in_path
-      #     end
-      #   end
-      # end
   end
 
   def sign_in(user)

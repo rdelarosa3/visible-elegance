@@ -17,4 +17,5 @@ class Reservation < ApplicationRecord
   	current_date = DateTime.now
   	Reservation.where("reservation_date < ?", current_date)
   end
+
 end
