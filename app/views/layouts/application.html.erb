@@ -48,6 +48,7 @@
             </li>
             <% if logged_in? %>
               <!-- while logged in -->
+              <%= reservations_view %>
               <%= admin_status %>
               <li class="nav-item">
                 <%= link_to 'Sign out', logout_path, class: "nav-link", method: :delete %>
@@ -72,10 +73,12 @@
                   <a href="#" data-target="#sign-in" data-toggle="modal" class="nav-link">Sign In</a>
                 </li>
                 <% end %>
+                
             <% end %>
           </ul>
         </div>
       </div>
+
     </nav>
 
     <!-- !Navigation -->

@@ -37,4 +37,13 @@ module UsersHelper
     end
   end
 
+  def reservations_view
+    reservations_index = '/reservations'
+    if current_user.admin?
+      "<li class='nav-item'>
+        <a href='#{reservations_index}' class='nav-link'>Search</a>
+      </li>".html_safe
+    end
+  end
+
 end
