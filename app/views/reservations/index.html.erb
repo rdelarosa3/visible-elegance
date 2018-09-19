@@ -1,0 +1,92 @@
+<style>
+  .mt-100 {
+    margin-top: 100px;
+  }
+  .search-bar{
+    margin-left: 95px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+</style>
+
+
+
+  <!-- Search bars -->
+<div class="container mt-100 ">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-dark">
+        <dive class="search-bar"> 
+          <%= simple_form_for :reservation, wrapper: :inline_form, html: { class: 'form-inline' }, method: :get do |f| %>
+          <table>
+            <thead>
+              <tr class="text-light">
+                <th>Stylist:</th>
+                <th>Service:</th>
+                <th>From Date:</th>
+                <th>To Date:</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <td>
+              <%= f.input :stylist, :collection => @stylist.order(:first_name), label_method: :fullname, value_method: :id, label: false, class: 'form-control mt-1 mb-2' %>
+              </td>
+              <td>
+              <%= f.input :service, :as => :grouped_select, :collection => ServiceType.order(:name), :group_method => :services, label: true, class: 'form-control mt-1 mb-2' %>
+              </td>
+              <td>
+              <%= f.text_field :date_start, label: false, type: 'date', min: Date.today.prev_month(3), max: Date.today.next_month(3), class: 'form-control'%>
+              </td>
+              <td>
+              <%= f.text_field :date_end, label: false, type: 'date', min: Date.today.prev_month(3), max: Date.today.next_month(3), class: 'form-control'%>
+              </td>
+              <td>
+               <%= f.button :submit, 'Submit', name: :nil, class: "btn btn-danger m-1" %>
+             </td>
+           </tbody>
+          </table>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="container">
+  <div class="card shadow">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th>Service</th>
+      <th>Stylist</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Notes</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td><%= reservation.user.fullname %></td>
+        <td><%= reservation.service.name %></td>
+        <td><%= reservation.stylist.first_name %></td>
+        <td><%= reservation.reservation_date %></td>
+        <td><%= reservation.reservation_time.strftime("%H:%M") %></td>
+        <td><%= reservation.notes %></td>
+        <td><%= reservation.status %></td>
+        <td><%= link_to 'Destroy', reservation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>

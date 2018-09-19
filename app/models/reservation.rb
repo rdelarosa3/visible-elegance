@@ -18,4 +18,16 @@ class Reservation < ApplicationRecord
   	Reservation.where("reservation_date < ?", current_date)
   end
 
+  def self.stylist_name(stylist)
+    Reservation.where("stylist_id = ?", stylist)
+  end
+
+   def self.date_range(minimum_date,max_date)
+    Reservation.where("reservation_date >= ? AND reservation_date <= ?" ,minimum_date,max_date)
+   end
+
+   def self.service_name(service)
+   Reservation.where("service_id = ?", service)
+ end
+
 end

@@ -1,10 +1,30 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
-
+  include UsersHelper
   # GET /reservations
   # GET /reservations.json
   def index
+    validate_user
+    @stylist = User.stylist
+    if params[:reservation]
+      
+      @reservations = Reservation.where(nil).all
+      if params[:reservation][:date_start] != "" || params[:reservation][:date_end] != ""
+        @reservations = @reservations.date_range(params[:reservation][:date_start],params[:reservation][:date_end]).all 
+      end
+      if params[:reservation][:stylist] != ""
+        @reservations = @reservations.stylist_name(params[:reservation][:stylist]).all 
+      end
+      if params[:reservation][:service] != ""
+        @reservations = Reservation.service_name(params[:reservation][:service]).all 
+      end
+      respond_to do |format|    
+        format.html {render :index }
+        format.js
+      end
+    else
     @reservations = Reservation.all
+    end
   end
 
   # GET /reservations/1
@@ -64,6 +84,15 @@ class ReservationsController < ApplicationController
   end
 
   private
+    def validate_user
+     if session[:user_id] != nil
+      unless current_user.role == 'admin'
+        redirect_to root_path
+      end
+     else 
+      redirect_to root_path
+    end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_reservation
       @reservation = Reservation.find(params[:id])
