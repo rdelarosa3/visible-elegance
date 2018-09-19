@@ -4,7 +4,7 @@ class User < ApplicationRecord
 	has_many :reservations
 	has_many :appointments, :class_name => 'Reservation', :foreign_key => 'stylist_id'
 	enum role: ["customer","admin","operator"]
-	# mount_uploader :avatar, AvatarUploader
+	mount_uploader :avatar, AvatarUploader
 
 	# Verifys that email field is not blank and that it doesn't already exist in the db (prevents duplicates)#
 	validates :email, presence: true, uniqueness: true

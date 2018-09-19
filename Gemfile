@@ -46,6 +46,7 @@ gem 'simple_form', '~> 4.0', '>= 4.0.1'
 # image storage 
 gem 'carrierwave', '~> 1.2', '>= 1.2.3'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
+gem "fog-aws"
 
 #admin panel
 # gem 'rails_admin', '~> 1.4', '>= 1.4.1'
