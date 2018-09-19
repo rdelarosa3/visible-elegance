@@ -1,0 +1,80 @@
+<style>
+  body {
+      background-image: linear-gradient(to top, #0cafcebf 0%, #ffffff 60%);
+      padding-bottom: 120px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin-top: 100px;
+  }
+
+  #service-card{
+    background-color: rgba(245, 245, 242, 0.8); 
+    opacity: 1;
+  }
+
+  .mt-100 {
+    margin-top: 100px;
+  }
+
+  .table-responsive {
+    display: inline-table;
+    width: 100%;
+    margin-bottom: 15px;
+    }
+
+  h2 {
+    font-size: 40px;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+    margin-bottom: 40px;
+  }
+
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+ p {
+    font-size: .8rem;
+    font-weight: 400;
+    color: #6c757d!important;
+    font-family: 'Roboto Slab',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+}
+</style>
+
+
+<div class="container md-12 mt-100">
+  <h2 class="text-uppercase text-center">PROFESSIONAL SERVICES</h2>
+  <div class="row">
+    <% @service_types.each do |service_type| %>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 container-fluid shadow stylish-color-dark " id="service-card">
+        <h4 class="text-center mt-3 stylish-color-dark font-weight-bold text-uppercase"><%= service_type.name %></h4> 
+        <table class="table-responsive table-hover">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Price</th>
+              <th>Length</th>
+            </tr>
+          </thead>
+          <hr>
+          <tbody>
+         
+            <% service_type.services.order('name ASC').each do |service| %>
+              <tr>
+                <td><%= service.name %></td>
+                <td>$<%= service.price %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td><%= service.length %> min</td>
+              </tr>
+            <% end %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
