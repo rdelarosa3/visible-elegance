@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 	resources :services
 	resources :contents
 	resources :businesses
+	resources :reservations
 
 	resources :users
   	

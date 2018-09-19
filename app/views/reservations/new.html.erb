@@ -1,0 +1,72 @@
+<style>
+
+</style>
+
+<div class="container mt-100" id="contactPage">
+  <div class="row">
+    <div class="col-md-8 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-body">
+          <h2 class="text-center stylish-color-dark font-weight-bold text-uppercase">Contact Us</h2> 
+          <p class="text-center">Walk-in's are welcome but due to high volume of custumers apointment is preferred. </p>
+        
+          <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-6 mt-4">
+              <h4>Business Information</h4>
+              <hr>
+              <div class="business-info text">
+                <i class="fa fa-home fa-lg"></i>  <%= business_info.name %><br>
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= business_info.street %>, <br>
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= business_info.city %>, <%= business_info.state %> <br>
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= business_info.zipcode %>, <%= business_info.country %><br>
+                <i class="fa fa-phone fa-lg"></i> <%= business_info.phone %><br><br>
+                <i class="fa fa-envelope fa-lg"></i> <span><a href="mailto:<%= business_info.email %>"><%= business_info.email %></a></span>
+              </div>
+            </div>
+            <div class="col-md-4 mt-4">
+              <h4 class="">Business Hours</h4>
+              <hr>
+                <table class="table-responsive table-striped mt-3 table-hover">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Hours</th>
+                 
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% business_info.business_hours.each do |hours| %>
+                      <tr>
+                        <td><%= hours.day %></td>
+                        <td><%= hours.open_time.strftime("%H:%M") %> - <%= hours.close_time.strftime("%H:%M") %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              <div class="days-open">
+               <p class="text-muted text-center"><small>**Closed Sundays**</small></p>
+
+               <p class="text-success text-center"><%= open_now %> </p>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow">
+        <h4 class="text-center mt-4 stylish-color-dark font-weight-bold text-uppercase">Reservation Request</h4> 
+        <center><p id="notice"><%= notice %></p></center>
+        <div class="card-body">
+        	<%= render partial:"/reservations/form" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<h2 class="stylish-color-dark font-weight-bold text-uppercase text-center p-2">Find us on the map</h2>
+<div class="row"><iframe width="100%" height="450" src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=115%20McCauley%20Ave+(Visible%20Elegance%20Hair%20Salon)&amp;ie=UTF8&amp;t=&amp;z=15&amp;iwloc=B&amp;output=embed"  frameborder="0" scrolling="yes" marginheight="0" marginwidth="0"><a href="https://www.maps.ie/create-google-map/">Google map generator</a></iframe></div><br />
+
