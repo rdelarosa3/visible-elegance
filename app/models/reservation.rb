@@ -6,7 +6,7 @@ class Reservation < ApplicationRecord
   validates :reservation_date, presence: true
   validates :reservation_time, presence: true
   validates :service, presence: true
-  # 
+   
   enum status: ["Pending","Approved"]
 
   # scopes for search fields #
