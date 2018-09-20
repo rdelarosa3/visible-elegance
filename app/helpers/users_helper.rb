@@ -24,7 +24,7 @@ module UsersHelper
 
   # to keep users other than admin from accessing
   def authorize
-      redirect_to login_path, alert: 'You must be logged in to access this page.' if current_user.nil?
+      redirect_to root_path, alert: 'You must be admin to access this page.' if current_user.nil? || !current_user.admin?
   end
 
   ######### Admin Panel Link ###########
@@ -37,6 +37,7 @@ module UsersHelper
     end
   end
 
+  ######### reservations search link ###########
   def reservations_view
     reservations_index = '/reservations'
     if current_user.admin?

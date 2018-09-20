@@ -1,10 +1,11 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
   include UsersHelper
-  # GET /reservations
-  # GET /reservations.json
+
   def index
-    validate_user
+    # checks if user admin or logged in
+    authorize
+
     @stylist = User.stylist
     if params[:reservation]
       
@@ -27,21 +28,15 @@ class ReservationsController < ApplicationController
     end
   end
 
-  # GET /reservations/1
-  # GET /reservations/1.json
- 
-  # GET /reservations/new
   def new
     @reservation = Reservation.new
     @stylist = User.stylist
   end
 
-  # GET /reservations/1/edit
   def edit
   end
 
-  # POST /reservations
-  # POST /reservations.json
+
   def create
     @stylist = User.stylist
     @reservation = Reservation.new(reservation_params)
@@ -59,8 +54,7 @@ class ReservationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /reservations/1
-  # PATCH/PUT /reservations/1.json
+
   def update
     respond_to do |format|
       if @reservation.update(reservation_params)
@@ -73,8 +67,7 @@ class ReservationsController < ApplicationController
     end
   end
 
-  # DELETE /reservations/1
-  # DELETE /reservations/1.json
+
   def destroy
     @reservation.destroy
     respond_to do |format|
@@ -84,15 +77,7 @@ class ReservationsController < ApplicationController
   end
 
   private
-    def validate_user
-     if session[:user_id] != nil
-      unless current_user.role == 'admin'
-        redirect_to root_path
-      end
-     else 
-      redirect_to root_path
-    end
-    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_reservation
       @reservation = Reservation.find(params[:id])

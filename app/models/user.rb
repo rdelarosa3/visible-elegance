@@ -6,7 +6,7 @@ class User < ApplicationRecord
 	enum role: ["customer","admin","operator"]
 	mount_uploader :avatar, AvatarUploader
 
-	# Verifys that email field is not blank and that it doesn't already exist in the db (prevents duplicates)#
+	# Verifies that email field is not blank and that it prevents duplicates#
 	validates :email, presence: true, uniqueness: true
 	validates :first_name, presence: true
 	validates :last_name, presence: true
@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
 	# Oauth USER creation #####
 	def self.create_with_auth_and_hash(authentication, auth_hash)
-		# in case of loggin in through facebook
+		# in case of login in through facebook is added
 		birthday = auth_hash['extra']['raw_info']["birthday"]
 		if birthday.nil?
 	     	birthday = Date.new(1970,1,1)
@@ -32,7 +32,7 @@ class User < ApplicationRecord
          gender: gender,
 	     phone_number: auth_hash["info"]["phone"],
 		 password: SecureRandom.hex(10),
-		 # remote_avatar_url: auth_hash["info"]["image"]
+		 remote_avatar_url: auth_hash["info"]["image"]
 		)
 		user.authentications << authentication
 		return user
@@ -45,18 +45,23 @@ class User < ApplicationRecord
 		return x.token unless x.nil?
 	end
 
+	def fullname
+		[first_name, last_name].join(' ')
+	end
+
 	# title to create relation for booking appointment
 	def self.stylist
   		User.where(role: :admin)
   	end
 
-  	##### Admin panel custom label ######
+  	# scope to find customers 
+  	def self.client
+  		User.where(role: :customer)
+  	end
+
+  	##### admin panel custom label ######
 	def custom_label_method
     "#{self.email}"
     end
-
-    def fullname
-		[first_name, last_name].join(' ')
-	end
 
 end
