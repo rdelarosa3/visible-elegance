@@ -1,5 +1,6 @@
 module BusinessHoursHelper
-
+	
+	# Show user if business is open in view #
 	def open_now
 		start = '09:30'
 		close = '19:00'

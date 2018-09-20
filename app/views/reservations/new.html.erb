@@ -8,6 +8,7 @@
 
 <div class="container mt-100" id="contactPage">
   <div class="row">
+    <!-- contact us column -->
     <div class="col-md-8 mb-4">
       <div class="card h-100 shadow">
         <div class="card-body">
@@ -59,6 +60,7 @@
         </div>
       </div> 
     </div>
+    <!-- reservation request column -->
     <div class="col-md-4 mb-4">
       <div class="card h-100 shadow">
         <h4 class="text-center mt-4 stylish-color-dark font-weight-bold text-uppercase">Reservation Request</h4> 
@@ -70,11 +72,8 @@
   </div>
 </div>
 <br>
+<!--  for users to find location --><!--  for users to find location -->
 <h2 class="font-weight-bold text-uppercase text-center p-2">Find us on the map</h2>
-
-
-
-
 <div id="map"></div>
 <script>
   // initializes and adds the map when the web page loads
@@ -88,7 +87,7 @@
     var marker = new google.maps.Marker({position: salon, map: map});
   }
 </script>
-
+<!-- google map api key integration -->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap"></script>
 
 

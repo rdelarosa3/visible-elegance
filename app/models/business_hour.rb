@@ -5,6 +5,7 @@ class BusinessHour < ApplicationRecord
   validates :close_time, presence: true
   validates_uniqueness_of :day
 
+  ### custom label for rails admin view ####
   	def custom_label
     "#{self.day}"
     end

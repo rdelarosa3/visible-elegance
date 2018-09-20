@@ -1,28 +1,10 @@
 class BusinessHoursController < ApplicationController
   before_action :set_business_hour, only: [:show, :edit, :update, :destroy]
 
-  # GET /business_hours
-  # GET /business_hours.json
-  def index
-    @business_hours = BusinessHour.all
-  end
-
-  # GET /business_hours/1
-  # GET /business_hours/1.json
-  def show
-  end
-
-  # GET /business_hours/new
   def new
     @business_hour = BusinessHour.new
   end
 
-  # GET /business_hours/1/edit
-  def edit
-  end
-
-  # POST /business_hours
-  # POST /business_hours.json
   def create
     @business_hour = BusinessHour.new(business_hour_params)
 
@@ -37,8 +19,6 @@ class BusinessHoursController < ApplicationController
     end
   end
 
-  # PATCH/PUT /business_hours/1
-  # PATCH/PUT /business_hours/1.json
   def update
     respond_to do |format|
       if @business_hour.update(business_hour_params)
@@ -51,8 +31,6 @@ class BusinessHoursController < ApplicationController
     end
   end
 
-  # DELETE /business_hours/1
-  # DELETE /business_hours/1.json
   def destroy
     @business_hour.destroy
     respond_to do |format|

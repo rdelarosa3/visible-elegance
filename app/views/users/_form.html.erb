@@ -31,7 +31,7 @@
                               order: [:year, :month, :day] %>
                           
         <%= f.input :password, hint: 'No special characters.', required: true %>
-        <%= f.input :password_confirmation %>
+        <%= f.input :password_confirmation, label: 'Confirm'  %>
         <%= f.button :submit, class:"btn btn-success btn-block" %>
       <% end %>
         <p class="hint-text text-center small text text-muted">Existing Member? <%= link_to 'Sign in', login_path, class: "text-success" %></p>

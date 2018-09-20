@@ -2,7 +2,7 @@
 <%= simple_form_for :session, url: login_path, remote: true, defaults: {required:false} do |f| %>
     <%= f.input :email, placeholder: 'user@domain.com' %>              
     <%= f.input :password, hint: 'No special characters.' %>
-    <%= f.button :submit, class:"btn btn-login btn-block" %>
+    <%= f.button :submit, 'Sign in', class:"btn btn-login btn-block" %>
      <div class="or-seperator"><i>or</i></div>
     <a href="/auth/google_oauth2" class="btn btn-danger btn-block"><i class="fab fa-google" aria-hidden="true"></i> Sign in with <b>Google</b></a>
 <% end %>
