@@ -45,6 +45,7 @@ class ReservationsController < ApplicationController
 
       if @reservation.save
         format.js { render :file => "/layouts/application.js"}
+        flash.now.notice = "Reservation request submitted."
         format.html { redirect_to new_reservation_path, notice: 'Reservation request submitted.' }
         format.json { render :show, status: :created, location: @reservation }
       else

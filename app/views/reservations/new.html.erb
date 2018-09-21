@@ -3,13 +3,14 @@
   #map {
     height: 400px;  /* The height is 400 pixels */
     width: 100%;  /* The width is the width of the web page */
-   }
+  }
+
 </style>
 
 <div class="container mt-100" id="contactPage">
   <div class="row">
     <!-- contact us column -->
-    <div class="col-md-8 mb-4">
+    <div class="col-md-8 mb-4" id="div2">
       <div class="card h-100 shadow">
         <div class="card-body">
           <h2 class="text-center stylish-color-dark font-weight-bold text-uppercase">Contact Us</h2> 
@@ -61,7 +62,7 @@
     </div>
 
     <!-- reservation request column -->
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-4" id="div1">
       <div class="card h-100 shadow">
         <h4 class="text-center mt-4 stylish-color-dark font-weight-bold text-uppercase">Reservation Request</h4> 
         <div class="card-body" id="reservationPartial">
@@ -90,4 +91,3 @@
 </script>
 <!-- google map api key integration -->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap"></script>
-

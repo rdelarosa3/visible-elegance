@@ -10,11 +10,11 @@
     What service would you like?
     <%= f.association :service, :as => :grouped_select, :collection => ServiceType.order(:name), :group_method => :services, label: false, error:'Please select a service' %>
     Which Stylist?
-    <%= f.input :stylist_id, :collection => @stylist.order(:first_name), label_method: :first_name, value_method: :id, label: false %>    
+    <%= f.input :stylist_id, :collection => @stylist.order(:first_name), label_method: :first_name, value_method: :id, label: false, error:'Please select a stylist' %>    
     What date?
-    <%= f.text_field :reservation_date, label: false, type: 'date', min: Date.today, max: Date.today.next_month(3), required: true, class: 'form-control mt-1 mb-2'%>
+    <%= f.text_field :reservation_date, label: false, type: 'date', min: Date.today, max: Date.today.next_month(3), required: true, error:'Please select a date', class: 'form-control mt-1 mb-2'%>
     What time?
-    <%= f.input :reservation_time, as: :time, label: false, ampm: true, start_hour: 9, end_hour: 19, minute_step: 15,  hint: 'We are only open bewteen 9:00 am & 7:30 pm', class: 'form-control p-1' %>
+    <%= f.input :reservation_time, as: :time, label: false, ampm: true, start_hour: 9, end_hour: 19, minute_step: 15,  hint: 'We are only open bewteen 9:30 am & 7:00 pm', error:'Please choose a correct time', class: 'form-control p-1' %>
     <%= f.input :notes, label: 'Special Requests' %> 
   </div>
 
