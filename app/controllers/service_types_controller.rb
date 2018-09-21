@@ -1,5 +1,6 @@
 class ServiceTypesController < ApplicationController
   before_action :set_service_type, only: [:show, :edit, :update, :destroy]
+  before_action :authorize, only: [:show, :edit, :update, :destroy]
 
   # GET /service_types
   # GET /service_types.json
@@ -62,6 +63,9 @@ class ServiceTypesController < ApplicationController
   end
 
   private
+    def authorize
+      redirect_to root_path, alert: 'You must be admin to access this page.' if current_user.nil? || !current_user.admin?
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_service_type
       @service_type = ServiceType.find(params[:id])

@@ -1,6 +1,7 @@
 class BusinessHoursController < ApplicationController
   before_action :set_business_hour, only: [:show, :edit, :update, :destroy]
-
+  before_action :authorize, only: [:show, :edit, :update, :destroy]
+  
   def new
     @business_hour = BusinessHour.new
   end
@@ -40,6 +41,9 @@ class BusinessHoursController < ApplicationController
   end
 
   private
+    def authorize
+      redirect_to root_path, alert: 'You must be admin to access this page.' if current_user.nil? || !current_user.admin?
+    end  
     # Use callbacks to share common setup or constraints between actions.
     def set_business_hour
       @business_hour = BusinessHour.find(params[:id])

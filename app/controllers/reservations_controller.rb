@@ -1,10 +1,10 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
+  before_action :authorize, only: [:show, :edit, :update, :destroy]
   include UsersHelper
 
   def index
     # checks if user admin or logged in
-    authorize
 
     @stylist = User.stylist
     if params[:reservation]
@@ -44,6 +44,7 @@ class ReservationsController < ApplicationController
     respond_to do |format|
 
       if @reservation.save
+        format.js { render :file => "/layouts/application.js"}
         format.html { redirect_to new_reservation_path, notice: 'Reservation request submitted.' }
         format.json { render :show, status: :created, location: @reservation }
       else
@@ -77,7 +78,10 @@ class ReservationsController < ApplicationController
   end
 
   private
-
+      # to keep users other than admin from accessing
+    def authorize
+        redirect_to root_path, alert: 'You must be admin to access this page.' if current_user.nil? || !current_user.admin?
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_reservation
       @reservation = Reservation.find(params[:id])

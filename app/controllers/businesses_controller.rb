@@ -1,6 +1,6 @@
 class BusinessesController < ApplicationController
   before_action :set_business, only: [:show, :edit, :update, :destroy]
-
+  before_action :authorize, only: [:show, :edit, :update, :destroy]
 
   def index
     @businesses = Business.all
@@ -51,6 +51,9 @@ class BusinessesController < ApplicationController
   end
 
   private
+    def authorize
+      redirect_to root_path, alert: 'You must be admin to access this page.' if current_user.nil? || !current_user.admin?
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_business
       @business = Business.find(params[:id])
