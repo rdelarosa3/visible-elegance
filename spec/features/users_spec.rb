@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature "Users", type: :feature do
+
+	before(:each) do
+		Business.create(name: 'Last', phone: '123456789', zipcode: 1234567, operator: 'john')
+	end
+
  
   	context 'create new user' do 
 
