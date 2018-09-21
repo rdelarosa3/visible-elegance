@@ -1,4 +1,4 @@
-<center><p id="notice"><%= alert %></p></center> 
+<center><h6 class="text-danger"><%= alert %></h6></center> 
 <%= simple_form_for :session, url: login_path, remote: true, defaults: {required:false} do |f| %>
     <%= f.input :email, placeholder: 'user@domain.com' %>              
     <%= f.input :password, hint: 'No special characters.' %>

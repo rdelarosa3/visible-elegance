@@ -1,6 +1,30 @@
+<!-- css in page to change only elements in this view -->
+<style>
+
+  .mt-100 {
+    margin-top: 100px;
+  }
+
+  h2 {
+    font-size: 40px;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+  .appointment-card{
+    margin-top: 2.5rem;
+  }
+</style>
 
 <div class="container mt-100">
     <div class="row">
+    	<!-- edit users avatar only -->
     	<div class="col-md-3 p-4" id="avatarForm">
     		<%= simple_form_for @user do |f| %>
 	    		<center>
@@ -24,6 +48,9 @@
 	      <br>
 	      <%= link_to 'View Profile', @user, class: "btn btn-block btn-outline-secondary shadow" %>
 		</div>
+		<!-- !edit users avatar only -->
+
+		<!-- edit users profile information -->
 		<div class="col-md-9 mb-4">
 			<div class="card shadow">
 				<h4 class="text-center mt-4">Required Information</h4> 
@@ -45,29 +72,6 @@
 			</div>
 			<br>
 		</div>
+		<!-- !edit users profile information -->
 	</div>
 </div>
-
-
-<style>
-
-  .mt-100 {
-    margin-top: 100px;
-  }
-
-  h2 {
-    font-size: 40px;
-    font-weight: 700;
-    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
-  }
-
-  h4 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
-  }
-
-  .appointment-card{
-    margin-top: 2.5rem;
-  }
-</style>

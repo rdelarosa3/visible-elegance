@@ -45,10 +45,10 @@ class SessionsController < ApplicationController
         end
         
       else
-        # if email or password incorrect, re-render login page:
+        # if email or password incorrect, render partial login form:
         format.js { render :file => "/layouts/application.js"}
         flash.now.alert = "Incorrect email or password, try again."
-        # render :new
+        
       end
     end
   end

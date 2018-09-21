@@ -14,7 +14,7 @@
     What date?
     <%= f.text_field :reservation_date, label: false, type: 'date', min: Date.today, max: Date.today.next_month(3), required: true, class: 'form-control mt-1 mb-2'%>
     What time?
-    <%= f.input :reservation_time, as: :time, label: false, ampm: true, start_hour: 9, end_hour: 19, minute_step: 15, class: 'form-control p-1' %>
+    <%= f.input :reservation_time, as: :time, label: false, ampm: true, start_hour: 9, end_hour: 19, minute_step: 15,  hint: 'We are only open bewteen 9:00 am & 7:30 pm', class: 'form-control p-1' %>
     <%= f.input :notes, label: 'Special Requests' %> 
   </div>
 
