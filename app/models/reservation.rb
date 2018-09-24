@@ -9,7 +9,7 @@ class Reservation < ApplicationRecord
   validates :service, presence: true
   validate :verify_time
    
-  enum status: ["Pending","Approved"]
+  enum status: ["pending","approved"]
 
   # scopes for search fields #
   def self.current_date

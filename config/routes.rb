@@ -32,4 +32,9 @@ Rails.application.routes.draw do
 
 	##### CONTACT US PAGE ####
 	get '/contact' => 'reservations#new', as: :contact_us
+
+	##### reservation update status #####
+	post '/reservations/:id(.:format)' => "reservations#status_change", as: :status_change
+	# patch '/reservations/:id(.:format)' => "reservations#status_change"
+	# put 
 end
