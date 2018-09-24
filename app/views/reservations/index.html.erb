@@ -2,16 +2,39 @@
   .mt-100 {
     margin-top: 100px;
   }
+
   .search-bar{
     margin-left: 95px;
     padding-top: 5px;
     padding-bottom: 5px;
   }
+
+  a:hover {
+    text-decoration: none
+  }
+
+  .blink{
+    color: rgb (0, 137, 226);
+    
+    animation: blink 1s infinite;
+   }
+   
+   @keyframes blink{
+    0%{opacity: 1;}
+    75%{opacity: 1;}
+    76%{ opacity: 0;}
+    100%{opacity: 0;}
+   }
+
+  .new-stylist {
+      display: none;
+    }
 </style>
 
 
 
   <!-- Search bars -->
+<center><p id="notice"><%= notice %></p></center>
 <div class="container mt-100 ">
   <div class="row">
     <div class="col-md-12">
@@ -54,39 +77,39 @@
   </div>
 </div>
 
-
-
-
 <div class="container">
   <div class="card shadow">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Client</th>
-      <th>Service</th>
-      <th>Stylist</th>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Notes</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Service</th>
+          <th>Stylist</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Notes</th>
+          <th>Status</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @reservations.each do |reservation| %>
-      <tr>
-        <td><%= reservation.user.fullname %></td>
-        <td><%= reservation.service.name %></td>
-        <td><%= reservation.stylist.first_name %></td>
-        <td><%= reservation.reservation_date %></td>
-        <td><%= reservation.reservation_time.strftime("%H:%M") %></td>
-        <td><%= reservation.notes %></td>
-        <td><%= reservation.status %></td>
-        <td><%= link_to 'Destroy', reservation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @reservations.each do |appointment| %>
+          <tr>
+            <td><%= link_to appointment.user.fullname, appointment.user %></td>
+            <td><%= appointment.service.name %></td>
+            <td class="current-stylist" id='currentStylist<%=appointment.id%>'><%= appointment.stylist.first_name %></td>
+            <td><%= appointment.reservation_date %></td>
+            <td><%= appointment.reservation_time.strftime("%H:%M") %></td>
+            <td><%= appointment.notes %></td>
+            <% if appointment.pending? %><td class='text-warning font-weight-bold text-uppercase blink'><% else %><td class='text-info font-weight-bold text-uppercase'><%end%><%= appointment.status %></td>
+            <td><%= link_to '', appointment, method: :status_change, data: { confirm: 'Are you sure?' }, class: "text-info fas fa-check-circle fa-2x" %>  
+            <td><%= link_to '', appointment, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-danger fas fa-minus-circle fa-2x" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
-</div>
+
+

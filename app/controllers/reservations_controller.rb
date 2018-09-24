@@ -9,7 +9,7 @@ class ReservationsController < ApplicationController
     @stylist = User.stylist
     if params[:reservation]
       
-      @reservations = Reservation.where(nil).all
+      @reservations = Reservation.includes(:user).where(nil).all
       if params[:reservation][:date_start] != "" || params[:reservation][:date_end] != ""
         @reservations = @reservations.date_range(params[:reservation][:date_start],params[:reservation][:date_end]).all 
       end
@@ -19,12 +19,13 @@ class ReservationsController < ApplicationController
       if params[:reservation][:service] != ""
         @reservations = @reservations.service_name(params[:reservation][:service]).all 
       end
+      @reservations.order(reservation_date: :desc)
       respond_to do |format|    
         format.html {render :index }
         format.js
       end
     else
-    @reservations = Reservation.all
+    @reservations = Reservation.all.order(reservation_date: :desc)
     end
   end
 
@@ -60,8 +61,8 @@ class ReservationsController < ApplicationController
   def update
     respond_to do |format|
       if @reservation.update(reservation_params)
-        format.html { redirect_to @reservation, notice: 'Reservation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @reservation }
+        format.html { redirect_to reservations_url, notice: 'Reservation was successfully updated.' }
+        # format.json { render :show, status: :ok, location: @reservation }
       else
         format.html { render :edit }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
@@ -78,6 +79,20 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def status_change
+    @reservation = Reservation.find(params[:id])
+    if @reservation.pending?
+      @reservation.status = 'approved'
+      @reservation.save
+      redirect_to reservations_url, notice: 'Reservation was approved.'
+    else
+      @reservation.status = 'pending'
+      @reservation.save
+      redirect_to reservations_url, notice: 'Status changed to pending.'
+    end
+
+  end
+
   private
       # to keep users other than admin from accessing
     def authorize
@@ -90,6 +105,6 @@ class ReservationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reservation_params
-      params.require(:reservation).permit(:user_id, :service_id, :reservation_date, :reservation_time, :notes, :stylist_id)
+      params.require(:reservation).permit(:user_id, :service_id, :reservation_date, :reservation_time, :notes, :stylist_id, :status)
     end
 end
