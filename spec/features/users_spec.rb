@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'byebug'
 
 RSpec.feature "Users", type: :feature do
 
@@ -33,10 +34,14 @@ RSpec.feature "Users", type: :feature do
       	end	
     end
 
+    before(:each) do
+		user = User.create(first_name: 'John', last_name: 'Doe', email: 'john.doe@example.com', password: 'password')
+		visit update_user_path(user)
+	end
+
     context 'update user' do 
 	    scenario "should be successful" do
-	      user = User.create(first_name: 'John', last_name: 'Doe', email: 'john.doe@example.com', password: 'password')
-	      visit edit_user_path(user)
+	      
 	      within("#userEdit") do
 	        fill_in 'First Name', with: 'Jane'
 	        fill_in 'Email', with: 'jane.doe@example.com'
@@ -47,8 +52,7 @@ RSpec.feature "Users", type: :feature do
 	    end
 
 	    scenario "should fail" do
-	      user = User.create(first_name: 'John', last_name: 'Doe', email: 'john.doe@example.com', password: 'password',)
-	      visit edit_user_path(user)
+
 	      within("#userEdit") do
 	        fill_in 'First Name', with: ''
 	      end
