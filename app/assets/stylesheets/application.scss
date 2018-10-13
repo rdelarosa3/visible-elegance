@@ -200,6 +200,12 @@ table.dataTable thead .sorting_desc_disabled {
 @media (max-width: 800px) {
   .badge-notify {
     float: left;
-    margin-top: -10px;
+    margin-left: 5px!important;
+    margin-top: 5px!important;
+    color: white;
+    background-color: red;
+    padding: 0.4em;
+    border-radius: 10rem;
+    font-weight: 100
   }
 }

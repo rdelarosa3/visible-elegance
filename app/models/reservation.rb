@@ -3,12 +3,12 @@ class Reservation < ApplicationRecord
   # create association for stylist with customer on reservation #
   belongs_to :stylist, class_name: 'User'
   belongs_to :service
-  validates :stylist_id, presence: true
+  validates :stylist_id, presence: { message: "Stylist not selected." }
   validates :reservation_date, presence: true
   validates :reservation_time, presence: true
   validates :service, presence: true
   validate :verify_time
-  validate :check_overlapping_appointments
+  validate :check_overlapping_appointments,:unless => Proc.new {|c| c.stylist_id.nil? || c.reservation_time.nil?}
    
   enum status: ["pending","approved"]
 
@@ -39,9 +39,9 @@ class Reservation < ApplicationRecord
   def verify_time
     opening = Time.utc(2000,"jan",1,9,30,0)
     closing = Time.utc(2000,"jan",1,18,59,59)
-   
+
     if reservation_time.strftime("%H%M") > closing.strftime("%H%M") || reservation_time.strftime("%H%M") < opening.strftime("%H%M")
-        errors.add(:verify_time, "Pick a new time")
+        errors.add(:verify_time, "Choose a time within business hours.")
     end
   end
 
