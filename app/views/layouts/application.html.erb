@@ -51,7 +51,16 @@
             </li>
             <% if logged_in? %>
               <!-- while logged in -->
-              <%= reservations_view %>
+              <% if current_user.admin? %>
+                <li class='nav-item'>
+                  <% if pending_reservations > 0 %>
+                    <span class="badge badge-notify">
+                      <% if pending_reservations < 10 %><%= pending_reservations %><% else %> 9+ <% end %> </span> 
+                  <% end %>
+                <%= link_to "Reservations", reservations_path, class: 'nav-link' %>
+                  <!-- <a href='#{reservations_index}' class='nav-link'>Search</a> -->
+                </li>
+              <% end %>
               <%= admin_status %>
               <li class="nav-item">
                 <%= link_to 'Sign out', logout_path, class: "nav-link", method: :delete %>

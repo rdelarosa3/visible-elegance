@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_19_151000) do
+ActiveRecord::Schema.define(version: 2018_10_12_233300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_151000) do
     t.bigint "service_id"
     t.date "reservation_date"
     t.time "reservation_time"
+    t.time "end_time"
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -83,6 +84,15 @@ ActiveRecord::Schema.define(version: 2018_09_19_151000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["service_type_id"], name: "index_services_on_service_type_id"
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "service_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_id"], name: "index_skills_on_service_id"
+    t.index ["user_id"], name: "index_skills_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

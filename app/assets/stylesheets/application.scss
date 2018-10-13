@@ -186,3 +186,20 @@ table.dataTable thead .sorting_asc_disabled {
 table.dataTable thead .sorting_desc_disabled {
     background:  none!important;
 }
+
+.badge-notify {
+    float: right;
+    margin-bottom:-5px;
+    color: white;
+    background-color: red;
+    padding: 0.4em;
+    border-radius: 10rem;
+    font-weight: 100
+}
+
+@media (max-width: 800px) {
+  .badge-notify {
+    float: left;
+    margin-top: -10px;
+  }
+}

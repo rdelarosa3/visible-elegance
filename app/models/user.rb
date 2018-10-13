@@ -3,6 +3,13 @@ class User < ApplicationRecord
 	has_many :authentications, dependent: :destroy
 	has_many :reservations
 	has_many :appointments, :class_name => 'Reservation', :foreign_key => 'stylist_id'
+
+	
+	#Service to stylist Association
+    has_many :skills
+    has_many :services, through: :skills
+
+
 	enum role: ["customer","admin","operator"]
 	mount_uploader :avatar, AvatarUploader
 
