@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 	resources :businesses
 	resources :reservations
 	resources :users
+
+	get '/users/:id/edit'  => 'edit#user', as: :update_user
   	
   	#### CREATE ACCOUNT ################
   	get '/registration' => 'users#new', as: :sign_up

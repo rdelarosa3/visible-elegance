@@ -41,16 +41,20 @@ class ReservationsController < ApplicationController
   def create
     @stylist = User.stylist
     @reservation = Reservation.new(reservation_params)
+    length = Service.find(params[:reservation][:service_id]).length
+    @reservation.end_time = @reservation.reservation_time + (length * 60)
 
     respond_to do |format|
 
       if @reservation.save
-        format.js { render :file => "/layouts/application.js"}
+        # format.js { render :file => "/layouts/application.js"}
         flash.now.notice = "Reservation request submitted."
-        format.html { redirect_to new_reservation_path, notice: 'Reservation request submitted.' }
+        format.html { redirect_to current_user, notice: 'Reservation request submitted.' }
         format.json { render :show, status: :created, location: @reservation }
       else
-        format.js { render :file => "/layouts/application.js"}
+        @reservation.errors
+        flash.now.notice = @reservation.errors[:overlapping_appointments].first
+        format.js { render :file => "/layouts/application.js",notice: @reservation.errors}
         format.html { render :new }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
@@ -59,6 +63,9 @@ class ReservationsController < ApplicationController
 
 
   def update
+    unless current_user.operator? || current_user.admin?
+      redirect_to new_reservation_path, notice: 'Reservation for current service already exists.'
+    end
     respond_to do |format|
       if @reservation.update(reservation_params)
         format.html { redirect_to reservations_url, notice: 'Reservation was successfully updated.' }

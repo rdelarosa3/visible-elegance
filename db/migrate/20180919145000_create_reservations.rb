@@ -5,6 +5,7 @@ class CreateReservations < ActiveRecord::Migration[5.2]
       t.references :service, foreign_key: true
       t.date :reservation_date
       t.time :reservation_time
+      t.time :end_time
       t.text :notes
 
       t.timestamps

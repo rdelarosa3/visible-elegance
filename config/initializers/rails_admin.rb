@@ -1,49 +1,21 @@
 RailsAdmin.config do |config|
-
+config.parent_controller = '::ApplicationController'
   config.authorize_with do |controller|
     current_user = User.find_by_id(session[:user_id])
-    redirect_to main_app.root_path unless current_user.try(:admin?)
+    redirect_to main_app.root_path unless (current_user.try(:admin?) || current_user.try(:operator?))
+    @current_user = current_user
   end
 
-  ### Popular gems integration
-
-  ## == Devise ==
-  # config.authenticate_with do
-  #   warden.authenticate! scope: :user
-  # end
-  # config.current_user_method(&:current_user)
-
-  ## == Cancan ==
-  # config.authorize_with :cancan
-
-  ## == Pundit ==
-  # config.authorize_with :pundit
-
-  ## == PaperTrail ==
-  # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
-
-  ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
-  # config.show_gravatar = true
+  config.show_gravatar = false
 
-  # config.actions do
-  #   dashboard                     # mandatory
-  #   index                         # mandatory
-  #   new
-  #   export
-  #   bulk_delete
-  #   show
-  #   edit
-  #   delete
-  #   show_in_app
-
-    ## With an audit adapter, you can add:
-    # history_index
-    # history_show
-
-      config.actions do
+  config.current_user_method do
+    current_user = User.find_by_id(session[:user_id])
+  end  
+ 
+  config.actions do
     dashboard                     # mandatory
     index                         # mandatory
     new
@@ -54,18 +26,20 @@ RailsAdmin.config do |config|
     delete
     ####### modify action in admin panel #########
     show_in_app do
-      except ['Reservation','Content','Business','Service']
+      except ['Reservation','Content','Business','Service','ServiceType']
     end
-
-    ## With an audit adapter, you can add:
-    # history_index
-    # history_show
 
   end
 
-  ######## remove models from navigation pane #######
-  config.excluded_models << "Authentication"
 
+
+
+  ######## remove models from navigation pane #######\
+
+  to_hide = ["Authentication","Skill"]
+  to_hide.each do |hide|
+    config.excluded_models << hide
+  end
 
   ###### config User model ############
   config.model User do
@@ -96,8 +70,8 @@ RailsAdmin.config do |config|
   ######## config Service model ##########
   config.model Service do
 
-
     navigation_label 'Salon Info'
+
     create do
       exclude_fields :reservations
     end
@@ -151,3 +125,4 @@ RailsAdmin.config do |config|
   end
 
 end
+

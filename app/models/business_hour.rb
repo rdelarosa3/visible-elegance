@@ -9,4 +9,5 @@ class BusinessHour < ApplicationRecord
   	def custom_label
     "#{self.day}"
     end
+
 end
