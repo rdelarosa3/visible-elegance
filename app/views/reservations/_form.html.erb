@@ -1,4 +1,4 @@
-<center><p id="notice"><%= notice %></p></center> 
+<span id="reservationPartial"><%= render partial:"/reservations/errors" %></span>
 <%= simple_form_for @reservation, remote: true do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -8,7 +8,7 @@
     <%= f.input_field :user_id, as: :hidden, value:  current_user.id %>
     <% end %>
     What service would you like?
-    <%= f.association :service, :as => :grouped_select, :collection => ServiceType.order(:name), :group_method => :services, label: false, include_blank: true, error:'Please select a service' %>
+    <%= f.association :service, :as => :grouped_select, :collection => ServiceType.order(:name), :group_method => :services, label: false, error:'Please select a service' %>
     <div class="form-inputs" id="stylist_select" style="display: none;">
     Which Stylist?
     <%= f.input :stylist_id, :as => :grouped_select, :collection => Service.order(:name), :group_method => :users, label_method: :first_name, label: false, include_blank: true %>

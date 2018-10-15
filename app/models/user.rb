@@ -14,10 +14,10 @@ class User < ApplicationRecord
 	mount_uploader :avatar, AvatarUploader
 
 	# Verifies that email field is not blank and that it prevents duplicates#
-	validates :email, presence: true, uniqueness: true
-	validates :first_name, presence: true
-	validates :last_name, presence: true
-
+	validates :email, uniqueness: true
+	validates :last_name, :last_name, :email, presence: true
+	validates :gender, presence: true, on: :update
+	validates :phone_number, numericality: { only_integer: true }, on: :update
 
 	# Oauth USER creation #####
 	def self.create_with_auth_and_hash(authentication, auth_hash)

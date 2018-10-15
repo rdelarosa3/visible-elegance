@@ -1,5 +1,9 @@
+
+
+
 RailsAdmin.config do |config|
-config.parent_controller = '::ApplicationController'
+  config.parent_controller = '::ApplicationController'
+
   config.authorize_with do |controller|
     current_user = User.find_by_id(session[:user_id])
     redirect_to main_app.root_path unless (current_user.try(:admin?) || current_user.try(:operator?))
@@ -31,9 +35,6 @@ config.parent_controller = '::ApplicationController'
 
   end
 
-
-
-
   ######## remove models from navigation pane #######\
 
   to_hide = ["Authentication","Skill"]
@@ -42,7 +43,8 @@ config.parent_controller = '::ApplicationController'
   end
 
   ###### config User model ############
-  config.model User do
+  config.model User do 
+
 
     navigation_label 'Customer Info'
     object_label_method do
@@ -81,7 +83,7 @@ config.parent_controller = '::ApplicationController'
   end
 
   ######## config Business model ##########
-  config.model Business do
+  config.model Business do 
     navigation_label 'Salon Info'
     list do
       x = [:facebook,:instagram,:youtube,:logo,:twitter,:updated_at,:created_at]
@@ -110,6 +112,7 @@ config.parent_controller = '::ApplicationController'
   end
 
   config.model BusinessHour do
+
     navigation_label 'Salon Info'
         object_label_method do
       :custom_label
@@ -122,6 +125,7 @@ config.parent_controller = '::ApplicationController'
         hide
       end
     end
+
   end
 
 end

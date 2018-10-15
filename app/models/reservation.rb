@@ -10,12 +10,14 @@ class Reservation < ApplicationRecord
   validate :verify_time
   validate :check_overlapping_appointments,:unless => Proc.new {|c| c.stylist_id.nil? || c.reservation_time.nil?}
   
+
+  
   # custom actions in case update through rails admin
   after_validation :change_status
   before_update :update_length
   after_update :status_email
 
-  enum status: ["pending","modified","approved"]
+  enum status: ["pending","modified","approved","canceled"]
 
   # scopes for search fields #
   def self.current_date
@@ -54,7 +56,7 @@ class Reservation < ApplicationRecord
   # test if appointments overlap prior to saving reservation
   def check_overlapping_appointments
     overlapping_times = 
-      stylist.appointments.map do |scheduled|
+      stylist.appointments.where.not(status: 'canceled').map do |scheduled|
         if self.reservation_date == scheduled.reservation_date  
           if overlap?(self,scheduled)
             if self == scheduled #to allow update of reservation after payment is complete

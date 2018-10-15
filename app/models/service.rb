@@ -5,6 +5,6 @@ class Service < ApplicationRecord
 	#Service to stylist Association
     has_many :skills
     has_many :users, through: :skills
-	validates :name, presence: true
+	validates :name, presence: true, uniqueness: true
 
 end
