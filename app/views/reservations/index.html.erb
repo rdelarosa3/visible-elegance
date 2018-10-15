@@ -29,6 +29,12 @@
   .new-stylist {
       display: none;
     }
+
+  @media (max-width: 800px) { 
+    .search-bar {
+      margin-left: 27px;
+    }  
+  }
 </style>
 
 
@@ -90,8 +96,8 @@
           <th>Notes</th>
           <th>Status</th>
           <th>Approve</th>
-          <th>Deny</th>
-          <!-- <th colspan="3"></th> -->
+          <th>Cancel</th>
+          <th>Edit</th>
         </tr>
       </thead>
 
@@ -107,6 +113,7 @@
             <% if appointment.pending? %><td class='text-warning font-weight-bold text-uppercase blink'><% else %><td class='text-info font-weight-bold text-uppercase'><%end%><%= appointment.status %></td>
             <td><center><%= link_to '', appointment, method: :status_change, data: { confirm: 'Are you sure?' }, class: "text-info fas fa-check-circle fa-2x" %></center></td>  
             <td><center><%= link_to '', appointment, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-danger fas fa-minus-circle fa-2x" %></center></td>
+            <td><center><%= link_to '', 'admin/reservation/' + appointment.id.to_s + '/edit', class: "fas fa-pencil-alt" %></center></td>
           </tr>
         <% end %>
       </tbody>

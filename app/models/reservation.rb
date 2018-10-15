@@ -9,8 +9,13 @@ class Reservation < ApplicationRecord
   validates :service, presence: true
   validate :verify_time
   validate :check_overlapping_appointments,:unless => Proc.new {|c| c.stylist_id.nil? || c.reservation_time.nil?}
-   
-  enum status: ["pending","approved"]
+  
+  # custom actions in case update through rails admin
+  after_validation :change_status
+  before_update :update_length
+  after_update :status_email
+
+  enum status: ["pending","modified","approved"]
 
   # scopes for search fields #
   def self.current_date
@@ -77,5 +82,26 @@ class Reservation < ApplicationRecord
     end
   end
 
+
+  #define custom_action in the same model
+  def status_email
+    update_length
+    unless self.pending?
+    ReservationMailer.status_email(self).deliver
+    end
+  end
+
+  def change_status
+    if stylist_id_changed? || reservation_date_changed? || service_id_changed? || reservation_time_changed?
+      self.status = 'modified'
+    end
+  end
+
+  def update_length
+    if service_id_changed?  || reservation_time_changed?
+      length = self.service.length
+      self.end_time = reservation_time + (length * 60)
+    end
+  end
 
 end

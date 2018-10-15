@@ -44,7 +44,7 @@ class ReservationsController < ApplicationController
     respond_to do |format|
 
       if @reservation.save
-        length = Service.find(params[:reservation][:service_id]).length
+        length = @reservation.service.length
         @reservation.end_time = @reservation.reservation_time + (length * 60)
         if @reservation.save # format.js { render :file => "/layouts/application.js"}
           flash.now.notice = "Reservation request submitted."

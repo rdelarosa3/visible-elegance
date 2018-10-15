@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  	
+		<div>
+			<h5><%= @user.first_name %> <%= @user.last_name %></h5>
+		    <p>Your reservation, has been reviewed by our staff,
+		    <% if @reservation.approved? %> 
+		    	we are pleased to inform you, that you project has been approved.</p><br> 
+		    <% elsif @reservation.modified? %> 
+				we would like to inform you, that your reservation has been updated to review the changes follow the following link.<br>
+			<% else %>
+				we regret to inform you, that your reservation has been cancelled. If this cancellation was made in error please contact us at 210-***-****. Thank you for your business.
+
+			<% end %>
+			<h5 class="text-muted">You can now view your reservation in the link below.</h5> 
+			<%= link_to 'My Reservations', @reservation.user, class: "btn btn-primary" %> 
+		</div>
+	
+  </body>
+</html>
