@@ -7,7 +7,6 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  
   def show
   end
 
@@ -23,10 +22,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
-        format.html { redirect_to edit_user_path(@user), notice: 'Account created successfully!' }
+        sign_in(@user)
+        format.html { redirect_to edit_user_path(@user), notice: 'Account created. Please confirm or edit details"' }
         format.json { render :show, status: :created, location: @user }
       else
         flash.now.alert = "Please make sure you are using a valid email and password and try again."
@@ -38,15 +37,17 @@ class UsersController < ApplicationController
 
 
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'Account was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+
+      respond_to do |format|
+        if @user.update(user_params)
+          format.html { redirect_to @user, notice: 'Account was successfully updated.' }
+          format.json { render :show, status: :ok, location: @user }
+        else
+          format.html { render :edit }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
-    end
+
   end
 
 

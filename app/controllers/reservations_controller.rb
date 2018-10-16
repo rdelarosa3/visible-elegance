@@ -25,7 +25,7 @@ class ReservationsController < ApplicationController
         format.js
       end
     else
-    @reservations = Reservation.all.order(reservation_date: :desc)
+    @reservations = Reservation.all.order(created_at: :desc)
     end
   end
 
@@ -41,20 +41,14 @@ class ReservationsController < ApplicationController
   def create
     @stylist = User.stylist
     @reservation = Reservation.new(reservation_params)
+    length = @reservation.service.length
+    @reservation.end_time = @reservation.reservation_time + (length * 60)
     respond_to do |format|
+      if @reservation.save # format.js { render :file => "/layouts/application.js"}
+        flash.now.notice = "Reservation request submitted."
+        format.html { redirect_to current_user, notice: 'Reservation request submitted.' }
+        format.json { render :show, status: :created, location: @reservation }
 
-      if @reservation.save
-        length = @reservation.service.length
-        @reservation.end_time = @reservation.reservation_time + (length * 60)
-        if @reservation.save # format.js { render :file => "/layouts/application.js"}
-          flash.now.notice = "Reservation request submitted."
-          format.html { redirect_to current_user, notice: 'Reservation request submitted.' }
-          format.json { render :show, status: :created, location: @reservation }
-        else
-          flash.now.notice = "Reservation could not be processed. Try again."
-          @reservation.destroy
-          format.js { render :file => "/layouts/application.js"}
-        end
       else
         flash.now.notice = @reservation.errors[:overlapping_appointments].first || @reservation.errors[:stylist_id].first || @reservation.errors[:verify_time].first
         format.js { render :file => "/layouts/application.js"}

@@ -78,9 +78,10 @@ class Reservation < ApplicationRecord
 
   # test dates against each other to check overlap
   def overlap?(x,y)
-    
+
     if self.stylist.appointments.count != 0
       (y.reservation_time.strftime("%H%M")..y.end_time.strftime("%H%M")).cover?(x.reservation_time.strftime("%H%M")) || (y.reservation_time.strftime("%H%M")..y.end_time.strftime("%H%M")).cover?(x.end_time.strftime("%H%M"))
+
     end
   end
 
@@ -94,8 +95,11 @@ class Reservation < ApplicationRecord
   end
 
   def change_status
-    if stylist_id_changed? || reservation_date_changed? || service_id_changed? || reservation_time_changed?
-      self.status = 'modified'
+    
+    unless stylist_id_was.nil? || reservation_date_was.nil? || service_id_was.nil? || reservation_time_was.nil?
+      if stylist_id_changed? || reservation_date_changed? || service_id_changed? || reservation_time_changed?
+        self.status = 'modified'
+      end
     end
   end
 
