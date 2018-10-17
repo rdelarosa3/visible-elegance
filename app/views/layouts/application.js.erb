@@ -2,3 +2,6 @@ $("#loginPartial").html("<%= j render(partial: '/sessions/form') %>");
 <% if controller_name == 'reservations' %>
 $("#reservationPartial").html("<%= j render(partial: '/reservations/errors') %>");
 <% end %>
+<% if controller_name == 'welcome' %>
+$(".form-border").html("<%= j render(partial: '/reservations/errors') %>");
+<% end %>

@@ -3,7 +3,7 @@ class Reservation < ApplicationRecord
   # create association for stylist with customer on reservation #
   belongs_to :stylist, class_name: 'User'
   belongs_to :service
-  validates :stylist_id, presence: { message: "Stylist not selected." }
+  validates :stylist_id, presence: { message: "Stylist/Service not selected." }
   validates :reservation_date, presence: true
   validates :reservation_time, presence: true
   validates :service, presence: true

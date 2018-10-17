@@ -41,8 +41,10 @@ class ReservationsController < ApplicationController
   def create
     @stylist = User.stylist
     @reservation = Reservation.new(reservation_params)
+    if !@reservation.service_id.nil?
     length = @reservation.service.length
     @reservation.end_time = @reservation.reservation_time + (length * 60)
+    end
     respond_to do |format|
       if @reservation.save # format.js { render :file => "/layouts/application.js"}
         flash.now.notice = "Reservation request submitted."
