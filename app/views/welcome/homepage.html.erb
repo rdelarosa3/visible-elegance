@@ -8,6 +8,20 @@
 </div>
 <center><h6 id="notice"><%= notice %></h6></center>
 
+
+<!-- floating book now button for reservations -->
+<button class="booking-launch-button btn-md" onclick="showBooking()">
+  <div class="booking-button-text"><i class="far fa-clock"></i> Book Now!</div>
+</button>
+<div id="bookingContainer" class="shadow">
+  <div class="booking-top-bar" data-reactid=".0.5.0">
+    <div class="booking-top-bar-text">RESERVATION REQUEST</div><div class="booking-top-bar-button" onclick="hideBooking()"><i class="fas fa-chevron-down"></i></div>
+  </div>
+  <div class="form-border">
+  <%= render partial:"/reservations/form" %>
+  </div>
+</div>
+
 <!-- Our Products -->
 <section id="product">
   <div class="container">
@@ -159,5 +173,18 @@
   </div>
 </section>
 
+<script>
+ function hideBooking() {
 
+    var el = document.getElementById('bookingContainer');
+        el.style.display = 'none';
+
+} 
+ function showBooking() {
+
+    var el = document.getElementById('bookingContainer');
+        el.style.display = 'block';
+
+} 
+</script> 
     

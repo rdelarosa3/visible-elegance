@@ -154,5 +154,134 @@
   .team-member p {
     margin-top: 0;
   }
-  /******* !Team members section **********/
 
+
+/******* BOOK NOW BUTTON section **********/
+
+.booking-launch-button {
+    position: fixed !important;
+    bottom: 15px !important;
+    right: 20px !important;
+    left: auto !important;
+    height: 48px !important;
+    width: auto !important;
+    z-index: 2147483646 !important;
+    background: #e20c21 !important;
+    border: 0 !important;
+    border-radius: 100px !important;
+    box-shadow: 0 3px 15px 0 rgba(0,0,0,0.25) !important;
+    box-sizing: border-box !important;
+    padding: 0 20px !important;
+    transition: all .4s,bottom .8s ease-in-out !important;
+    cursor: pointer !important;
+    outline: none !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    -webkit-font-smoothing: antialiased !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+}
+
+.booking-launch-button .booking-button-text {
+    color: #fff !important;
+    display: inline-block !important;
+    font-size: 1.3em !important;
+    line-height: 48px !important;
+    font-weight: bold !important;
+    max-width: 200px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    vertical-align: top !important;
+    white-space: nowrap !important;
+    padding: 0 !important;
+    transition: .6s ease-in-out !important;
+}
+@media (max-width: 800px){
+  #bookingContainer {
+   
+    max-height: 100% !important;
+    border-radius: 0 0 0 0 !important;
+    transition: all .6s ease-in-out,width .2s ease-in-out,top .4s ease-in-out !important;
+    background: #fff !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    top: 0 !important; 
+    width: 100% !important;
+    height: 100% !important;
+    color: #000 !important;
+    line-height: 2 !important;
+    text-align: left !important;
+    z-index: 2147483646 !important;
+    zoom: 0 !important;
+    transition: .3s ease-in-out !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+.booking-top-bar {
+  padding-bottom: 50px;
+  height: 40px !important;
+  border-radius: 0 !important;
+  background-color: #d11c13 !important;
+  color: #ffffff !important;
+  border-color: #bb1a11 !important;
+}
+}
+
+@media (min-width: 800px){
+#bookingContainer {
+    display: none;
+    width: 350px !important;
+    height: 450px !important;
+    max-height: 95% !important;
+    border-radius: 10px !important;
+    top: inherit !important;
+    transition: all .6s ease-in-out,width .2s ease-in-out,top .4s ease-in-out !important;
+    right: 20px !important;
+    bottom: 10px !important;
+    background: #fff !important;
+    position: fixed !important;
+    height: 70% !important;
+    color: #000 !important;
+    line-height: 1 !important;
+    text-align: left !important;
+    z-index: 2147483646 !important;
+    zoom: 0 !important;
+    transition: .3s ease-in-out !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+.booking-top-bar {
+  padding-bottom: 50px;
+  height: 40px !important;
+  border-radius: 10px 10px 0 0 !important;
+  background-color: #d11c13 !important;
+  color: #ffffff !important;
+  border-color: #bb1a11 !important;
+}
+}
+.booking-top-bar-text {
+    color: #fff !important;
+    font-size: 1em !important;
+    font-weight: 700 !important;
+    letter-spacing: .2px !important;
+    line-height: 52px !important;
+    text-decoration: none !important;
+    padding: 0 0 0 15px !important;
+
+    white-space: nowrap !important;
+    float: left !important;
+
+}
+ .booking-top-bar-button {
+    
+    height: 100% !important;
+    width: 60px !important;
+    float: right !important;
+    padding: 20px 22px !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    transition: all ease-out .15s !important;
+    outline: none !important;
+}
+
+.form-border{
+  padding: 10px;
+}

@@ -37,13 +37,11 @@
   jQuery(function() {
   var stylist;
   stylist = $('#reservation_stylist_id').html();
-    console.log(stylist);
   return $('#reservation_service_id').change(function() {
     var service, escaped_service, options;
     service = $('#reservation_service_id :selected').text();
     escaped_service = service.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1');
     options = $(stylist).filter("optgroup[label=" + escaped_service + "]").html();
-    console.log(options);
     if (options) {
       $('#reservation_stylist_id').html(options);
       return $('#stylist_select').show();
