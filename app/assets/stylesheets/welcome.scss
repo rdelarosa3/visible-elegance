@@ -215,6 +215,7 @@
     zoom: 0 !important;
     transition: .3s ease-in-out !important;
     -webkit-font-smoothing: antialiased !important;
+    overflow: auto
 }
 .booking-top-bar {
   padding-bottom: 50px;
@@ -247,6 +248,7 @@
     zoom: 0 !important;
     transition: .3s ease-in-out !important;
     -webkit-font-smoothing: antialiased !important;
+    overflow: auto
 }
 .booking-top-bar {
   padding-bottom: 50px;

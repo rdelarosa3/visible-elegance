@@ -9,6 +9,9 @@ class User < ApplicationRecord
     has_many :skills
     has_many :services, through: :skills
 
+    #days off for stylist association
+    has_many :schedules
+    has_many :off_days, through: :schedules
 
 	enum role: ["customer","admin","operator"]
 	mount_uploader :avatar, AvatarUploader

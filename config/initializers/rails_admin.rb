@@ -34,7 +34,7 @@ RailsAdmin.config do |config|
 
   ######## remove models from navigation pane #######\
 
-  to_hide = ["Authentication","Skill"]
+  to_hide = ["Authentication","Skill","Schedule"]
   to_hide.each do |hide|
     config.excluded_models << hide
   end
@@ -58,11 +58,12 @@ RailsAdmin.config do |config|
     end
 
     update do
-      exclude_fields :password, :password_confirmation, :authentications, :confirmation_token
+      exclude_fields :confirmation_token
+
     end
 
     create do
-      exclude_fields :authentications, :confirmation_token, :reservations
+      exclude_fields :confirmation_token, :reservations, :appointments, :services, :off_days
     end
   end
 
@@ -111,7 +112,7 @@ RailsAdmin.config do |config|
   config.model BusinessHour do
 
     navigation_label 'Salon Info'
-        object_label_method do
+    object_label_method do
       :custom_label
     end
     list do
@@ -123,6 +124,12 @@ RailsAdmin.config do |config|
       end
     end
 
+  end
+
+  config.model OffDay do
+    object_label_method do
+      :custom_label
+    end
   end
 
 end

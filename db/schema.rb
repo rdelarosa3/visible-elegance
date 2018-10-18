@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_12_233300) do
+ActiveRecord::Schema.define(version: 2018_10_17_200500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,9 +54,19 @@ ActiveRecord::Schema.define(version: 2018_10_12_233300) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "off_days", force: :cascade do |t|
+    t.integer "day_off"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reservations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "service_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone_number"
     t.date "reservation_date"
     t.time "reservation_time"
     t.time "end_time"
@@ -67,6 +77,15 @@ ActiveRecord::Schema.define(version: 2018_10_12_233300) do
     t.integer "stylist_id"
     t.index ["service_id"], name: "index_reservations_on_service_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.bigint "off_day_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["off_day_id"], name: "index_schedules_on_off_day_id"
+    t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
   create_table "service_types", force: :cascade do |t|

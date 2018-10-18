@@ -1,25 +1,28 @@
 class Reservation < ApplicationRecord
+
   belongs_to :user
+  belongs_to :service
+  
   # create association for stylist with customer on reservation #
   belongs_to :stylist, class_name: 'User'
-  belongs_to :service
+  
+  #validations
   validates :stylist_id, presence: { message: "Stylist/Service not selected." }
-  validates :reservation_date, presence: true
-  validates :reservation_time, presence: true
-  validates :service, presence: true
+  validates :reservation_date, :reservation_time, :service, presence: true
   validate :verify_time
+  validate :verify_day
   validate :check_overlapping_appointments,:unless => Proc.new {|c| c.stylist_id.nil? || c.reservation_time.nil?}
-  
+  before_create :verify_phone
 
-  
-  # custom actions in case update through rails admin
+  # custom actions in case update
   after_validation :change_status
   before_update :update_length
   after_update :status_email
 
   enum status: ["pending","modified","approved","canceled"]
 
-  # scopes for search fields #
+  ################ scopes for search fields ############################
+
   def self.current_date
   	current_date = DateTime.now
   	Reservation.where("reservation_date >= ?", current_date)
@@ -42,7 +45,23 @@ class Reservation < ApplicationRecord
    Reservation.where("service_id = ?", service)
   end
 
- ### checks customer reservation between open and close
+  ################ VERIFICATIONS ################################
+
+  # verifyies if styliest is working on reservation date
+  def verify_day
+    day = self.reservation_date
+    if day.strftime("%A") == "Sunday"
+        errors.add(:verify_day, "We are closed on Sunday's")
+    else
+      stylist.off_days.map do |scheduled|
+        if day.strftime("%A") == scheduled.day_off
+          errors.add(:verify_day, "Stylist not available on this day")
+        end
+      end
+    end
+  end
+
+  ### checks customer reservation is between open and close
   def verify_time
     opening = Time.utc(2000,"jan",1,9,30,0)
     closing = Time.utc(2000,"jan",1,18,59,59)
@@ -53,7 +72,15 @@ class Reservation < ApplicationRecord
   end
 
 
-  # test if appointments overlap prior to saving reservation
+  # test dates against each other to check overlap
+  def overlap?(x,y)
+
+    if self.stylist.appointments.count != 0
+      (y.reservation_time.strftime("%H%M")..y.end_time.strftime("%H%M")).cover?(x.reservation_time.strftime("%H%M")) || (y.reservation_time.strftime("%H%M")..y.end_time.strftime("%H%M")).cover?(x.end_time.strftime("%H%M"))
+    end
+  end
+
+  # checks if appointments overlap prior to saving reservation
   def check_overlapping_appointments
     overlapping_times = 
       stylist.appointments.where.not(status: 'canceled').map do |scheduled|
@@ -74,28 +101,19 @@ class Reservation < ApplicationRecord
     end
   end
 
-
-
-  # test dates against each other to check overlap
-  def overlap?(x,y)
-
-    if self.stylist.appointments.count != 0
-      (y.reservation_time.strftime("%H%M")..y.end_time.strftime("%H%M")).cover?(x.reservation_time.strftime("%H%M")) || (y.reservation_time.strftime("%H%M")..y.end_time.strftime("%H%M")).cover?(x.end_time.strftime("%H%M"))
-
+  # confirms user has a phone number in saved for their account
+  def verify_phone
+    user = self.user
+    if user.phone_number.nil? || user.phone_number == ""
+      user.phone_number = self.phone_number
+      user.save
     end
   end
 
+  ################## RESERVATION UPDATES #################################
 
-  #define custom_action in the same model
-  def status_email
-    update_length
-    unless self.pending?
-    ReservationMailer.status_email(self).deliver
-    end
-  end
-
-  def change_status
-    
+  # if reservation is updated changes status to modified
+  def change_status  
     unless stylist_id_was.nil? || reservation_date_was.nil? || service_id_was.nil? || reservation_time_was.nil?
       if stylist_id_changed? || reservation_date_changed? || service_id_changed? || reservation_time_changed?
         self.status = 'modified'
@@ -103,11 +121,22 @@ class Reservation < ApplicationRecord
     end
   end
 
+  # if reservation is updated changes lenght of reservation
   def update_length
     if service_id_changed?  || reservation_time_changed?
       length = self.service.length
       self.end_time = reservation_time + (length * 60)
     end
   end
+
+  #if reservation is updated sends email if status is changed
+  def status_email
+    update_length
+    unless self.pending?
+    ReservationMailer.status_email(self).deliver
+    end
+  end
+
+
 
 end

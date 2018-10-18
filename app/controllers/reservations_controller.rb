@@ -52,7 +52,7 @@ class ReservationsController < ApplicationController
         format.json { render :show, status: :created, location: @reservation }
 
       else
-        flash.now.notice = @reservation.errors[:overlapping_appointments].first || @reservation.errors[:stylist_id].first || @reservation.errors[:verify_time].first
+        flash.now.notice = @reservation.errors[:overlapping_appointments].first || @reservation.errors[:stylist_id].first || @reservation.errors[:verify_time].first || @reservation.errors[:verify_day].first
         format.js { render :file => "/layouts/application.js"}
         format.html { render :new }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
@@ -99,6 +99,17 @@ class ReservationsController < ApplicationController
 
   end
 
+  def autofill
+ 
+    @user = User.find(params[:user_id])
+
+
+    respond_to do |format|
+      format.json { render :json => {:first_name => @user.first_name, :last_name => @user.last_name, status: :success}}
+    end
+
+  end
+
   private
       # to keep users other than admin from accessing
     def authorize
@@ -111,6 +122,6 @@ class ReservationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reservation_params
-      params.require(:reservation).permit(:user_id, :service_id, :reservation_date, :reservation_time, :notes, :stylist_id, :status)
+      params.require(:reservation).permit(:user_id, :service_id, :reservation_date, :reservation_time, :notes, :stylist_id, :status, :first_name, :last_name, :phone_number)
     end
 end

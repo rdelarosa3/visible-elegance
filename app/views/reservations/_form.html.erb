@@ -4,26 +4,52 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
+
+    
     <% if logged_in? %>
-    <%= f.input_field :user_id, as: :hidden, value:  current_user.id %>
+      <!-- if user is admin allow extra fields for walkin or call in reservations -->
+      <% if current_user.admin? || current_user.operator? %>
+        <%= f.input :user_id, collection: User.all.order(:first_name), label_method: :fullname, value_method: :id %>
+        <!-- hiidden field until admin select user id -->
+        <div class="form-inputs" id="extraFields" style="display: none;">
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :phone_number %>
+
+        </div>
+
+      <!-- else if user is logged in autfill based on user info -->
+      <% else %>
+        <%= f.input :user_id, as: :hidden, value:  current_user.id %>
+        <%= f.input :first_name, as: :hidden, value:  current_user.first_name %>
+        <%= f.input :last_name, as: :hidden, value:  current_user.last_name %>
+        <% if !current_user.phone_number.nil? %>
+          <%= f.input :phone_number, as: :hidden, value:  current_user.phone_number %>
+        <% else %>
+          <%= f.input :phone_number %>
+        <% end %>
+      <% end %>
     <% end %>
+
     What service would you like?
     <%= f.association :service, :as => :grouped_select, :collection => ServiceType.order(:name), :group_method => :services, label: false, error:'Please select a service' %>
+
+    <!-- hidden field until user select from services  -->
     <div class="form-inputs" id="stylist_select" style="display: none;">
     Which Stylist?
     <%= f.input :stylist_id, :as => :grouped_select, :collection => Service.order(:name), :group_method => :users, label_method: :first_name, label: false, include_blank: true %>
     </div>
 
-    <!-- f.input :stylist_id, :collection => @stylist.order(:first_name), label_method: :first_name, value_method: :id, label: false, error:'Please select a stylist'     -->
     What date?
     <%= f.text_field :reservation_date, label: false, type: 'date', min: Date.today, max: Date.today.next_month(3), required: true, error:'Please select a date', class: 'form-control mt-1 mb-2'%>
+
     What time?
     <%= f.input :reservation_time, as: :time, label: false, ampm: true, start_hour: 9, end_hour: 19, minute_step: 15,  hint: 'We are only open bewteen 9:30 am & 7:00 pm', error:'Please choose a correct time', class: 'form-control p-1' %>
     <%= f.input :notes, label: 'Special Requests' %> 
   </div>
 
   <div class="form-actions">
-    
+    <!-- if user is logged in allow reservation request else have user log in -->
     <% if logged_in? %>
       <%= f.button :submit, 'Submit', class: "btn btn-danger btn-block mb-1" %>
       <p class="hint-text text-center small text text-muted">Our staff members will contact you soon.</p>
@@ -33,7 +59,11 @@
   </div>
 <% end %>    
 
+
+
 <script>
+// jquery to set select for stylists that have such service  
+
   jQuery(function() {
   var stylist;
   stylist = $('#reservation_stylist_id').html();
@@ -54,5 +84,28 @@
   });
 });
 
+// ajax call to autfill form if user is admin
+
+$("#reservation_user_id").change(function() {
+  $.ajax({
+      url: '/autofill',
+      type: 'GET',
+      data: { user_id: $(this).val() },
+      dataType: 'json',
+      success: function(response){
+        user = response
+        // unhide extra fields in form
+        $( "#extraFields" ).show()
+        // autfill extra fields
+        $( "#reservation_first_name").val(user.first_name);
+        $( "#reservation_last_name").val(user.last_name);
+        $( "#reservation_phone_number").val(user.phone_number);
+        $( "#reservation_email").val(user.email);
+      },
+      error: function(response) {
+        console.log(response)
+      }
+  })
+});
 
 </script>

@@ -38,5 +38,5 @@ Rails.application.routes.draw do
 	##### reservation update status #####
 	post '/reservations/:id(.:format)' => "reservations#status_change", as: :status_change
 	# patch '/reservations/:id(.:format)' => "reservations#status_change"
-	# put 
+	get '/autofill' => 'reservations#autofill'
 end

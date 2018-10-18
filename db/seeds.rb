@@ -6,6 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+
+dayoff = {}
+days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+ActiveRecord::Base.transaction do
+	days.length.times do
+		dayoff['day_off'] = days.pop
+		OffDay.create(dayoff)
+		days = days
+	end
+end
+
+
 user = {}
 
 
@@ -14,9 +26,24 @@ ActiveRecord::Base.transaction do
     user['first_name'] = 'admin'
     user['last_name'] = 'admin'
     user['email'] = "admin@admin.com"
-    user['role'] = 1
+    user['role'] = 2
     user['birthday'] = Date.today
     user['password'] = 'admin'
+    User.create(user)
+
+end 
+
+user = {}
+
+
+ActiveRecord::Base.transaction do
+
+    user['first_name'] = 'Walkin'
+    user['last_name'] = 'walkin'
+    user['email'] = "walkin@email.com"
+    user['role'] = 0
+    user['birthday'] = Date.today
+    user['password'] = '12345678'
     User.create(user)
 
 end 
@@ -35,6 +62,7 @@ ActiveRecord::Base.transaction do
     User.create(user)
 
 end 
+
 
 
 
