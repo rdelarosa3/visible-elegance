@@ -3,6 +3,7 @@ class CreateReservations < ActiveRecord::Migration[5.2]
     create_table :reservations do |t|
       t.references :user, foreign_key: true
       t.references :service, foreign_key: true
+      t.boolean :force_create
       t.string :first_name
       t.string :last_name
       t.string :email

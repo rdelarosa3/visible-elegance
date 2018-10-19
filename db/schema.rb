@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2018_10_17_200500) do
   create_table "reservations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "service_id"
+    t.boolean "force_create"
     t.string "first_name"
     t.string "last_name"
     t.string "email"

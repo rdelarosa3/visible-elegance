@@ -1,3 +1,46 @@
+<style>
+.form-check {
+    margin-top: -20px;
+}
+@media (max-width: 800px) {
+  .form-check-label {
+    margin-left: 15px!important;
+  }
+  input[type=checkbox] {
+    width: 20px!important;
+    height: 20px!important;
+    margin-left: -14px!important;
+    margin-top: 14px!important;
+  }
+}
+<% if controller_name != 'welcome' %>
+.form-check-label {
+    margin-top: 8px;
+    height: 30px;
+    font-size: 17px;
+    font-weight: 700;
+    margin-left: 5px;
+}
+<% else %>
+.form-check-label {
+    margin-top: 11px;
+    height: 30px;
+    font-size: 17px;
+    font-weight: 700;
+    margin-left: 5px;
+}
+<% end %>
+
+input[type=checkbox] {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+</style>
+
 <span id="reservationPartial"><%= render partial:"/reservations/errors" %></span>
 <%= simple_form_for @reservation, remote: true do |f| %>
   <%= f.error_notification %>
@@ -9,6 +52,7 @@
     <% if logged_in? %>
       <!-- if user is admin allow extra fields for walkin or call in reservations -->
       <% if current_user.admin? || current_user.operator? %>
+        <%= f.input :force_create %>
         <%= f.input :user_id, collection: User.all.order(:first_name), label_method: :fullname, value_method: :id %>
         <!-- hiidden field until admin select user id -->
         <div class="form-inputs" id="extraFields" style="display: none;">

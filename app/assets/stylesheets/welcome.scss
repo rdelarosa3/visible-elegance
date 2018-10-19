@@ -217,14 +217,21 @@
     -webkit-font-smoothing: antialiased !important;
     overflow: auto
 }
-.booking-top-bar {
-  padding-bottom: 50px;
-  height: 40px !important;
-  border-radius: 0 !important;
-  background-color: #d11c13 !important;
-  color: #ffffff !important;
-  border-color: #bb1a11 !important;
-}
+  .booking-top-bar {
+    padding-bottom: 50px;
+    height: 40px !important;
+    border-radius: 0 !important;
+    background-color: #d11c13 !important;
+    color: #ffffff !important;
+    border-color: #bb1a11 !important;
+  }
+  .booking-launch-button .booking-button-text {
+    font-size: 1.3em !important; 
+    line-height: 34px !important;
+  }
+  .booking-launch-button {
+    height: 31px !important
+  }
 }
 
 @media (min-width: 800px){
