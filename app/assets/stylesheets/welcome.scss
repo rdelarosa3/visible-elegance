@@ -197,7 +197,7 @@
 }
 @media (max-width: 800px){
   #bookingContainer {
-   
+    display: none;
     max-height: 100% !important;
     border-radius: 0 0 0 0 !important;
     transition: all .6s ease-in-out,width .2s ease-in-out,top .4s ease-in-out !important;
