@@ -11,7 +11,7 @@ class Reservation < ApplicationRecord
   validates :reservation_date, :reservation_time, :service, presence: true
   validate :verify_time
   validate :verify_day
-  validate :check_overlapping_appointments,:unless => Proc.new {|c| c.stylist_id.nil? || c.reservation_time.nil?}
+  validate :check_overlapping_appointments,:unless => Proc.new {|c| c.stylist_id.nil? || c.reservation_time.nil? || c.force_create == true}
   before_create :verify_phone
 
   # custom actions in case update
@@ -49,15 +49,19 @@ class Reservation < ApplicationRecord
 
   # verifyies if styliest is working on reservation date
   def verify_day
-    day = self.reservation_date
-    if day.strftime("%A") == "Sunday"
-        errors.add(:verify_day, "We are closed on Sunday's")
-    else
-      stylist.off_days.map do |scheduled|
-        if day.strftime("%A") == scheduled.day_off
-          errors.add(:verify_day, "Stylist not available on this day")
+    if !reservation_date.nil?
+      day = self.reservation_date
+      if day.strftime("%A") == "Sunday"
+          errors.add(:verify_day, "We are closed on Sunday's")
+      else
+        stylist.off_days.map do |scheduled|
+          if day.strftime("%A") == scheduled.day_off
+            errors.add(:verify_day, "Stylist not available on this day")
+          end
         end
       end
+    else
+      errors.add(:verify_day, "Please select a date.")
     end
   end
 

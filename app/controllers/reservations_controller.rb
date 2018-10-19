@@ -52,12 +52,14 @@ class ReservationsController < ApplicationController
         format.json { render :show, status: :created, location: @reservation }
 
       else
+        # flash.now.notice = @reservation.errors.full_messages.to_sentence 
         flash.now.notice = @reservation.errors[:overlapping_appointments].first || @reservation.errors[:stylist_id].first || @reservation.errors[:verify_time].first || @reservation.errors[:verify_day].first
         format.js { render :file => "/layouts/application.js"}
         format.html { render :new }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
+    p @reservation.errors
   end
 
 
@@ -113,7 +115,13 @@ class ReservationsController < ApplicationController
   private
       # to keep users other than admin from accessing
     def authorize
-        redirect_to root_path, alert: 'You must be admin to access this page.' if current_user.nil? || !current_user.admin?
+      if logged_in?
+        unless current_user.admin? || current_user.operator?
+          redirect_to root_path, alert: 'You must be admin to access this page.' 
+        end
+      else
+        redirect_to root_path
+      end
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_reservation

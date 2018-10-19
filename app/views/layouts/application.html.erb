@@ -52,7 +52,7 @@
             </li>
             <% if logged_in? %>
               <!-- while logged in -->
-              <% if current_user.admin? %>
+              <% if current_user.admin? || current_user.operator? %>
                 <li class='nav-item'>
                   <% if pending_reservations > 0 %>
                     <span class="badge badge-notify">

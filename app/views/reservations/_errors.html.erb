@@ -1,1 +1,2 @@
 <center><p id="notice"><%= notice %></p></center> 
+<%= @reservation.errors[:base].to_sentence if @reservation.errors[:base].present? %>
