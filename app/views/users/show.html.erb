@@ -25,34 +25,100 @@
   .appointment-card{
     margin-top: 2.5rem;
   }
+
+  #loyaltyCard {
+    border: solid;
+    border-radius: 10px;
+    border-width: 0.5px;
+    background-image: linear-gradient(to bottom, #5ee7df 0%, #b490ca 100%);
+    opacity: 0.9;
+
+  }
+  #loyaltyCard .col-md-4 {
+      width: 30%;
+      opacity: 0.2;
+      margin: auto;
+  }
+
+  #loyaltyCard .btn-danger {
+    /*height: 70px;*/
+    font-size: 40px;
+    font-weight: 700;
+    font-family: inherit;
+  }
+  @media (max-width: 1200px) {
+    #loyaltyCard .row {
+      margin-left: -40px
+    }
+  }
+   .btn-danger {
+    color: #fff;
+    background-color: #d22334d4;
+    border-color: #d42e3ea8;
+  }
+
+  p {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: black!important;
+  font-family: 'Roboto Slab',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
 </style>
 
 
 <div class="container md-12 mt-100 pt-4">
   <div class="row">
     <div class="col-md-4">
+        
         <center>
           <% if @user.avatar? %>
-              <%= image_tag(@user.avatar_url, class: 'rounded-circle',width: '200', height: '200') %>
+              <%= image_tag(@user.avatar_url, class: 'rounded-circle mt-4 shadow-sm',width: '200', height: '200') %>
               <br><br>
   
           <% else %>
-              <%= image_tag( "http://hannsaa.com/userfiles/avatars/default.jpg", class: 'rounded-circle',width: '200', height: '200') %>
+              <%= image_tag( "http://hannsaa.com/userfiles/avatars/default.jpg", class: 'rounded-circle mt-4',width: '200', height: '200') %>
              <br>
              <br>
           <% end %>
-          <p> Joined on <%= @user.created_at.strftime("%B %Y") %></p>
+          
           <% if current_user == @user %>
-            <%= link_to 'Edit Profile', edit_user_path(@user),class: "btn btn-edit btn-sm" %> 
-          <p id="notice"><%= notice %></p>
+            <%= link_to 'Edit Profile', edit_user_path(@user),class: "btn btn-edit btn-sm" %>
+          <p><small> Joined on <%= @user.created_at.strftime("%B %Y") %></small></p> 
+          
           <% end %>
         </center>
+        <section class="shadow mb-4" id="loyaltyCard">
+
+          
+
+
+          <h4 class="text-center pt-4"> VISIBLE ELEGANCE LOYALTY CARD </h4>
+          <div class="row p-4 text-center">
+            <% 9.times do %>
+            <div class="col-md-4 col-xs-4 mb-1">
+              <span class="fa-stack fa-3x">
+                <i class="fas fa-circle fa-stack-2x text-secondary"></i> 
+                <i class="fa-stack-1x"><%= image_tag("hair-cut-tool.png",  style: "filter: invert(1);height: 45px;width: 45px;") %></i>
+              </span>
+            </div>
+            <% end %>
+          </div>
+          <p class="text-center p-4 text-uppercase "> Collect 9 stamps & your 10th cut is free. </p>
+          <% if current_user.admin? || current_user.operator? %>
+            <div class="p-2">
+              <button class="btn btn-block btn-danger">Stamp Me</button>
+            </div>
+          <% end %>
+        </section>
+        
+    
     </div>
 
     
     <div class="container col-md-8">
       <center class="text-uppercase">
         <h2 class="pt-2 mb-3"><%= @user.first_name %>'s Appointments</h2>
+        <p id="notice"><%= notice %></p>
       </center> 
       <% if @user.reservations.current_date.any? %>
         <div class="card shadow mb-4 appointment-card">
