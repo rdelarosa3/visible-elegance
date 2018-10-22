@@ -1,7 +1,14 @@
-$("#loginPartial").html("<%= j render(partial: '/sessions/form') %>");
+
 <% if controller_name == 'reservations' %>
-$("#reservationPartial").html("<%= j render(partial: '/reservations/errors') %>");
+  $("#reservationPartial").html("<%= j render(partial: '/reservations/errors') %>");
 <% end %>
 <% if controller_name == 'welcome' %>
-$(".form-border").html("<%= j render(partial: '/reservations/errors') %>");
+  $(".form-border").html("<%= j render(partial: '/reservations/errors') %>");
+<% end %>
+<% unless logged_in? %>
+  <% if controller_name == 'sessions' %>
+    $("#loginPartial").html("<%= j render(partial: '/sessions/form') %>");
+  <% elsif controller_name =='users' %>
+    $("#signupPartial").html("<%= j render(partial: '/users/form') %>");
+  <% end %>
 <% end %>

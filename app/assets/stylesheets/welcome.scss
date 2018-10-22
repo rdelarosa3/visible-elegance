@@ -274,7 +274,6 @@
     line-height: 52px !important;
     text-decoration: none !important;
     padding: 0 0 0 15px !important;
-
     white-space: nowrap !important;
     float: left !important;
 
@@ -293,4 +292,8 @@
 
 .form-border{
   padding: 10px;
+}
+
+#sign-in {
+  z-index: 2147483648 !important;
 }

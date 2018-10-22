@@ -1,25 +1,41 @@
+
 <!-- css in page to change only elements in this view -->
 <style>
-  body {
-   background-image: url("https://images.unsplash.com/photo-1470259078422-826894b933aa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a2af84ee01cc8649713cbdb9497f07f0&auto=format&fit=crop&w=1953&q=80");
-   background-color: #cccccc;
-    /* Full height */
-    height: 100%; 
 
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  .mt-100 {
     margin-top: 100px;
   }
 
-  #register-card{
-    background-color: rgba(245, 245, 245, 0.4); 
-    opacity: .9;
+  h2 {
+    font-size: 40px;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+  .appointment-card{
+    margin-top: 2.5rem;
   }
 </style>
-<div id="registration">
 
-  <%= render partial: '/users/form' %>
-
+<div class="container mt-100">
+  <div class="row">
+    <div class="col-md-12 mb-4">
+      <div class="card shadow">
+        <h4 class="text-center mt-4">Required Information</h4> 
+        <center><p id="notice"><%= notice %></p></center>
+        <div class="card-body form-group" id="userEdit">
+          
+          
+            <%= render partial: '/users/form' %>     
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
 </div>

@@ -29,8 +29,9 @@ class UsersController < ApplicationController
         format.json { render :show, status: :created, location: @user }
       else
         flash.now.alert = "Please make sure you are using a valid email and password and try again."
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.js { render :file => "/layouts/application.js"}
+        # format.json { render json: @user.errors, status: :unprocessable_entity }    
+
       end
     end
   end

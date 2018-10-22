@@ -76,17 +76,15 @@
               </li>
               <% else %>
                 <!-- while logged out -->
-                <% if controller_name == "sessions" || controller_name == "users" %>
-                <li></li>
-                <% else %>
+                <% if controller_name != "users" %>
+
                 <li class="nav-item">
-                  <%= link_to 'Sign Up', sign_up_path, class: "nav-link"%>
+                  <a href="#" data-target="#sign-up" data-toggle="modal" class="nav-link">Sign Up</a>
+                <% end %>
                 </li>
                 <li class="nav-item">
                   <a href="#" data-target="#sign-in" data-toggle="modal" class="nav-link">Sign In</a>
-                </li>
-                <% end %>
-                
+                </li>   
             <% end %>
           </ul>
         </div>
@@ -97,30 +95,43 @@
     <!-- !Navigation -->
 
     <%= yield %>
-
+<% unless logged_in? %>
     <!---------------- Sign in Modal ---------------------->
 
     <div class="modal fade" id="sign-in" tabindex="0">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div>
-                <button class="close mr-auto pt-1 pr-4"  data-dismiss="modal">&times;</button>
-                <h4 class="text-center"> Sign In </h4>
-                    
-              </div> 
-                    <div class="modal-body" id="loginPartial">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div>
+            <button class="close mr-auto pt-1 pr-4"  data-dismiss="modal">&times;</button>
+            <h4 class="text-center"> Sign In </h4>      
+          </div> 
+          <div class="modal-body" id="loginPartial">
 
-                      <%= render partial: '/sessions/form' %>
+            <%= render partial: '/sessions/form' %>
 
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
         
-    <!---------------- !Sign in Modal ---------------------->  
+    <!---------------- !Sign up Modal ---------------------->  
 
 
+   <div class="modal fade" id="sign-up" tabindex="0">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div>
+            <button class="close mr-auto pt-1 pr-4"  data-dismiss="modal">&times;</button>     
+          </div> 
+          <div class="modal-body" id="signupPartial">
+
+           <%= render partial: '/users/form' %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
     <!------------ Footer ------------>
     <footer class="footer font-small">
       <hr>
@@ -159,7 +170,30 @@
      
 
   </body>
-  
+<!-- ajax examle in case of use -->
+
+<!--   //   $("#user_submit").on("click", function(userForm) { 
+  //   userForm.preventDefault();
+  //   var valuesToSubmit = $(this).serialize();
+  //   $.ajax({
+  //       type: "POST",
+  //       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+  //       url: '/users',
+  //       data: valuesToSubmit,
+  //       dataType: 'json',
+  //       success: function(response){
+  //         $("#signupPartial").html("< j render(partial: '/users/form')  %>");
+  //       },
+  //       error: function(response) {
+  //         console.log(response)
+  //         $("#signupPartial").html("<j render(partial: '/users/form') %>");
+  //       }
+  //   })
+  // }); -->
+
+
+
+ 
 </html>
 
 

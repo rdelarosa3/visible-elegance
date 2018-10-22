@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
 	# Verifies that email field is not blank and that it prevents duplicates#
 	validates :email, uniqueness: true
-	validates :last_name, :last_name, :email, presence: true
+	validates :first_name, :last_name, :email, presence: true
 	validates :gender, presence: true, on: :update
 	validates :phone_number, numericality: { only_integer: true }, on: :update
 

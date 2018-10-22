@@ -1,43 +1,16 @@
-<!-- css in page to change only elements in this view -->
-<style type="text/css">
 
-  .or-seperator {
-    margin: 20px 0 10px;
-    text-align: center;
-    border-top: 1px solid #ccc;
-  }
-  .or-seperator i {
-    padding: 0 10px;
-    background: #ffffff;
-    position: relative;
-    top: -11px;
-    z-index: 1;
-  }
+ <h2 class="text-center mt-4">Register Account</h2> 
+  <center><p id="notice"><%= notice %></p></center>
+  <%= simple_form_for @user, remote: true, html: { class: "form-signup" } do |u| %>
 
-</style>
-
-<div class="container mt-4">
-  <div class="row">
-    
-    <div class="card col-md-4 mb-1" id="register-card">
-      <h2 class="text-center mt-4">Register Account</h2> 
-      <center><p id="notice"><%= notice %></p></center>
-      <%= simple_form_for @user do |f| %>
-        <%= f.input :email, placeholder: 'user@domain.com' %>
-        <%= f.input :first_name, label: 'First Name', error: 'First name is mandatory, please specify one' %>
-        <%= f.input :last_name, label: 'Last Name', error: 'Last name is mandatory, please specify one' %>
-        <%= f.input :birthday, as: :date, start_year: Date.today.year - 16,
-                              end_year: Date.today.year - 90, discard_day: false,
-                              order: [:year, :month, :day] %>
-                          
-        <%= f.input :password, hint: 'No special characters.', required: true %>
-        <%= f.input :password_confirmation, label: 'Confirm'  %>
-        <%= f.button :submit, class:"btn btn-success btn-block" %>
-      <% end %>
-        <p class="hint-text text-center small text text-muted">Existing Member? <%= link_to 'Sign in', login_path, class: "text-success" %></p>
-      </div>
-    </div>
-    <div class="col-md-8">
-    </div>
-  </div>
-</div>
+    <%= u.input :email, placeholder: 'user@domain.com' %>
+    <%= u.input :first_name, label: 'First Name', error: 'First name is mandatory, please specify one' %>
+    <%= u.input :last_name, label: 'Last Name', error: 'Last name is mandatory, please specify one' %>
+    <%= u.input :birthday, as: :date, start_year: Date.today.year - 16,
+                          end_year: Date.today.year - 90, discard_day: false,
+                          order: [:year, :month, :day] %>
+                      
+    <%= u.input :password, hint: 'No special characters.', required: true %>
+    <%= u.input :password_confirmation, label: 'Confirm Password'  %>
+    <%= u.button :submit, class:"btn btn-success btn-block", id: "user_submit" %>
+  <% end %>

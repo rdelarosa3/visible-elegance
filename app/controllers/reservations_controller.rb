@@ -32,6 +32,7 @@ class ReservationsController < ApplicationController
   def new
     @reservation = Reservation.new
     @stylist = User.stylist
+    @user = User.new
   end
 
   def edit
@@ -59,7 +60,7 @@ class ReservationsController < ApplicationController
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
-    p @reservation.errors
+   
   end
 
 

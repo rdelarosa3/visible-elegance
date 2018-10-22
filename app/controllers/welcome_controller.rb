@@ -3,5 +3,6 @@ class WelcomeController < ApplicationController
 	  	@staff = User.all.where(role: :admin)
 	  	@service_types = ServiceType.all.order('name ASC')
 	  	@reservation = Reservation.new
+	  	@user = User.new
   	end
 end

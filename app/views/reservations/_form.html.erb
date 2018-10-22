@@ -38,6 +38,11 @@ input[type=checkbox] {
     cursor: pointer;
     font-size: 20px;
 }
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;  
+}
 
 </style>
 
@@ -152,25 +157,25 @@ $("#reservation_user_id").change(function() {
   })
 });
 
-
-jQuery(function() {
-  var stylist;
-  stylist = $('#reservation_stylist_id').html();
-  return $(document).ready(function() {
-    var service, escaped_service, options;
-    service = $('#reservation_service_id :selected').text();
-    escaped_service = service.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1');
-    options = $(stylist).filter("optgroup[label=" + escaped_service + "]").html();
-    if (options) {
-      $('#reservation_stylist_id').html(options);
-      return $('#stylist_select').show();
-      // return $('#reservation_stylist_id').parent().show();
-    } else {
-      $('#reservation_stylist_id').empty();
-      return $('#reservation_stylist_id').parent().hide();
-       $('#stylist_select').hide();
-    }
+<% if current_page?('reservation_edit') || @reservation.errors.any? %>
+  jQuery(function() {
+    var stylist;
+    stylist = $('#reservation_stylist_id').html();
+    return $(document).ready(function() {
+      var service, escaped_service, options;
+      service = $('#reservation_service_id :selected').text();
+      escaped_service = service.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1');
+      options = $(stylist).filter("optgroup[label=" + escaped_service + "]").html();
+      if (options) {
+        $('#reservation_stylist_id').html(options);
+        return $('#reservation_stylist_id').parent().show();
+        $('#stylist_select').show();
+      } else {
+        $('#reservation_stylist_id').empty();
+        return $('#reservation_stylist_id').parent().hide();
+         $('#stylist_select').hide();
+      }
+    });
   });
-});
-
+<% end %>
 </script>
