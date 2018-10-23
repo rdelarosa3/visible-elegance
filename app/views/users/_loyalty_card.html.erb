@@ -1,0 +1,116 @@
+ <style>
+  #loyaltyCard {
+    border: solid;
+    border-radius: 10px;
+    border-width: 0.5px;
+    background-image: linear-gradient(to bottom, #5ee7df 0%, #b490ca 100%);
+    opacity: 0.9;
+
+  }
+  #loyaltyCard .col-md-2 {
+    width: 22%;
+    opacity: 0.4;
+    margin: 10px;
+  }
+
+  #loyaltyCard .btn {
+    color: white;
+    font-size: 40px;
+    font-weight: 700;
+    font-family: inherit;
+  }
+  @media only screen and (device-width:768px){
+    #loyaltyCard .row {
+      margin-left: -40px
+    }
+    #loyaltyCard .col-md-2 {
+      width: 30%;
+      opacity: 0.4;
+      margin: 3px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    #loyaltyCard .row {
+      margin-left: -40px
+    }
+    #loyaltyCard .col-md-2 {
+      width: 30%;
+      opacity: 0.4;
+      margin: auto;
+    }
+  }
+  .btn-danger {
+    color: #fff;
+    background-color: #ff152ce0;
+    border-color: #ff152ce0;
+  }
+
+  .btn-success {
+    color: #fff;
+    background-color: #52d270;
+    border-color: #52d270;
+  }
+
+  #loyaltyP {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: black!important;
+  font-family: 'Roboto Slab',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  }
+
+  .stamp {
+    opacity: 1!important;
+  }
+</style>
+
+
+ <p class="text-success text-center pt-2"><%= notice %></p>
+  <h4 class="text-center pt-4 text-uppercase"> "<%= @user.first_name %>'s LOYALTY CARD" </h4>
+  <div class="row p-4 text-center">
+    <% stamps = @user.stamps.count %>
+    <% @user.stamps.each do |x|%>
+    <div class="col-md-2 col-sm-2 col-xs-2 mb-1 stamp">
+      <span class="fa-stack fa-3x">
+        <i class="fas fa-circle fa-stack-2x text-danger"></i> 
+        <i class="fa-stack-1x"><%= image_tag("hair-cut-tool.png",  style: "filter: invert(1);height: 45px;width: 45px;") %></i>
+      </span>
+      <p><small><em><%= x.created_at.strftime('%D') %> <%= " by:" + x.stamper.first_name %></em></small></p>
+
+    </div>
+    <% end %>
+    <% (9 - stamps).times do %>
+    <div class="col-md-2 col-sm-2 col-xs-2 mb-1">
+      <span class="fa-stack fa-3x">
+        <i class="fas fa-circle fa-stack-2x text-secondary"></i> 
+        <i class="fa-stack-1x"><%= image_tag("hair-cut-tool.png",  style: "filter: invert(1);height: 45px;width: 45px;") %></i>
+      </span>
+    </div>
+    <% end %>
+    <% if @user.stamps.count >= 9 %>
+    <div class="col-md-2 col-sm-2 col-xs-2 mb-1 stamp">
+      <span class="fa-stack fa-3x">
+        <i class="fas fa-circle fa-stack-2x text-danger"></i> 
+        <i class="fa-stack-1x" style="font-size: 10px;filter: invert(1);">FREE HAIRCUT</i>
+      </span>
+      <p><em>CONGRATS!!</em></p>
+    </div>
+   <% else %>
+    <div class="col-md-2 col-sm-2 col-xs-2 mb-1">
+      <span class="fa-stack fa-3x">
+        <i class="fas fa-circle fa-stack-2x text-danger"></i> 
+        <i class="fa-stack-1x" style="font-size: 10px;filter: invert(1);">FREE HAIRCUT</i>
+      </span>
+    </div>
+     <% end %>
+  </div>
+  <p class="text-center text-uppercase" id="loyaltyP"> Collect 9 stamps & your 10th cut is free. </p>
+  <% if current_user.admin? || current_user.operator? %>
+    <div class="p-3">
+      <% if @user.stamps.count >= 9 %>
+          <%= link_to 'Redeem Me', redeem_card_path(user_id: @user.id), class: "btn btn-block btn-success shadow",method: :delete, data: {confirm: 'are you sure'}, remote: true %>
+      <% else %>
+          <%= link_to 'Stamp Me', stamp_card_path(user_id: @user.id), class: "btn btn-block btn-danger shadow",method: :post, remote: true %>
+      <% end %>
+    </div>
+  <% end %>

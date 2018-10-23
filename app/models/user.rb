@@ -3,7 +3,8 @@ class User < ApplicationRecord
 	has_many :authentications, dependent: :destroy
 	has_many :reservations
 	has_many :appointments, :class_name => 'Reservation', :foreign_key => 'stylist_id'
-
+	has_many :stamps
+	has_many :stamped, :class_name => 'Stamp', :foreign_key => 'stamper_id'
 	
 	#Service to stylist Association
     has_many :skills

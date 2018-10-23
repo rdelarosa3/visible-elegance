@@ -12,3 +12,6 @@
     $("#signupPartial").html("<%= j render(partial: '/users/form') %>");
   <% end %>
 <% end %>
+<% if controller_name == "stamps"%>
+$("#loyaltyCard").html("<%= j render(partial: '/users/loyalty_card') %>");
+<% end %>

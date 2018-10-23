@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 	resources :businesses
 	resources :reservations
 	resources :users
+	resources :stamps
 
 	get '/users/:id/edit'  => 'edit#user', as: :update_user
   	
@@ -39,4 +40,7 @@ Rails.application.routes.draw do
 	post '/reservations/:id(.:format)' => "reservations#status_change", as: :status_change
 	# patch '/reservations/:id(.:format)' => "reservations#status_change"
 	get '/autofill' => 'reservations#autofill'
+
+	delete '/rewards' => "stamps#reset_loyalty", as: :redeem_card
+	post '/stamp' => "stamps#stamp", as: :stamp_card
 end
