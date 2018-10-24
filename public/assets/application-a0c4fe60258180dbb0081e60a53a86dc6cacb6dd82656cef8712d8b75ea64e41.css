@@ -359,7 +359,7 @@ p {
   left: auto !important;
   height: 48px !important;
   width: auto !important;
-  z-index: 2147483646 !important;
+  z-index: 1031 !important;
   background: #e20c21 !important;
   border: 0 !important;
   border-radius: 100px !important;
@@ -407,7 +407,7 @@ p {
     color: #000 !important;
     line-height: 2 !important;
     text-align: left !important;
-    z-index: 2147483646 !important;
+    z-index: 1031 !important;
     zoom: 0 !important;
     transition: .3s ease-in-out !important;
     -webkit-font-smoothing: antialiased !important;
@@ -442,7 +442,7 @@ p {
     color: #000 !important;
     line-height: 1 !important;
     text-align: left !important;
-    z-index: 2147483646 !important;
+    z-index: 1031 !important;
     zoom: 0 !important;
     transition: .3s ease-in-out !important;
     -webkit-font-smoothing: antialiased !important;

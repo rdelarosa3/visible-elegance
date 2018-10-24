@@ -1,7 +1,7 @@
 module BusinessHoursHelper
 	
 	# Show user if business is open in view #
-	def open_now
+	def open_now?
 		start = '09:30'
 		close = '19:00'
 		Time.zone = 'Central Time (US & Canada)'
@@ -10,8 +10,8 @@ module BusinessHoursHelper
 
 
 		if opened.between?(start ,close)
-			unless current_time.strftime("%A") == 'Sunday'
-				'"Open Now"'
+			if current_time.strftime("%A") != 'Sunday'
+				true # '"Open Now"'
 			end
 		end
 	end

@@ -38,6 +38,9 @@ class Reservation < ApplicationRecord
     Reservation.where("stylist_id = ?", stylist)
   end
 
+    def self.on_date(date)
+    Reservation.where("reservation_date = ?" , date)
+  end
   def self.date_range(minimum_date,max_date)
     Reservation.where("reservation_date >= ? AND reservation_date <= ?" ,minimum_date,max_date)
   end

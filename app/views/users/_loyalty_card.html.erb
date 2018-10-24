@@ -66,53 +66,59 @@
   }
 </style>
 
+<h4 class="text-center pt-4 text-uppercase"> "<%= @user.first_name %>'s LOYALTY CARD" </h4>
+<p class="text-success text-center pt-2"><%= notice %></p>
+<div class="row p-4 text-center">
+  <!-- set variable for stamps -->
+  <% stamps = @user.stamps.count %>
+  <!-- creates a stamp for each user stamps that exists -->
+  <% @user.stamps.each do |x|%>
+  <div class="col-md-2 col-sm-2 col-xs-2 mb-1 stamp">
+    <span class="fa-stack fa-3x">
+      <i class="fas fa-circle fa-stack-2x text-danger"></i> 
+      <i class="fa-stack-1x"><%= image_tag("badge.png",  style: "filter: invert(1);height: 90px;width: 90px;margin-top: -5px;margin-left: -0.5px;") %></i>
+    </span>
+    <p><small><em><%= x.created_at.strftime('%D') %> <%= " by:" + x.stamper.first_name %></em></small></p>
 
- <p class="text-success text-center pt-2"><%= notice %></p>
-  <h4 class="text-center pt-4 text-uppercase"> "<%= @user.first_name %>'s LOYALTY CARD" </h4>
-  <div class="row p-4 text-center">
-    <% stamps = @user.stamps.count %>
-    <% @user.stamps.each do |x|%>
-    <div class="col-md-2 col-sm-2 col-xs-2 mb-1 stamp">
-      <span class="fa-stack fa-3x">
-        <i class="fas fa-circle fa-stack-2x text-danger"></i> 
-        <i class="fa-stack-1x"><%= image_tag("hair-cut-tool.png",  style: "filter: invert(1);height: 45px;width: 45px;") %></i>
-      </span>
-      <p><small><em><%= x.created_at.strftime('%D') %> <%= " by:" + x.stamper.first_name %></em></small></p>
-
-    </div>
-    <% end %>
-    <% (9 - stamps).times do %>
-    <div class="col-md-2 col-sm-2 col-xs-2 mb-1">
-      <span class="fa-stack fa-3x">
-        <i class="fas fa-circle fa-stack-2x text-secondary"></i> 
-        <i class="fa-stack-1x"><%= image_tag("hair-cut-tool.png",  style: "filter: invert(1);height: 45px;width: 45px;") %></i>
-      </span>
-    </div>
-    <% end %>
-    <% if @user.stamps.count >= 9 %>
-    <div class="col-md-2 col-sm-2 col-xs-2 mb-1 stamp">
-      <span class="fa-stack fa-3x">
-        <i class="fas fa-circle fa-stack-2x text-danger"></i> 
-        <i class="fa-stack-1x" style="font-size: 10px;filter: invert(1);">FREE HAIRCUT</i>
-      </span>
-      <p><em>CONGRATS!!</em></p>
-    </div>
-   <% else %>
-    <div class="col-md-2 col-sm-2 col-xs-2 mb-1">
-      <span class="fa-stack fa-3x">
-        <i class="fas fa-circle fa-stack-2x text-danger"></i> 
-        <i class="fa-stack-1x" style="font-size: 10px;filter: invert(1);">FREE HAIRCUT</i>
-      </span>
-    </div>
-     <% end %>
   </div>
-  <p class="text-center text-uppercase" id="loyaltyP"> Collect 9 stamps & your 10th cut is free. </p>
-  <% if current_user.admin? || current_user.operator? %>
-    <div class="p-3">
-      <% if @user.stamps.count >= 9 %>
-          <%= link_to 'Redeem Me', redeem_card_path(user_id: @user.id), class: "btn btn-block btn-success shadow",method: :delete, data: {confirm: 'are you sure'}, remote: true %>
-      <% else %>
-          <%= link_to 'Stamp Me', stamp_card_path(user_id: @user.id), class: "btn btn-block btn-danger shadow",method: :post, remote: true %>
-      <% end %>
-    </div>
   <% end %>
+  <!-- sets the amount of blank stamps based on how many user already has -->
+  <% (9 - stamps).times do %>
+  <div class="col-md-2 col-sm-2 col-xs-2 mb-1">
+    <span class="fa-stack fa-3x">
+      <i class="fas fa-circle fa-stack-2x text-secondary"></i> 
+      <i class="fa-stack-1x"><%= image_tag("hair-cut-tool.png",  style: "filter: invert(1);height: 45px;width: 45px;") %></i>
+    </span>
+  </div>
+  <% end %>
+  <!-- creates free haircut notification for user to redeem -->
+  <% if @user.stamps.count >= 9 %>
+  <div class="col-md-2 col-sm-2 col-xs-2 mb-1 stamp">
+    <span class="fa-stack fa-3x">
+      <i class="fas fa-circle fa-stack-2x text-danger"></i> 
+      <i class="fa-stack-1x" style="font-size: 10px;filter: invert(1);">FREE HAIRCUT</i>
+    </span>
+    <p><em>CONGRATS!!</em></p>
+  </div>
+ <% else %>
+  <div class="col-md-2 col-sm-2 col-xs-2 mb-1">
+    <span class="fa-stack fa-3x">
+      <i class="fas fa-circle fa-stack-2x text-danger"></i> 
+      <i class="fa-stack-1x" style="font-size: 10px;filter: invert(1);">FREE HAIRCUT</i>
+    </span>
+  </div>
+   <% end %>
+</div>
+<p class="text-center text-uppercase" id="loyaltyP"> Collect 9 stamps & your 10th cut is free. </p>
+
+<!-- if the user is an admin allows for stamping fo card or can redeem card -->
+<% if current_user.admin? || current_user.operator? %>
+  <div class="p-3">
+    <!-- if the card is full shows redeem button for admin to redeem card -->
+    <% if @user.stamps.count >= 9 %>
+        <%= link_to 'Redeem Me', redeem_card_path(user_id: @user.id), class: "btn btn-block btn-success shadow",method: :delete, data: {confirm: 'are you sure'}, remote: true %>
+    <% else %>
+        <%= link_to 'Stamp Me', stamp_card_path(user_id: @user.id), class: "btn btn-block btn-danger shadow",method: :post, remote: true %>
+    <% end %>
+  </div>
+<% end %>

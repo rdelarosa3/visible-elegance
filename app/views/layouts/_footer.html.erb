@@ -1,0 +1,33 @@
+<footer class="footer font-small">
+  <hr>
+  <!------------ Social buttons ------------>
+  <ul class="list-unstyled list-inline text-center">
+    <% if business_info.facebook.present? %>
+    <li class="list-inline-item">
+      <a href="<%= @business.facebook %>" class="btn-floating btn-fb mx-1" target="_blank">
+        <i class="fab fa-facebook fa-3x"> </i>
+      </a>
+    </li>
+    <% end %>
+    <% if business_info.instagram.present? %>
+    <li class="list-inline-item">
+      <a href="<%= @business.instagram %>" class="btn-floating btn-tw mx-1" target="_blank">
+        <i class="fab fa-instagram fa-3x"> </i>
+      </a>
+    </li>
+    <% end %>
+    <% if business_info.youtube.present? %>
+    <li class="list-inline-item">
+      <a href="<%= @business.youtube %>" class="btn-floating btn-li mx-1">
+        <i class="fab fa-youtube fa-3x"> </i>
+      </a>
+    </li>
+    <% end %>
+  </ul>
+  <!------------ !Social buttons ------------>
+  
+  <!-- Copyright -->
+  <div class="footer-copyright text-center"><small>© 2018 Copyright:
+    <a href="#"> <%= business_info.email %></a></small>
+  </div>
+</footer>

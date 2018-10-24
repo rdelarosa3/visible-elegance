@@ -2,18 +2,9 @@ class BusinessesController < ApplicationController
   before_action :set_business, only: [:show, :edit, :update, :destroy]
   before_action :authorize, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @businesses = Business.all
-  end
-
-  def show
-  end
 
   def new
     @business = Business.new
-  end
-
-  def edit
   end
  
   def create

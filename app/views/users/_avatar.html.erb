@@ -1,0 +1,18 @@
+<center>
+  <% if @user.avatar? %>
+      <%= image_tag(@user.avatar_url, class: 'rounded-circle mt-4 shadow-sm',width: '200', height: '200') %>
+      <br><br>
+
+  <% else %>
+      <%= image_tag( "http://hannsaa.com/userfiles/avatars/default.jpg", class: 'rounded-circle mt-4',width: '200', height: '200') %>
+     <br>
+     <br>
+  <% end %>
+  
+  <% if current_user == @user %>
+    <%= link_to 'Edit Profile', edit_user_path(@user),class: "btn btn-edit btn-sm" %>
+  <% end %>
+  <p><small> Joined on <%= @user.created_at.strftime("%B %Y") %></small></p> 
+  
+  
+</center>

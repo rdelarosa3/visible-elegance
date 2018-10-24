@@ -1,0 +1,67 @@
+<center class="text-uppercase">
+  <h2 class="pt-2 mb-3"><%= @user.first_name %>'s Appointments</h2>
+  <p id="notice"><%= notice %></p>
+</center> 
+<% if @user.reservations.current_date.any? %>
+  <div class="card shadow mb-4 appointment-card">
+    <center>
+      <h4 class="pt-2 text-uppercase">Current Appointments</h4>
+    </center>          
+    <table class="table table-striped table-responsive-sm">
+      <thead>
+        <tr>
+        <th>Service</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Notes</th>
+        <th>Stylist</th>
+        <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.reservations.current_date.each do |reservation| %>
+          <tr>
+            <td><%= reservation.service.name %></td>
+            <td><%= reservation.reservation_date.strftime("%d %B %Y") %></td>
+            <td><%= reservation.reservation_time.strftime('%H:%M') %></td>
+            <td><%= reservation.notes %></td>
+            <td><% if !reservation.stylist.nil? %><%= reservation.stylist.first_name %><% end %></td>
+            <td><%= reservation.status %></td>
+
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+<% if @user.reservations.past_date.any? %>
+  <div class="card shadow mb-4 appointment-card">
+    <center>
+      <h4 class="pt-2 text-uppercase">Past Appointments</h4>
+    </center>
+    <table class="table table-striped table-responsive-sm">
+      <thead>
+        <tr>
+        <th>Service</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Notes</th>
+        <th>Stylist</th>
+        <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>  
+        <% @user.reservations.past_date.each do |reservation| %>
+          <tr>
+            <td><%= reservation.service.name %></td>
+            <td><%= reservation.reservation_date.strftime("%d %B %Y") %></td>
+            <td><%= reservation.reservation_time.strftime('%H:%M') %></td>
+            <td><%= reservation.notes %></td>
+            <td><% if !reservation.stylist.nil? %><%= reservation.stylist.first_name %><% end %></td>
+            <td><%= reservation.status %></td>
+          </tr>
+        <% end %>          
+      </tbody>
+    </table>
+  </div>
+<% end %>

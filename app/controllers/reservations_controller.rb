@@ -10,8 +10,11 @@ class ReservationsController < ApplicationController
     if params[:reservation]
       
       @reservations = Reservation.includes(:user).where(nil).all
-      if params[:reservation][:date_start] != "" || params[:reservation][:date_end] != ""
-        @reservations = @reservations.date_range(params[:reservation][:date_start],params[:reservation][:date_end]).all 
+      # if params[:reservation][:date_start] != "" || params[:reservation][:date_end] != ""
+      #   @reservations = @reservations.date_range(params[:reservation][:date_start],params[:reservation][:date_end]).all 
+      # end
+      if params[:reservation][:date_on] != "" 
+        @reservations = @reservations.on_date(params[:reservation][:date_on]).all 
       end
       if params[:reservation][:stylist] != ""
         @reservations = @reservations.stylist_name(params[:reservation][:stylist]).all 
@@ -19,13 +22,17 @@ class ReservationsController < ApplicationController
       if params[:reservation][:service] != ""
         @reservations = @reservations.service_name(params[:reservation][:service]).all 
       end
-      @reservations.order(reservation_date: :desc)
+      @reservations.order('status = 0 DESC').order(reservation_date: :desc ).order(reservation_time: :desc )
       respond_to do |format|    
         format.html {render :index }
         format.js
       end
     else
-    @reservations = Reservation.all.order(created_at: :desc)
+      if Reservation.all.where(status: 'pending').any?
+        @reservations = Reservation.all.where(status: 'pending')
+      else  
+      @reservations = Reservation.all.order(status: :desc).order(reservation_date: :desc ).order(reservation_time: :desc )
+      end
     end
   end
 

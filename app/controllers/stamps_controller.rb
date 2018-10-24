@@ -35,10 +35,15 @@ include UsersHelper
   def reset_loyalty
     user_id = params[:user_id]
     @user = User.find(user_id)
+    p @user.stamps.first
     respond_to do |format|
-      @user.stamps.delete_all
-        flash.now.notice = 'Loyalty Card Redeemed. Heres a new Card' 
-        format.js { render :file => "/layouts/application.js"}
+      @user.stamps.each do |stamp|
+        stamp.redeemed = true
+        stamp.save
+      end
+
+    flash.now.notice = 'Loyalty Card Redeemed' 
+    format.html { redirect_to @user, notice: 'Loyalty Card successfully Redeemed.' }
     end
   end
 

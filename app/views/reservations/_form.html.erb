@@ -43,6 +43,10 @@ input[type=checkbox] {
   position: sticky;
   top: 0;  
 }
+.select2 {
+width:100%!important;
+
+}
 
 </style>
 
@@ -58,7 +62,8 @@ input[type=checkbox] {
       <!-- if user is admin allow extra fields for walkin or call in reservations -->
       <% if current_user.admin? || current_user.operator? %>
         <%= f.input :force_create %>
-        <%= f.input :user_id, collection: User.all.order(:first_name), label_method: :fullname, value_method: :id %>
+        Who is the reservation for?
+        <%= f.input :user_id, collection: User.all.order(:first_name), label_method: :fullname, value_method: :id,label: false %>
         <!-- hiidden field until admin select user id -->
         <div class="form-inputs" id="extraFields" style="display: none;">
         <%= f.input :first_name %>
@@ -178,4 +183,18 @@ $("#reservation_user_id").change(function() {
     });
   });
 <% end %>
+
+
+
+$(document).ready(function() {
+  $('select#reservation_user_id').select2({
+    placeholder: "Choose a person",
+    allowClear: false,
+    width: 'resolve'
+  });
+  $('select#reservation_service_id').select2({
+    placeholder: "Choose a service",
+    allowClear: false
+  });
+});
 </script>

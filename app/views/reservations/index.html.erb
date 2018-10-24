@@ -4,7 +4,6 @@
   }
 
   .search-bar{
-    margin-left: 95px;
     padding-top: 5px;
     padding-bottom: 5px;
   }
@@ -35,6 +34,16 @@
       margin-left: 27px;
     }  
   }
+
+  .select2 {
+width:100%!important;
+
+}
+@media (min-width: 1000px){
+.search-bar{
+  margin: auto;
+}
+}
 </style>
 
 
@@ -47,13 +56,12 @@
       <div class="card bg-dark">
         <div class="search-bar"> 
           <%= simple_form_for :reservation, wrapper: :inline_form, html: { class: 'form-inline' }, method: :get do |f| %>
-          <table class="table-responsive-sm">
+          <table class="table-responsive-sm table-responsive-xs ">
             <thead>
               <tr class="text-light">
                 <th>Stylist:</th>
                 <th>Service:</th>
-                <th>From:</th>
-                <th>To:</th>
+                <th>Date:</th>
                 <th></th>
               </tr>
             </thead>
@@ -66,13 +74,10 @@
               <%= f.input :service, :as => :grouped_select, :collection => ServiceType.order(:name), :group_method => :services, label: true, class: 'form-control mt-1 mb-2' %>
               </td>
               <td>
-              <%= f.text_field :date_start, label: false, type: 'date', min: Date.today.prev_month(3), max: Date.today.next_month(3), class: 'form-control'%>
+              <%= f.text_field :date_on, label: false, type: 'date', min: Date.today.prev_month(3), max: Date.today.next_month(3), class: 'form-control', style: "height: 30px;"%>
               </td>
               <td>
-              <%= f.text_field :date_end, label: false, type: 'date', min: Date.today.prev_month(3), max: Date.today.next_month(3), class: 'form-control'%>
-              </td>
-              <td>
-               <%= f.button :submit, 'Submit', name: :nil, class: "btn btn-danger m-1" %>
+               <%= f.button :submit, 'Submit', name: :nil, class: "btn btn-danger m-1", style: "height: 36px;" %>
              </td>
            </tbody>
           </table>
@@ -125,6 +130,17 @@ $(document).ready(function() {
     $('#example1').DataTable();
 } );
 
+$(document).ready(function() {
+  $('select#reservation_stylist').select2({
+    placeholder: "Choose a stylist",
+    allowClear: false,
+    width: 'resolve'
+  });
+  $('select#reservation_service').select2({
+    placeholder: "Choose a service",
+    allowClear: false
+  });
+});
   </script>
 
 

@@ -1,0 +1,52 @@
+<div class="card h-100 shadow">
+  <div class="card-body">
+    <h2 class="text-center stylish-color-dark font-weight-bold text-uppercase">Contact Us</h2> 
+    <p class="text-center">Walk-in's are welcome but due to high volume of custumers appointment is preferred. </p>
+  
+    <div class="row">
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-6 mt-4">
+        <h4>Business Information</h4>
+        <hr>
+        <div class="business-info text">
+          <i class="fa fa-home fa-lg"></i>  <%= business_info.name %><br>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= business_info.street %>, <br>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= business_info.city %>, <%= business_info.state %> <br>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= business_info.zipcode %>, <%= business_info.country %><br>
+          <i class="fa fa-phone fa-lg"></i> <%= business_info.phone %><br><br>
+          <i class="fa fa-envelope fa-lg"></i> <span><a href="mailto:<%= business_info.email %>"><%= business_info.email %></a></span>
+        </div>
+      </div>
+      <div class="col-md-4 mt-4">
+        <h4 class="">Business Hours</h4>
+        <hr>
+          <table class="table-responsive table-striped mt-3 table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Hours</th>        
+              </tr>
+            </thead>
+            <tbody>
+              <% business_info.business_hours.each do |hours| %>
+                <tr>
+                  <td><%= hours.day %></td>
+                  <td><%= hours.open_time.strftime("%H:%M") %> - <%= hours.close_time.strftime("%H:%M") %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <div class="days-open">
+         <p class="text-muted text-center"><small>**Closed Sundays**</small></p>
+         <!-- notifies user if business is currently open -->
+         <p class="text-success text-center"><% if open_now? %> 
+         <%= image_tag("open.png",  style: "height: 70px;width: 70px;") %></p>
+         <% else %>
+         <%= image_tag("close.png", style: "height: 70px;width: 70px;") %>
+         <% end %>
+       </div>
+      </div>
+    </div>
+  </div>
+</div> 
