@@ -41,7 +41,7 @@
 				         <br>
 				         <br>
 				         <%= f.file_field :avatar,required: true %> 
-				         <%= f.button :submit, "Update", class: "btn btn-sm btn-danger mt-2", id:'avatarButton', style:'display: none;' %>
+				         <button class="btn btn-sm btn-danger mt-2" id='avatarButton' style='display: none;'>Update</button>
 
 				    <% end %>
 				</div>
@@ -68,7 +68,8 @@
 					<%= f.input :phone_number, label: 'Telephone Number', hint: 'We won’t share your phone number this is just to help us get in contact with you.' %>
 					<%= f.input :gender, collection: ['Male','Female'], hint: 'All genders are equal but, this helps us match you with the right stylist.' %>
 					<!-- f.input :email, placeholder: 'user@domain.com', hint: 'We won’t share your private email address.'  -->
-					<%= f.button :submit, "save", class: "btn btn-lg btn-danger" %>  
+					 <button class="btn btn-lg btn-danger" id="secondSubmit">Save</button>
+					 
 					<% end %>       
 				</div>
 			</div>
@@ -79,8 +80,17 @@
 </div>
 <script>
 
-  $("#user_avatar").on('change', function() {
-         $("#avatarButton").show();
-    });
+$("#user_avatar").on('change', function() {
+     $("#avatarButton").show();
+});
 
+var form = document.getElementById("edit_user_3");
+<% if !@user.avatar? %>
+document.getElementById("avatarButton").addEventListener("click", function () {
+  form.submit();
+});
+<% end %>
+document.getElementById("secondSubmit").addEventListener("click", function () {
+  form.submit(); 
+});
 </script>
