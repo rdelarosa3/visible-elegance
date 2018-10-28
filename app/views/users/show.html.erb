@@ -37,7 +37,7 @@
 
 <!-- if user is new user shows loyalty card unless its redeemed   -->
     <div class="container col-md-8">     
-<% if !@user.stamps.any? || (@user.stamps.any? && !@user.stamps.first.redeemed?) %> 
+<% if !@user.stamps.any? || (@user.stamps.any? && !@user.stamps.last.redeemed?) %> 
       <div class="shadow mb-4" id="loyaltyCard">
         <%= render partial: '/users/loyalty_card' %>
       </div>
@@ -51,9 +51,14 @@
 <div class="container">
   <%= render partial: '/users/reservations' %>
 <% else %>  
-     <%= render partial: '/users/reservations' %>
+       <%= render partial: '/users/reservations' %>
+      </div>
     </div>
   </div>
-</div>
 <% end %>
+
+
+
+
+
 

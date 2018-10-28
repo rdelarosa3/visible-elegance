@@ -141,23 +141,39 @@
               <%= image_tag( "http://hannsaa.com/userfiles/avatars/default.jpg", class: 'mx-auto rounded-circle',width: '255', height: '255', alt: "") %>
             <% end %>
             <h4><%= stylist.first_name %></h4>
-            <p class="text-muted">Stylist</p>
+            <p class="text-muted"><%= stylist.title %></p>
+
             <ul class="list-inline social-buttons">
               <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-twitter"></i>
+              <% if stylist.instagram.present? %>
+                <a href="<%=stylist.instagram%>" target="_blank">
+                  <% else %>
+                <a href="">  
+              <% end %>    
+                  <i class="fab fa-instagram"></i>
                 </a>
               </li>
+              
               <li class="list-inline-item">
-                <a href="#">
+              <% if stylist.facebook.present? %>
+                <a href="<%=stylist.facebook %>" target="_blank">
+                  <% else %>
+               <a href="">   
+              <% end %>    
                   <i class="fab fa-facebook-f"></i>
                 </a>
               </li>
+              
               <li class="list-inline-item">
-                <a href="#">
+              <% if stylist.linkedin.present? %>
+                <a href="<%= stylist.linkedin %>" target="_blank">
+                  <% else %>
+              <a href="">    
+              <% end %>
                   <i class="fab fa-linkedin-in"></i>
                 </a>
               </li>
+              
             </ul>
           </div>
         </div>

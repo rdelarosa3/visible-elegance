@@ -62,10 +62,15 @@
 					
 					<%= f.input :first_name, label: 'First Name', error: 'First name is mandatory, please specify one' %>
 					<%= f.input :last_name, label: 'Last Name', error: 'Last name is mandatory, please specify one', hint: 'Your public profile only shows your first name. When you request a booking, staff will see your first and last name.' %>
+					<% if @user.admin? || @user.operator? %>
+					<%= f.input :facebook, label: 'Facebook Page', hint: 'Valid links start with http: or https:' %>
+					<%= f.input :instagram, label: 'Instagram Page', hint: 'Valid links start with http: or https:' %>
+					<%= f.input :linkedin, label: 'Linkedin Page', hint: 'Valid links start with http: or https:' %>
+					<% end %>
 					<%= f.input :birthday, as: :date, start_year: Date.today.year - 16,
 					                  end_year: Date.today.year - 90, discard_day: false,
 					                  order: [:year, :month, :day], hint: "The magical day you were dropped from the sky by a stork. We use this data for analysis and never share it with other users." %>
-					<%= f.input :phone_number, label: 'Telephone Number', hint: 'We won’t share your phone number this is just to help us get in contact with you.' %>
+					<%= f.input :phone_number, label: 'Telephone Number', error: 'Please help us able to contact you for future reservations.', hint: 'We won’t share your phone number this is just to help us get in contact with you.' %>
 					<%= f.input :gender, collection: ['Male','Female'], hint: 'All genders are equal but, this helps us match you with the right stylist.' %>
 					<!-- f.input :email, placeholder: 'user@domain.com', hint: 'We won’t share your private email address.'  -->
 					 <button class="btn btn-lg btn-danger" id="secondSubmit">Save</button>

@@ -26,7 +26,7 @@ module UsersHelper
   ######### Admin Panel Link ###########
   def admin_status
     admin = '/admin'
-    if current_user.admin?
+    if current_user.admin? || current_user.operator?
       "<li class='nav-item'>
         <a href='#{admin}' class='nav-link'>Admin Panel</a>
       </li>".html_safe

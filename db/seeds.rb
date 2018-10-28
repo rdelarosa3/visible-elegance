@@ -139,3 +139,16 @@ ActiveRecord::Base.transaction do
 	end
 end
 
+hours = {}
+opening = Time.utc(2000,"jan",1,9,30,0)
+closing = Time.utc(2000,"jan",1,19,00,0)
+days = [1,2,3,4,5,6]
+	ActiveRecord::Base.transaction do
+		days.length.times do
+			hours['business_id'] = 1
+			hours['day'] = days.pop
+			hours['open_time'] = opening.strftime("%H:%M")
+			hours['close_time'] = closing.strftime("%H:%M")
+			BusinessHour.create(hours)
+		end
+	end 

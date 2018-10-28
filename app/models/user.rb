@@ -22,6 +22,7 @@ class User < ApplicationRecord
 	validates :first_name, :last_name, :email, presence: true
 	validates :gender, presence: true, on: :update
 	validates :phone_number, numericality: { only_integer: true }, on: :update
+	validate :facebook_format, :instagram_format, :linkedin_format
 
 	# Oauth USER creation #####
 	def self.create_with_auth_and_hash(authentication, auth_hash)
@@ -70,6 +71,15 @@ class User < ApplicationRecord
   		User.where(role: :customer)
   	end
 
+  	def facebook_format
+  		errors.add(:facebook, "Wrong format") unless facebook.downcase.start_with?('https://', 'http://') ||  facebook == ""
+	end
+  	def instagram_format
+  		errors.add(:instagram, "Wrong format") unless instagram.downcase.start_with?('https://', 'http://')  || instagram == ""
+	end
+	def linkedin_format
+  		errors.add(:linkedin, "Wrong format") unless linkedin.downcase.start_with?('https://', 'http://') ||  linkedin == ""		
+	end
   	##### admin panel custom label ######
 	def custom_label_method
     "#{self.email}"
