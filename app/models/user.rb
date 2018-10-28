@@ -22,7 +22,7 @@ class User < ApplicationRecord
 	validates :first_name, :last_name, :email, presence: true
 	validates :gender, presence: true, on: :update
 	validates :phone_number, numericality: { only_integer: true }, on: :update
-	validate :facebook_format, :instagram_format, :linkedin_format
+	before_update :facebook_format, :instagram_format, :linkedin_format
 
 	# Oauth USER creation #####
 	def self.create_with_auth_and_hash(authentication, auth_hash)
