@@ -14,6 +14,8 @@ class User < ApplicationRecord
     has_many :schedules
     has_many :off_days, through: :schedules
 
+    belongs_to :title, optional: true
+
 	enum role: ["customer","admin","operator"]
 	mount_uploader :avatar, AvatarUploader
 

@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.date :birthday
       t.string :phone_number
       t.integer :role, default: 0
-      t.string :title
+      t.references :title, foreign_key: true
       t.string :instagram
       t.string :facebook
       t.string :linkedin

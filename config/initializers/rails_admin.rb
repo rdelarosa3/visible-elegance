@@ -34,7 +34,7 @@ RailsAdmin.config do |config|
 
   ######## remove models from navigation pane #######\
 
-  to_hide = ["Authentication","Skill","Schedule"]
+  to_hide = ["Authentication","Skill","Schedule","Stamp"]
   to_hide.each do |hide|
     config.excluded_models << hide
   end

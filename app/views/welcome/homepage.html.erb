@@ -1,13 +1,77 @@
+<style>
+.logos{
+  width:210px;
+  height:66.56px;
+}
+.carousel {
+  margin-top: 55px;
+}
+.carousel-item,
+.active {
+    height: 100vh;
+    width: 100%;
+    overflow:hidden;
+}
+.carousel .carousel-inner {
+    height:100%;    
+}
+.fill {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+@media (max-width: 1050px) {
+  .fill, .carousel-inner, .active {
+    height: 40vh!important;
+    width: 100%!important;
+    background-size: 100% 100%!important;
+    background-position: right 0px!important;
+  }
+}
+</style>
 <!-- Page main bannder -->
-<div class="jumbotron jumbotron-background jumbotron-fluid">
+<!-- <div class="jumbotron jumbotron-background jumbotron-fluid">
   <div class="container">
     <br><br><br><br>
     <h1 class="display-3 text-light" id="jumboTitle">Visible Elegance<br> Hair Salon</h1>
     <p class="lead text-light">Your beauty is our profession.</p>
   </div>
-</div>
-<center><h6 id="notice"><%= notice %></h6></center>
+</div> -->
 
+
+<div id="slides" class="carousel slide" data-ride="carousel" data-pause="false">
+      <div class="carousel-item active">
+        
+        <div class="fill" style="background-image:url('/assets/jumbo-img.jpg');"></div>
+        <div class="carousel-caption">
+            <h2>Caption 1</h2>
+        </div>
+    </div>
+    <div class="carousel-item">
+       
+        <div class="fill" style="background-image:url('/assets/jumbo-img.jpg');"></div>
+        <div class="carousel-caption">
+            <h2>Caption 2</h2>
+        </div>
+    </div>
+    <div class="carousel-item">
+        
+        <div class="fill" style="background-image:url('/assets/jumbo-img.jpg');"></div>
+        <div class="carousel-caption">
+            <h2>Caption 3</h2>
+        </div>
+    </div>
+</div>
+
+<center><h6 id="notice"><%= notice %></h6></center>
 
 <!-- floating book now button for reservations -->
 <button class="booking-launch-button btn-md" onclick="showBooking()">
@@ -27,25 +91,17 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        
-          <img class="img-fluid d-block mx-auto" src="https://www.icunsol.it/wp-content/uploads/2016/04/logo-colorinsider.jpg" alt="">
-
+          <%= image_tag("logo-colorinsider.jpg", class: "logos img-fluid d-block mx-auto") %>
       </div>
       <div class="col-md-3">
-        
-          <img class="img-fluid d-block mx-auto" src="https://www.icunsol.it/wp-content/uploads/2016/04/logo-matrix-color.jpg" alt="">
-
+         <%= image_tag("logo-matrix.jpg", class: "logos img-fluid d-block mx-auto") %>
       </div>
       <div class="col-md-3">
-        
-          <img class="img-fluid d-block mx-auto" src="https://www.colorwowhair.com/skin/frontend/rwd/colorwow/images/logo.svg" style="height:66.56px" alt="">
-
+          <%= image_tag("color-wow.svg", class: "logos img-fluid d-block mx-auto") %>
       </div>
 
       <div class="col-md-3">
-        
-          <img class="img-fluid d-block mx-auto" src="http://salonsabeha.com/wp-content/uploads/2015/07/brazilianblowout_logo.png" style="width:210px;height:66.56px" alt="">
-
+        <%= image_tag("brazilian-logo.png", class: "logos img-fluid d-block mx-auto") %>
       </div>
     </div>
   </div>
@@ -141,7 +197,7 @@
               <%= image_tag( "http://hannsaa.com/userfiles/avatars/default.jpg", class: 'mx-auto rounded-circle',width: '255', height: '255', alt: "") %>
             <% end %>
             <h4><%= stylist.first_name %></h4>
-            <p class="text-muted"><%= stylist.title %></p>
+            <p class="text-muted"><%= stylist.title.name if !stylist.title.nil? %></p>
 
             <ul class="list-inline social-buttons">
               <li class="list-inline-item">
@@ -183,7 +239,7 @@
     
     <div class="row">
       <div class="col-lg-8 mx-auto text-center">
-        <p class="large text-muted">All of our team members are board certified and licensed. Make your appointment with them today in our contact page.</p>
+        <p class="large text-muted">Make your appointment with one of our highly skilled team members today.</p>
       </div>
     </div>
   </div>

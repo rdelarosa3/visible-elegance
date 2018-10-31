@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 	# patch '/reservations/:id(.:format)' => "reservations#status_change"
 	get '/autofill' => 'reservations#autofill'
 
+	get '/schedule' => 'reservations#schedule'
+
 	delete '/rewards' => "stamps#reset_loyalty", as: :redeem_card
 	post '/stamp' => "stamps#stamp", as: :stamp_card
 end

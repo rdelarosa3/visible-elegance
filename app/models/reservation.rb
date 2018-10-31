@@ -7,8 +7,9 @@ class Reservation < ApplicationRecord
   belongs_to :stylist, class_name: 'User'
   
   #validations
-  validates :stylist_id, :service, presence: { message: "Stylist/Service not selected." }
-  validates :reservation_date, :reservation_time, presence: { message: "Date/Time not selected." }
+  validates :stylist_id, presence: { message: "Stylist not selected." }
+  validates :service, presence: { message: "Service not selected." }
+  validates :reservation_date, :reservation_time, presence: { message: "Time not selected." }
   validates :phone_number, presence: { message: "Please provide a callback number."}
   validate :verify_time
   validate :verify_day
@@ -84,12 +85,13 @@ class Reservation < ApplicationRecord
   def overlap?(x,y)
 
     if self.stylist.appointments.count != 0
-      (y.reservation_time.strftime("%H%M")..y.end_time.strftime("%H%M")).cover?(x.reservation_time.strftime("%H%M")) || (y.reservation_time.strftime("%H%M")..y.end_time.strftime("%H%M")).cover?(x.end_time.strftime("%H%M"))
+      (y.reservation_time.strftime("%H%M")..(y.end_time - (1/1440.0)).strftime("%H%M")).cover?(x.reservation_time.strftime("%H%M")) || (y.reservation_time.strftime("%H%M")..y.end_time.strftime("%H%M")).cover?((x.end_time  - (1/1440.0)).strftime("%H%M"))
     end
   end
 
   # checks if appointments overlap prior to saving reservation
   def check_overlapping_appointments
+    booked_times = ""
     overlapping_times = 
       stylist.appointments.where.not(status: 'canceled').map do |scheduled|
         if self.reservation_date == scheduled.reservation_date  
@@ -97,6 +99,7 @@ class Reservation < ApplicationRecord
             if self == scheduled #to allow update of reservation after payment is complete
               return false
             else
+              booked_times = "between " + scheduled.reservation_time.strftime("%H:%M").to_s + " - " + scheduled.end_time.strftime("%H:%M").to_s + "."
               true
             end
           end
@@ -105,7 +108,7 @@ class Reservation < ApplicationRecord
     .include?(true)
     
     if overlapping_times
-      errors.add(:overlapping_appointments, "Stylist is not available")
+      errors.add(:overlapping_appointments, "Our apologies this stylist is already booked #{booked_times} The requested service would require a base time of " + self.service.length.to_s + " minutes.")
     end
   end
 

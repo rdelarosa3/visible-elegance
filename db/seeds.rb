@@ -58,7 +58,7 @@ ActiveRecord::Base.transaction do
     user['email'] = "sreyny@email.com"
     user['role'] = 1
     user['birthday'] = Date.today
-    user['password'] = '12345'
+    user['password'] = '12345678'
     User.create(user)
 
 end 
@@ -152,3 +152,14 @@ days = [1,2,3,4,5,6]
 			BusinessHour.create(hours)
 		end
 	end 
+
+
+title = {}
+titles =  ["Stylist", "Senior Stylist", "Makeup Artist", "Nail Tech", "Esthetician", "Massage Therapist", "Reseptionist"]
+
+	ActiveRecord::Base.transaction do
+		titles.length.times do
+			title['name'] = titles.pop
+			Title.create(title)
+		end 
+	end	

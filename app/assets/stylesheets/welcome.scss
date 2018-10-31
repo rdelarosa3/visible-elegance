@@ -25,15 +25,13 @@
   width:25%;
   }
 
-  #product .container {
-    margin-top: -26px;
-  }
+
 
 }
   /* !mobile section */
 
     .jumbotron-background {
-    background-image: url('http://thewowstyle.com/wp-content/uploads/2015/05/pictures-of-beautiful-women..jpg');
+    background-image: url(asset-path('jumbo-img.jpg'));
     height: 80vh;
     background-size: cover;
     background-repeat: no-repeat;

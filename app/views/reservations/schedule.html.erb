@@ -1,0 +1,96 @@
+<style>
+ .barCanvas, .timeTableToolTip {
+    /*margin-top: 40px;*/
+}
+  .search-bar{
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  @media (min-width: 1000px){
+.search-bar{
+  margin: auto;
+}
+}
+  @media (max-width: 800px) { 
+    .search-bar {
+      margin-left: 27px;
+    }  
+  }
+</style>
+<div class="container mt-100 ">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-dark">
+        <div class="search-bar"> 
+          <%= simple_form_for :reservation, wrapper: :inline_form, html: { class: 'form-inline' }, method: :get do |f| %>
+              <%= f.text_field :date_on, label: 'Search Date', type: 'date', min: Date.today.prev_month(3), max: Date.today.next_month(3), class: 'form-control', style: "height: 30px;"%>
+               <%= f.button :submit, 'Submit', name: :nil, class: "btn btn-danger m-1", style: "height: 36px;" %>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+<div id="test" class="table-responsive-sm shadow"></div>
+<!-- <button id="colorChange" class="btn-sm btn-danger">Change Random Color</button> -->
+</div>
+
+<script>
+<% counter = 1 %>
+<% number = 1 %>
+"use strict";
+let shiftObj = {
+<% User.all.each do |x| %>
+  <%if x.appointments.any? %>
+    "<%= counter %>" : {
+        "<%=x.first_name%>": [
+        <% x.appointments.where(reservation_date: @date).each do |y|%>
+            {"<%= rand(1..9).to_s %>" : "<%=y.reservation_time.strftime('%H:%M')%>-<%=y.end_time.strftime('%H:%M')%>"},
+            <% number = number + 1 %>
+        <% end %>
+        <% number = 1%>
+        ]
+    },
+    <% counter = counter + 1 %>
+  <% end %>
+<% end %>
+};
+
+let obj = {
+    // Beginning Time
+    startTime: "09:00",
+    // Ending Time
+    endTime: "20:00",
+    // Time to divide(minute)
+    divTime: "15",
+    // Time Table
+    shift: shiftObj,
+    // Other options
+    option: {
+        // workTime include time not displaying
+        workTime: true,
+        bgcolor: ["#00FFFF"],
+        // {index :  name, : index: name,,..}
+    }
+};
+// Call Time Table
+var instance = new TimeTable(obj);
+ // eslint-disable-line
+$(document).ready(function(){
+  instance.init("#test");
+});
+
+// Change theme color sample
+$(document).on("click","#colorChange", ()=>{
+    let color = `${getColor()},${getColor()},${getColor()}`;
+    document.documentElement.style.setProperty("--rgbTheme", color);
+    console.log(color);
+});
+function getColor(){
+    return Math.floor(Math.random() * Math.floor(255));
+}
+
+// finish table for schedule
+</script>

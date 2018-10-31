@@ -47,6 +47,7 @@ class ReservationsController < ApplicationController
 
 
   def create
+    
     @stylist = User.stylist
     @reservation = Reservation.new(reservation_params)
     if !@reservation.service_id.nil?
@@ -115,7 +116,19 @@ class ReservationsController < ApplicationController
 
 
     respond_to do |format|
-      format.json { render :json => {:first_name => @user.first_name, :last_name => @user.last_name, status: :success}}
+      format.json { render :json => {:first_name => @user.first_name, :last_name => @user.last_name, :phone_number => @user.phone_number, :email => @user.email, status: :success}}
+    end
+
+  end
+
+  def schedule
+    if params[:reservation]
+
+      if params[:reservation][:date_on] != "" 
+        @date = params[:reservation][:date_on] 
+      end
+    else
+      @date = Date.today
     end
 
   end
