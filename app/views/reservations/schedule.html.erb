@@ -25,7 +25,6 @@
           <%= simple_form_for :reservation, wrapper: :inline_form, html: { class: 'form-inline' }, method: :get do |f| %>
               <%= f.text_field :date_on, label: 'Search Date', type: 'date', min: Date.today.prev_month(3), max: Date.today.next_month(3), class: 'form-control', style: "height: 30px;"%>
                <%= f.button :submit, 'Submit', name: :nil, class: "btn btn-danger m-1", style: "height: 36px;" %>
-
           <% end %>
         </div>
       </div>
