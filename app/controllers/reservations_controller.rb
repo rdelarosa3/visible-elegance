@@ -126,9 +126,11 @@ class ReservationsController < ApplicationController
 
       if params[:reservation][:date_on] != "" 
         @date = params[:reservation][:date_on] 
+        @schedule = Date.parse("#{@date}")
       end
     else
       @date = Date.today
+      @schedule = Date.today
     end
 
   end
