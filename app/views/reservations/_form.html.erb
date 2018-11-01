@@ -76,15 +76,17 @@ width:100%!important;
 
       <!-- else if user is logged in autfill based on user info -->
       <% else %>
-        <%= f.input :user_id, as: :hidden, value:  current_user.id %>
-        <%= f.input :first_name, as: :hidden, value:  current_user.first_name %>
-        <%= f.input :last_name, as: :hidden, value:  current_user.last_name %>
-        <%= f.input :email, as: :hidden, value: current_user.email %>
+      <div class="form-inputs">
+        <%= f.input_field :user_id, as: :hidden, value: current_user.id %>
+        <%= f.input_field :first_name, as: :hidden, value: current_user.first_name %>
+        <%= f.input_field :last_name, as: :hidden, value: current_user.last_name %>
+        <%= f.input_field :email, as: :hidden, value: current_user.email %>
         <% if !current_user.phone_number.nil?  %>
-          <%= f.input :phone_number, as: :hidden, value:  current_user.phone_number %>
+          <%= f.input_field :phone_number, as: :hidden, value: current_user.phone_number %>
         <% else %>
-          <%= f.input :phone_number %>
+          <%= f.input_field :phone_number %>
         <% end %>
+      </div>
       <% end %>
     <% end %>
 
