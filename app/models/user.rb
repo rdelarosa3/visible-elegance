@@ -74,13 +74,19 @@ class User < ApplicationRecord
   	end
 
   	def facebook_format
+  		if !facebook.nil?
   		errors.add(:facebook, "Wrong format") unless facebook.downcase.start_with?('https://', 'http://') ||  facebook == ""
+  		end
 	end
   	def instagram_format
+  		if  !instagram.nil?
   		errors.add(:instagram, "Wrong format") unless instagram.downcase.start_with?('https://', 'http://')  || instagram == ""
+		end
 	end
 	def linkedin_format
-  		errors.add(:linkedin, "Wrong format") unless linkedin.downcase.start_with?('https://', 'http://') ||  linkedin == ""		
+		if !linkedin.nil?	
+  		errors.add(:linkedin, "Wrong format") unless linkedin.downcase.start_with?('https://', 'http://') ||  linkedin == "" 
+  		end	
 	end
   	##### admin panel custom label ######
 	def custom_label_method
