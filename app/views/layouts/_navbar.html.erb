@@ -11,18 +11,21 @@
 
     <!-- custom navbar links for welcome page only   -->
       <ul class="navbar-nav text-uppercase ml-auto">
-        <% if controller_name == "welcome" %>
+         <!-- if controller_name == "welcome" %> -->
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#gallery">Gallery</a>
+          <%= link_to "Gallery", root_path(anchor: "gallery"), class: "nav-link js-scroll-trigger" %>
+          <!-- <a class="nav-link js-scroll-trigger" href="#gallery"></a> -->
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+          <%= link_to "Services", root_path(anchor: "services"), class: "nav-link js-scroll-trigger" %>
+          <!-- <a class="nav-link js-scroll-trigger" href="#services">Services</a> -->
         </li>
 
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+          <%= link_to "Team", root_path(anchor: "team"), class: "nav-link js-scroll-trigger" %>
+          <!-- <a class="nav-link js-scroll-trigger" href="#team">Team</a> -->
         </li>
-        <% end %>
+         <!-- end %> -->
 
      <!-- link to reservations section and contact page    -->
         <li class="nav-item">

@@ -210,35 +210,26 @@
 <section id="gallery" class="text-center py-5">
   <h2 class="section-heading text-uppercase">Gallery</h2>
   <h3 class="section-subheading text-muted">Become one of our models.</h3>
-    <div id="instagram-feed" class="instagram_feed scrolling-wrapper"></div>
-
+  <div id="instagram-feed" class="instagram_feed scrolling-wrapper"></div>
 </section>
+
+
 <!-- booking button show/hide -->
 <script>
  function hideBooking() {
-
     var el = document.getElementById('bookingContainer');
         el.style.display = 'none';
+  } 
 
-} 
  function showBooking() {
-
     var el = document.getElementById('bookingContainer');
         el.style.display = 'block';
-
-} 
-</script> 
+  } 
+ 
+</script>
 <!-- instagram jquery script load -->
 <script>
-$(function(){
-  $(window).on('load', function(){
+$(document).ready(function(){
     $.instagramFeed();
-  });
 });
-
-$(".nav-item" ).click(function(){
-  $.instagramFeed();
-});
-
 </script>
-    
