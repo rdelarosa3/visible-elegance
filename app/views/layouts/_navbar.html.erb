@@ -1,3 +1,59 @@
+<style>
+
+.dropdown-menu {
+    padding: 20px;
+    font-size: inherit;
+    position: absolute;
+    z-index: 2000!important;
+    top: 100%;
+    left: 0;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    margin: -0.875rem 0 0;
+    list-style: none;
+    text-align: left;
+    color: #06cdec;
+    border: 0 solid rgba(0,0,0,0.15);
+    border-radius: .3rem;
+    background-color: #212529;
+    background-clip: padding-box;
+    box-shadow: 0 50px 100px rgba(50,50,93,0.1), 0 15px 35px rgba(50,50,93,0.15), 0 5px 15px rgba(0,0,0,0.1);
+    margin-left: 22px;
+  }
+@media (max-width: 800px){
+.dropdown-menu {
+    font-size: inherit;
+    padding: 0px!important;
+    margin-left: 30px!important;
+}
+}
+@media (max-width: 800px){
+.badge-notify {
+    float: left;
+    margin-left: -5px !important;
+    margin-top: -33px !important;
+    color: white;
+    background-color: red;
+    padding: 0.4em;
+    border-radius: 10rem;
+    font-weight: 100;
+  }
+}
+.dropdown-divider {
+    overflow: hidden;
+    height: 0;
+    margin-left: -25px;
+    border-top: 1px solid #e9ecef;
+}
+
+@media (min-width: 1000px){
+  #userNotify .badge-notify {
+    margin-top: -45px;
+  }
+}
+</style>
+
 <nav class="navbar navbar-expand-lg shadow navbar-dark fixed-top" id="mainNav">
 
   <div class="container">
@@ -34,38 +90,52 @@
 
      <!-- custom links if logged in    -->
         <% if logged_in? %>
-
-          <!-- admin or operator custom links-->
-          <% if current_user.admin? || current_user.operator? %>
-            <li class='nav-item'>
-              <% if pending_reservations > 0 %>
-                <span class="badge badge-notify">
-                  <% if pending_reservations < 10 %><%= pending_reservations %><% else %> 9+ <% end %> </span> 
-              <% end %>
-            <%= link_to "Reservations", reservations_path, class: 'nav-link' %>
-              <!-- <a href='#{reservations_index}' class='nav-link'>Search</a> -->
-            </li>
-            <li class="nav-item">
-              <%= link_to "Schedule", schedule_path, class: 'nav-link' %>
-            </li>
-          <% end %>
-          <%= admin_status %>
-          <!--  end admin or operator custom links-->
-
           <li class="nav-item">
             <%= link_to 'Sign out', logout_path, class: "nav-link", method: :delete %>
           </li>
 
-          <!-- user avatar section  -->
+          <!-- user section  -->
           <% if current_user.avatar? %>
-            <li class="nav-item user-avatar"> 
-                <%= link_to image_tag(current_user.avatar_url,class: 'rounded-circle nav-img',width: '30', height: '30'), current_user, class: "nav-link"%>
-            </li>
+            <li class="nav-item user-avatar dropdown" id="userNotify"> 
+                <%= link_to image_tag(current_user.avatar_url,class: 'rounded-circle nav-img',width: '30', height: '30'), current_user, class: "nav-link", id: "navbar-dropdown", data: {toggle: "dropdown"}, aria: {haspopup: "true", expanded: "false"} %>
+            
           <% else %>
-            <li class="nav-item"> 
-                <%= link_to current_user.first_name, current_user, class: "nav-link"%>
-            </li>
+            <li class="nav-item dropdown" id="userNotify"> 
+                <%= link_to current_user.first_name, current_user, class: "nav-link", id: "navbar-dropdown", data: {toggle: "dropdown"}, aria: {haspopup: "true", expanded: "false"} %>
+            
           <% end %>
+          <% if pending_reservations > 0 %>
+              <span class="badge badge-notify">
+              <% if pending_reservations < 10 %><%= pending_reservations %><% else %> 9+ <% end %>
+              </span> 
+          <% end %>
+
+              <div class="dropdown-menu" aria-labelledby="navbar-dropdown">
+                <!-- admin or operator custom links-->
+                <span>User</span>
+                <%= link_to 'Profile', current_user, class: "nav-item nav-link" %>
+                <div class="dropdown-divider"></div>
+                <% if current_user.admin? || current_user.operator? %>
+                  <span>Admin</span>
+                  <%= link_to "Reservations", reservations_path, class: "dropdown-item nav-link" %>
+                  <% if pending_reservations > 0 %>
+                    <span class="badge badge-notify">
+                    <% if pending_reservations < 10 %><%= pending_reservations %><% else %> 9+ <% end %>
+                    </span> 
+                  <% end %>
+                  <%= link_to "Schedule", schedule_path, class: "nav-item nav-link" %>
+                <% end %>
+                <% if current_user.operator? %>
+                <div class="dropdown-divider"></div>
+                  <span>Operator</span>
+                  <%= link_to "Dashboard", admin_path, class: "nav-item nav-link" %>
+                <% end %>
+                <div class="dropdown-divider"></div>
+                <%= link_to 'Sign out', logout_path, class: "nav-link nav-item", method: :delete %>
+              </div>
+
+            </li>
+
         <!-- while logged out -->  
         <% else %> 
           <% if controller_name != "users" %>
@@ -77,6 +147,9 @@
             <a href="#" data-target="#sign-in" data-toggle="modal" class="nav-link">Sign In</a>
           </li>   
         <% end %>
+
+
+
       </ul>
     </div>
   </div>
