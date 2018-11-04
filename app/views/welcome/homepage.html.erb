@@ -1,43 +1,3 @@
-<style>
-.logos{
-  width:210px;
-  height:66.56px;
-}
-.carousel {
-  margin-top: 55px;
-}
-.carousel-item,
-.active {
-    height: 100vh;
-    width: 100%;
-    overflow:hidden;
-}
-.carousel .carousel-inner {
-    height:100%;    
-}
-.fill {
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-color: white;
-    background-position: center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-}
-
-@media (max-width: 1050px) {
-  .fill, .carousel-inner, .active {
-    height: 40vh!important;
-    width: 100%!important;
-    background-size: 100% 100%!important;
-    background-position: right 0px!important;
-  }
-}
-
-</style>
 <!-- Page main bannder -->
 <!-- <div class="jumbotron jumbotron-background jumbotron-fluid">
   <div class="container">
@@ -246,6 +206,14 @@
   </div>
 </section>
 
+<!-- instagram hashtag gallery -->
+<section id="gallery" class="text-center py-5">
+  <h2 class="section-heading text-uppercase">Gallery</h2>
+  <h3 class="section-subheading text-muted">Become one of our models.</h3>
+    <div id="instagram-feed" class="instagram_feed scrolling-wrapper"></div>
+
+</section>
+<!-- booking button show/hide -->
 <script>
  function hideBooking() {
 
@@ -260,4 +228,17 @@
 
 } 
 </script> 
+<!-- instagram jquery script load -->
+<script>
+$(function(){
+  $(window).on('load', function(){
+    $.instagramFeed();
+  });
+});
+
+$(".nav-item" ).click(function(){
+  $.instagramFeed();
+});
+
+</script>
     
