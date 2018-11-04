@@ -34,7 +34,7 @@
 
 <center><h6 id="notice"><%= notice %></h6></center>
 
-<!-- floating book now button for reservations -->
+<!-- Book Now button for reservations -->
 <button class="booking-launch-button btn-md" onclick="showBooking()">
   <div class="booking-button-text"><i class="far fa-clock"></i> Book Now!</div>
 </button>
@@ -49,164 +49,20 @@
 
 <!-- Our Products -->
 <section id="product">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-          <%= image_tag("logo-colorinsider.jpg", class: "logos img-fluid d-block mx-auto") %>
-      </div>
-      <div class="col-md-3">
-         <%= image_tag("logo-matrix.jpg", class: "logos img-fluid d-block mx-auto") %>
-      </div>
-      <div class="col-md-3">
-          <%= image_tag("color-wow.svg", class: "logos img-fluid d-block mx-auto") %>
-      </div>
-
-      <div class="col-md-3">
-        <%= image_tag("brazilian-logo.png", class: "logos img-fluid d-block mx-auto") %>
-      </div>
-    </div>
-  </div>
+  <%= render :partial => "welcome/products" %>
 </section>
-<!-- !Products Section  -->
-
 
 <!-- Services -->
 <section id="services">
-  <div class="container py-5">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading text-uppercase">Services</h2>
-        <h3 class="section-subheading text-muted">Services are not limited please inquire.</h3>
-        <br>
-      </div>
-    </div>
-
-    <!-- services image logos -->
-    <div class="row text-center">
-      <div class="col-md-4">    
-        <span class="fa-stack fa-4x">
-          <i class="fas fa-circle fa-stack-2x text-dark"></i> 
-          <i class="fa-stack-1x fa-inverse"><%= link_to image_tag("hair-cut-tool.png",  style: "filter: invert(1);height: 64px;width: 64px;") %></i>
-        </span> 
-        <h4 class="service-heading">Hair</h4>
-        <p class="text-muted">Hair coloring, curling, tweaking, styling and more.</p>
-      </div>
-      <div class="col-md-4">
-        <span class="fa-stack fa-4x">
-          <i class="fas fa-circle fa-stack-2x text-dark"></i>
-          <i class="fa-stack-1x fa-inverse"><%= link_to image_tag("lipstick.png",  style: "filter: invert(1);") %></i>
-        </span>
-        <h4 class="service-heading">Make-up</h4>
-        <p class="text-muted">Look stunning on your wedding day or get dolled up for a special occasion.</p>
-      </div>
-      <div class="col-md-4">
-        <span class="fa-stack fa-4x">
-          <i class="fas fa-circle fa-stack-2x text-dark"></i>
-          <i class="fa-stack-1x fa-inverse"><%= link_to image_tag("nail-polish-bottle.png",  style: "filter: invert(1);") %></i>
-        </span> 
-        <h4 class="service-heading">Nails</h4>
-        <p class="text-muted">Manicure, Nail design, Waxing, and more.</p>
-      </div>
-    </div>
-    <!-- !services image logos -->
-    <div class="row">
-      <div class="col-lg-12 text-center section-footer">
-      <h3>
-        <a href="#" data-target="#serviceTypes" data-toggle="modal" class="text-muted">Click here for Service Prices</a>
-      </h3>
-      </div>
-    </div>
-  </div>
+  <%= render :partial => "welcome/services" %>
 </section>
-
-<!---------------- Services Modal ---------------------->
-
-<div class="modal fade" id="serviceTypes" tabindex="0">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div>
-          <button class="close mr-auto pt-1 pr-4"  data-dismiss="modal">&times;</button>
-          </div>
-                <div class="modal-body">
-                   <%= render :partial => "service_types/services" %>
-                </div>
-        </div>
-    </div>
-</div>
-    
-<!---------------- !Services Modal ---------------------->  
-
 
 <!-- Team -->
 <section class="bg-light py-5" id="team">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="font-weight-bold text-center text-uppercase mt-3 mb-4">Our Amazing Team</h2>
-        <h4 class="section-subheading text-muted">The stylist ready to make you over.</h4>
-      </div>
-    </div>
-
-    <!-- list each member that is stylist from database -->
-    <div class="row">
-      <% @staff.each do |stylist|%>
-        <div class="col-sm-4">
-          <div class="team-member">
-            <% if  stylist.avatar? %>
-              <%= image_tag(stylist.avatar_url, class: ' mx-auto rounded-circle',width: '255', height: '255', alt: "") %>
-            <% else %>
-              <%= image_tag( "http://hannsaa.com/userfiles/avatars/default.jpg", class: 'mx-auto rounded-circle',width: '255', height: '255', alt: "") %>
-            <% end %>
-            <h4><%= stylist.first_name %></h4>
-            <p class="text-muted"><%= stylist.title.name if !stylist.title.nil? %></p>
-
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-              <% if stylist.instagram.present? %>
-                <a href="<%=stylist.instagram%>" target="_blank">
-                  <% else %>
-                <a href="">  
-              <% end %>    
-                  <i class="fab fa-instagram"></i>
-                </a>
-              </li>
-              
-              <li class="list-inline-item">
-              <% if stylist.facebook.present? %>
-                <a href="<%=stylist.facebook %>" target="_blank">
-                  <% else %>
-               <a href="">   
-              <% end %>    
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-              </li>
-              
-              <li class="list-inline-item">
-              <% if stylist.linkedin.present? %>
-                <a href="<%= stylist.linkedin %>" target="_blank">
-                  <% else %>
-              <a href="">    
-              <% end %>
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-              
-            </ul>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <!-- !list each member that is stylist from database -->
-    
-    <div class="row">
-      <div class="col-lg-8 mx-auto text-center">
-        <p class="large text-muted">Make your appointment with one of our highly skilled team members today.</p>
-      </div>
-    </div>
-  </div>
+  <%= render :partial => "welcome/team" %>
 </section>
 
-<!-- instagram hashtag gallery -->
+<!-- Instagram gallery -->
 <section id="gallery" class="text-center py-5">
   <h2 class="section-heading text-uppercase">Gallery</h2>
   <h3 class="section-subheading text-muted">Become one of our models.</h3>
@@ -214,7 +70,7 @@
 </section>
 
 
-<!-- booking button show/hide -->
+<!-- Booking Button show/hide -->
 <script>
  function hideBooking() {
     var el = document.getElementById('bookingContainer');
