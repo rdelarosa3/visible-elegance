@@ -1,7 +1,7 @@
 <style>
 
 .dropdown-menu {
-    padding: 20px;
+    padding: 40px;
     font-size: inherit;
     position: absolute;
     z-index: 2000!important;
@@ -19,7 +19,7 @@
     background-color: #212529;
     background-clip: padding-box;
     box-shadow: 0 50px 100px rgba(50,50,93,0.1), 0 15px 35px rgba(50,50,93,0.15), 0 5px 15px rgba(0,0,0,0.1);
-    margin-left: 22px;
+    margin-left: 20px;
   }
 @media (max-width: 800px){
 .dropdown-menu {
@@ -104,7 +104,7 @@
                 <%= link_to current_user.first_name, current_user, class: "nav-link", id: "navbar-dropdown", data: {toggle: "dropdown"}, aria: {haspopup: "true", expanded: "false"} %>
             
           <% end %>
-          <% if pending_reservations > 0 %>
+          <% if pending_reservations > 0 && (current_user.admin? || current_user.operator?) %>
               <span class="badge badge-notify">
               <% if pending_reservations < 10 %><%= pending_reservations %><% else %> 9+ <% end %>
               </span> 
@@ -128,7 +128,7 @@
                 <% if current_user.operator? %>
                 <div class="dropdown-divider"></div>
                   <span>Operator</span>
-                  <%= link_to "Dashboard", admin_path, class: "nav-item nav-link" %>
+                  <%= link_to "Dashboard", rails_admin_path, class: "nav-item nav-link" %>
                 <% end %>
                 <div class="dropdown-divider"></div>
                 <%= link_to 'Sign out', logout_path, class: "nav-link nav-item", method: :delete %>
