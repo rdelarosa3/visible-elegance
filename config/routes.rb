@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-	
+	default_url_options :host => "ve-salon.herokuapp.com"
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 	root 'welcome#homepage'
 	resources :business_hours
