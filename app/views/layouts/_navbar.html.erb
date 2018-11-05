@@ -51,7 +51,28 @@
   #userNotify .badge-notify {
     margin-top: -45px;
   }
+  .fa-bell {
+    display: none;
+  }
 }
+.fa-bell {
+    color: red;
+    float: right;
+    margin-right: -7px;
+    margin-top: -10px;
+    transform: rotate(25deg);
+}
+
+  .blink{
+    animation: blink .5s infinite;
+   }
+   
+   @keyframes blink{
+    0%{transform: rotate(90deg);}
+    40%{transform: rotate(45deg);}
+    60%{transform: rotate(0deg);}
+    100%{transform: rotate(45deg);}
+   }
 </style>
 
 <nav class="navbar navbar-expand-lg shadow navbar-dark fixed-top" id="mainNav">
@@ -61,8 +82,14 @@
     <%= link_to "Visible Elegance", root_path, class: "navbar-brand  js-scroll-trigger font-weight-bold " %>
     <button class="navbar-toggler navbar-toggler-right mr-2" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       Menu
-      <i class="fas fa-bars"></i>
+      <% if pending_reservations > 0 && (current_user.admin? || current_user.operator?) %>
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-bell blink" style="color:red;"></i>
+      <% else %>
+        <i class="fas fa-bars"></i>
+      <% end %>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarResponsive">
 
     <!-- custom navbar links for welcome page only   -->
@@ -106,7 +133,7 @@
           <% end %>
           <% if pending_reservations > 0 && (current_user.admin? || current_user.operator?) %>
               <span class="badge badge-notify">
-              <% if pending_reservations < 10 %><%= pending_reservations %><% else %> 9+ <% end %>
+              <% if pending_reservations %> <% end %>
               </span> 
           <% end %>
 
