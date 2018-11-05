@@ -82,9 +82,11 @@
     <%= link_to "Visible Elegance", root_path, class: "navbar-brand  js-scroll-trigger font-weight-bold " %>
     <button class="navbar-toggler navbar-toggler-right mr-2" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       Menu
-      <% if pending_reservations > 0 && (current_user.admin? || current_user.operator?) %>
+      <% if logged_in? %>
+        <% if pending_reservations > 0 && (current_user.admin? || current_user.operator?) %>
         <i class="fas fa-bars"></i>
         <i class="fas fa-bell blink" style="color:red;"></i>
+        <% end %>
       <% else %>
         <i class="fas fa-bars"></i>
       <% end %>
