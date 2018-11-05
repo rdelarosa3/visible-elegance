@@ -63,11 +63,11 @@
     transform: rotate(25deg);
 }
 
-  .blink{
-    animation: blink .5s infinite;
+  .ring{
+    animation: ring .6s infinite;
    }
    
-   @keyframes blink{
+   @keyframes ring{
     0%{transform: rotate(90deg);}
     40%{transform: rotate(45deg);}
     60%{transform: rotate(0deg);}
@@ -85,7 +85,7 @@
       <% if logged_in? %>
         <% if pending_reservations > 0 && (current_user.admin? || current_user.operator?) %>
         <i class="fas fa-bars"></i>
-        <i class="fas fa-bell blink" style="color:red;"></i>
+        <i class="fas fa-bell ring" style="color:red;"></i>
         <% end %>
       <% else %>
         <i class="fas fa-bars"></i>
@@ -146,7 +146,7 @@
                 <div class="dropdown-divider"></div>
                 <% if current_user.admin? || current_user.operator? %>
                   <span>Admin</span>
-                  <%= link_to "Reservations", reservations_path, class: "dropdown-item nav-link" %>
+                  <%= link_to "Reservations", reservations_path, class: "nav-item nav-link" %>
                   <% if pending_reservations > 0 %>
                     <span class="badge badge-notify">
                     <% if pending_reservations < 10 %><%= pending_reservations %><% else %> 9+ <% end %>
