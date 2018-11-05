@@ -101,6 +101,7 @@ class ReservationsController < ApplicationController
     if @reservation.pending?
       @reservation.status = 'approved'
       @reservation.save
+      
       redirect_to reservations_url, notice: 'Reservation was approved.'
     else
       @reservation.status = 'pending'
