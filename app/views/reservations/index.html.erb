@@ -39,11 +39,154 @@
 width:100%!important;
 
 }
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #212529;
+}
 @media (min-width: 1000px){
 .search-bar{
   margin: auto;
 }
 }
+
+
+
+table.bt thead,
+table.bt tbody th {
+  display: none;
+}
+
+table.bt tfoot th,
+table.bt tfoot td,
+table.bt tbody td {
+  border: none;
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  vertical-align: top;
+
+  /* IE 9 */
+  float: left\9;
+  width: 100%\9;
+}
+
+table.bt tfoot th::before,
+table.bt tfoot td::before,
+table.bt tbody td::before {
+  content: attr(data-th) ": ";
+  display: inline-block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-shrink: 0;
+  flex-shrink: 0;
+  font-weight: bold;
+  width: 6.7em;
+}
+
+table.bt tfoot th.bt-hide,
+table.bt tfoot td.bt-hide,
+table.bt tbody td.bt-hide {
+  display: none;
+}
+
+table.bt tfoot th .bt-content,
+table.bt tfoot td .bt-content,
+table.bt tbody td .bt-content {
+  vertical-align: top;
+}
+
+.bt-wrapper.active {
+  max-height: 310px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table.bt.bt--no-header tfoot td::before,
+table.bt.bt--no-header tbody td::before {
+  display: none;
+}
+
+
+
+table {
+  background: white;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table tr,
+table th,
+table td {
+  border: none;
+  border-bottom: 1px solid #e4ebeb;
+  /*font-family: 'Lato', sans-serif;*/
+  font-size: .875rem;
+}
+
+table th,
+table td {
+  padding: 10px 12px;
+  text-align: left;
+}
+
+table th {
+  background: #17a2b8;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+table tr td {
+  background: #eaf3f5;
+  color: #495057;
+}
+
+table tr:nth-of-type(2n+2) td {
+  background: #ffffff;
+}
+
+table.bt tfoot th,
+table.bt tfoot td,
+table.bt tbody td {
+  font-size: .8125rem;
+  padding: 0;
+}
+
+table.bt tfoot th:before,
+table.bt tfoot td:before,
+table.bt tbody td:before {
+  background: #17a2b8;
+  color: white;
+  margin-right: 10px;
+  padding: 2px 10px;
+}
+
+table.bt tfoot th .bt-content,
+table.bt tfoot td .bt-content,
+table.bt tbody td .bt-content {
+  display: inline-block;
+  padding: 2px 5px;
+}
+
+table.bt tfoot th:first-of-type:before,
+table.bt tfoot th:first-of-type .bt-content,
+table.bt tfoot td:first-of-type:before,
+table.bt tfoot td:first-of-type .bt-content,
+table.bt tbody td:first-of-type:before,
+table.bt tbody td:first-of-type .bt-content {
+  padding-top: 10px;
+}
+
+table.bt tfoot th:last-of-type:before,
+table.bt tfoot th:last-of-type .bt-content,
+table.bt tfoot td:last-of-type:before,
+table.bt tfoot td:last-of-type .bt-content,
+table.bt tbody td:last-of-type:before,
+table.bt tbody td:last-of-type .bt-content {
+  padding-bottom: 10px;
+  margin-bottom: 1px;
+}
+
+
 </style>
 
 
@@ -53,16 +196,16 @@ width:100%!important;
 <div class="container mt-100 ">
   <div class="row">
     <div class="col-md-12">
-      <div class="card bg-dark">
-        <div class="search-bar"> 
+      <div class="card shadow">
+        <div class=""> 
           <%= simple_form_for :reservation, wrapper: :inline_form, html: { class: 'form-inline' }, method: :get do |f| %>
-          <table class="table-responsive-sm table-responsive-xs ">
+          <table class="" id="tableForm">
             <thead>
-              <tr class="text-light">
-                <th>Stylist:</th>
-                <th>Service:</th>
-                <th>Date:</th>
-                <th></th>
+              <tr class="">
+                <th>Stylist</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Submit</th>
               </tr>
             </thead>
             <tbody>
@@ -90,9 +233,9 @@ width:100%!important;
 
 <div class="container">
   <div class="card shadow p-2">
-    <table id="example1" class="table table-striped table-responsive-sm">
+    <table id="example1">
       <thead>
-        <tr>
+        <tr style="background: #17a2b8;">
           <th>Client</th>
           <th>Service</th>
           <th>Stylist</th>
@@ -109,13 +252,14 @@ width:100%!important;
       <tbody>
         <% @reservations.each do |appointment| %>
           <tr>
-            <td><%= link_to appointment.user.fullname, appointment.user %></td>
+            <td><span><%= link_to appointment.user.fullname, appointment.user %></span></td>
             <td><%= appointment.service.name %></td>
             <td class="current-stylist" id='currentStylist<%=appointment.id%>'><%= appointment.stylist.first_name %></td>
             <td><%= appointment.reservation_date %></td>
             <td><%= appointment.reservation_time.strftime("%H:%M") %></td>
             <td><%= appointment.notes %></td>
-            <% if appointment.pending? %><td class='text-warning font-weight-bold text-uppercase blink'><% else %><td class='text-info font-weight-bold text-uppercase'><%end%><%= appointment.status %></td>
+            <td><% if appointment.pending? %><span class='text-warning font-weight-bold text-uppercase blink'><% else %><span class='text-info font-weight-bold text-uppercase'><%end%><%= appointment.status %></span>
+            </td>
             <td><center><%= link_to '', appointment, method: :status_change, data: { confirm: 'Are you sure?' }, class: "text-info fas fa-check-circle fa-2x" %></center></td>  
             <td><center><%= link_to '', appointment, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-danger fas fa-minus-circle fa-2x" %></center></td>
             <td><center><%= link_to '', edit_reservation_path(appointment) , class: "fas fa-pencil-alt" %></center></td>
@@ -123,6 +267,7 @@ width:100%!important;
         <% end %>
       </tbody>
     </table>
+
   </div>
 </div>
 
@@ -144,4 +289,234 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
+(function($) {
+  $.fn.basictable = function(options) {
 
+    var setup = function(table, data) {
+      var headings = [];
+
+      if (data.tableWrap) {
+        table.wrap('<div class="bt-wrapper"></div>');
+      }
+
+      // Table Header
+      if (data.header) {
+        var format = '';
+
+        if (table.find('thead tr th').length) {
+          format = 'thead th';
+        }
+        else if (table.find('tbody tr th').length) {
+          format = 'tbody tr th';
+        }
+        else if (table.find('th').length) {
+          format = 'tr:first th';
+        }
+        else {
+          format = 'tr:first td';
+        }
+
+        $.each(table.find(format), function() {
+          var $heading = $(this);
+          var colspan = parseInt($heading.attr('colspan'), 10) || 1;
+          var row = $heading.closest('tr').index();
+
+          if (!headings[row]) {
+            headings[row] = [];
+          }
+
+          for (var i = 0; i < colspan; i++) {
+            headings[row].push($heading);
+          }
+        });
+      }
+
+      // Table Body
+      $.each(table.find('tbody tr'), function() {
+        setupRow($(this), headings, data);
+      });
+
+      // Table Footer
+      $.each(table.find('tfoot tr'), function() {
+        setupRow($(this), headings, data);
+      });
+    };
+
+    var setupRow = function($row, headings, data) {
+      $row.children().each(function() {
+        var $cell = $(this);
+
+        if (($cell.html() === '' || $cell.html() === '&nbsp;') && (!data.showEmptyCells)) {
+          $cell.addClass('bt-hide');
+        }
+        else {
+          var cellIndex = $cell.index();
+
+          var headingText = '';
+
+          for (var j = 0; j < headings.length; j++) {
+            if (j != 0) {
+              headingText += ': ';
+            }
+
+            var $heading = headings[j][cellIndex];
+            headingText += $heading.text();
+          }
+
+          $cell.attr('data-th', headingText);
+
+          if (data.contentWrap && !$cell.children().hasClass('bt-content')) {
+            $cell.wrapInner('<span class="bt-content" />');
+          }
+        }
+      });
+    };
+
+    var unwrap = function(table) {
+      $.each(table.find('td'), function() {
+        var $cell = $(this);
+        var content = $cell.children('.bt-content').html();
+        $cell.html(content);
+      });
+    };
+
+    var check = function(table, data) {
+      // Only change when table is larger than parent if force
+      // responsive is turned off.
+      if (!data.forceResponsive) {
+        if (table.removeClass('bt').outerWidth() > table.parent().width()) {
+          start(table, data);
+        }
+        else {
+          end(table, data);
+        }
+      }
+      else {
+        if ((data.breakpoint !== null && $(window).width() <= data.breakpoint) || (data.containerBreakpoint !== null && table.parent().width() <= data.containerBreakpoint)) {
+          start(table, data);
+        }
+        else {
+          end(table, data);
+        }
+      }
+    };
+
+    var start = function(table, data) {
+      table.addClass('bt');
+
+      if (!data.header) {
+        table.addClass('bt--no-header');
+      }
+
+      if (data.tableWrap) {
+        table.parent('.bt-wrapper').addClass('active');
+      }
+    };
+
+    var end = function(table, data) {
+      table.removeClass('bt bt--no-header');
+
+      if (data.tableWrap) {
+        table.parent('.bt-wrapper').removeClass('active');
+      }
+    };
+
+    var destroy = function(table, data) {
+      table.removeClass('bt bt--no-header');
+      table.find('td').removeAttr('data-th');
+
+      if (data.tableWrap) {
+        table.unwrap();
+      }
+
+      if (data.contentWrap) {
+        unwrap(table);
+      }
+
+      table.removeData('basictable');
+    };
+
+    var resize = function(table) {
+      if (table.data('basictable')) {
+        check(table, table.data('basictable'));
+      }
+    };
+
+    // Get table.
+    this.each(function() {
+      var table = $(this);
+
+      // If table has already executed.
+      if (table.length === 0 || table.data('basictable')) {
+        if (table.data('basictable')) {
+          // Destroy basic table.
+          if (options == 'destroy') {
+            destroy(table, table.data('basictable'));
+          }
+          // Start responsive mode.
+          else if (options === 'start') {
+            start(table, table.data('basictable'));
+          }
+          else if (options === 'stop') {
+            end(table, table.data('basictable'));
+          }
+          else {
+            check(table, table.data('basictable'));
+          }
+        }
+        return false;
+      }
+
+      // Extend Settings.
+      var settings = $.extend({}, $.fn.basictable.defaults, options);
+
+      var vars = {
+        breakpoint: settings.breakpoint,
+        containerBreakpoint: settings.containerBreakpoint,
+        contentWrap: settings.contentWrap,
+        forceResponsive: settings.forceResponsive,
+        noResize: settings.noResize,
+        tableWrap: settings.tableWrap,
+        showEmptyCells: settings.showEmptyCells,
+        header: settings.header
+      };
+      // Maintain the original functionality/defaults
+      if(vars.breakpoint === null && vars.containerBreakpoint === null){
+        vars.breakpoint = 568;
+      }
+
+      // Initiate
+      table.data('basictable', vars);
+
+      setup(table, table.data('basictable'));
+
+      if (!vars.noResize) {
+        check(table, table.data('basictable'));
+
+        $(window).bind('resize.basictable', function() {
+          resize(table);
+        });
+      }
+    });
+  };
+
+  $.fn.basictable.defaults = {
+    breakpoint: null,
+    containerBreakpoint: null,
+    contentWrap: true,
+    forceResponsive: true,
+    noResize: false,
+    tableWrap: false,
+    showEmptyCells: false,
+    header: true
+  };
+})(jQuery);
+</script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#example1').basictable();
+      $('#tableForm').basictable();
+    });
+  </script>
