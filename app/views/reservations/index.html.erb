@@ -46,9 +46,22 @@ width:100%!important;
 .search-bar{
   margin: auto;
 }
+.table-responsive{
+display: inline-table!important;
+}
 }
 
+@media (max-width: 500px){
+.table-responsive{
+display: inline-table!important;
+}
+}
 
+@media only screen and (device-width:768px){
+#tableForm {
+display: inline-table!important;
+}
+}
 
 table.bt thead,
 table.bt tbody th {
@@ -199,7 +212,7 @@ table.bt tbody td:last-of-type .bt-content {
       <div class="card shadow">
         <div class=""> 
           <%= simple_form_for :reservation, wrapper: :inline_form, html: { class: 'form-inline' }, method: :get do |f| %>
-          <table class="" id="tableForm">
+          <table class="table-responsive" id="tableForm">
             <thead>
               <tr class="">
                 <th>Stylist</th>
@@ -233,7 +246,7 @@ table.bt tbody td:last-of-type .bt-content {
 
 <div class="container">
   <div class="card shadow p-2">
-    <table id="example1">
+    <table class="table-responsive" id="example1">
       <thead>
         <tr style="background: #17a2b8;">
           <th>Client</th>
