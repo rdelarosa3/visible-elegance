@@ -22,8 +22,7 @@ class User < ApplicationRecord
 	# Verifies that email field is not blank and that it prevents duplicates#
 	validates :email, uniqueness: true
 	validates :first_name, :last_name, :email, presence: true
-	validates :gender, presence: true, on: :update
-	validates :phone_number, numericality: { only_integer: true }, on: :update
+	validates :phone_number, numericality: { only_integer: true }, length: { minimum: 10, maximum: 15, message: 'Please provide area code' }, on: :update
 	before_update :facebook_format, :instagram_format, :linkedin_format
 
 	# Oauth USER creation #####

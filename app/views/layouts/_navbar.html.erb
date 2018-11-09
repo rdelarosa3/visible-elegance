@@ -84,8 +84,10 @@
       Menu
       <% if logged_in? %>
         <% if pending_reservations > 0 && (current_user.admin? || current_user.operator?) %>
-        <i class="fas fa-bars"></i>
-        <i class="fas fa-bell ring" style="color:red;"></i>
+          <i class="fas fa-bars"></i>
+          <i class="fas fa-bell ring" style="color:red;"></i>
+        <% else %>
+          <i class="fas fa-bars"></i>
         <% end %>
       <% else %>
         <i class="fas fa-bars"></i>
