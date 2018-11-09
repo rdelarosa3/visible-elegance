@@ -1,16 +1,20 @@
 
- <h2 class="text-center mt-4">Register Account</h2> 
+ <h2 class="text-center">Register</h2> 
   <center><p id="notice"><%= notice %></p></center>
   <%= simple_form_for @user, remote: true, html: { class: "form-signup" } do |u| %>
 
-    <%= u.input :email, placeholder: 'user@domain.com' %>
-    <%= u.input :first_name, label: 'First Name', error: 'First name is mandatory, please specify one' %>
-    <%= u.input :last_name, label: 'Last Name', error: 'Last name is mandatory, please specify one' %>
+    <%= u.input :email, placeholder: 'Email address', label: false %>
+    <%= u.input :last_name, placeholder: 'Last name', label: false, error: 'Last name is mandatory, please specify one' %>
+    <%= u.input :first_name, placeholder: 'First name', label: false, error: 'First name is mandatory, please specify one' %>
+    <%= u.input :password, placeholder: 'Create a Password', hint: 'No special characters.', required: true, label: false %>
+    <%= u.input :password_confirmation, placeholder: 'Confirm Password', label: false  %>
+    Birthday
     <%= u.input :birthday, as: :date, start_year: Date.today.year - 16,
                           end_year: Date.today.year - 90, discard_day: false,
-                          order: [:year, :month, :day] %>
+                          order: [:month, :day, :year], label: false, prompt: true, hint: "To sign up, you must be 16 or older. Other people won’t see your birthday.", error: 'Date of birth is mandatory, pleace specify one' %>
                       
-    <%= u.input :password, hint: 'No special characters.', required: true %>
-    <%= u.input :password_confirmation, label: 'Confirm Password'  %>
-    <%= u.button :submit, class:"btn btn-success btn-block", id: "user_submit" %>
+
+    <%= u.button :submit, 'Sign Up', class:"btn btn-success btn-block", id: "user_submit" %>
   <% end %>
+<br>
+<p class="hint-text text-center small text text-muted" >Already have an account? <span id="signinLink" class="text-success"> Sign in</span></p>

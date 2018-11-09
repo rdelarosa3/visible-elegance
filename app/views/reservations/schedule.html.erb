@@ -24,7 +24,7 @@
 <h4 class="text-center text-uppercase" style="font-weight:700;"><%= @schedule.strftime('%A, %d %B %Y') %></h4>
 <div class="search-bar mt-2">
   <%= simple_form_for :reservation, wrapper: :inline_form, html: { class: 'form-inline' }, method: :get do |f| %>
-      <%= f.text_field :date_on, inline_label: 'Search Date', type: 'date', min: Date.today.prev_month(3), max: Date.today.next_month(3), placeholder: "Select Date ...", type:"text", onfocus:"(this.type='date')", class: 'special-form-control', style: "height: 36px;width: 193px;"%>
+      <%= f.text_field :date_on, inline_label: 'Search Date', min: Date.today.prev_month(3), max: Date.today.next_month(3), placeholder: "Select Date ...", type:"text", onfocus:"(this.type='date')", class: 'special-form-control', style: "height: 36px;width: 193px;"%>
        <%= f.button :submit, 'Submit', name: :nil, class: "btn btn-danger m-1", style: "height: 36px;" %>
   <% end %>
 </div>
