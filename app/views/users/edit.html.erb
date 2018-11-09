@@ -90,7 +90,7 @@ $("#user_avatar").on('change', function() {
      $("#avatarButton").show();
 });
 
-var form = document.getElementById("edit_user_3");
+var form = document.getElementById("edit_user_<% @user.id %>");
 <% if !@user.avatar? %>
 document.getElementById("avatarButton").addEventListener("click", function () {
   form.submit();
