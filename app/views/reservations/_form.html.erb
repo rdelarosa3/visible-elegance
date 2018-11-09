@@ -100,7 +100,7 @@ width:100%!important;
     What time?
     <%= f.input :reservation_time, as: :time, label: false, ampm: true, start_hour: 9, end_hour: 19, minute_step: 15,  hint: 'We are only open bewteen 9:30 am & 7:00 pm', error:'Please choose a correct time', class: 'form-control p-1' %>
 
-    <% if !current_user.phone_number.nil?  %>
+    <% if logged_in? && !current_user.phone_number.nil?  %>
       <%= f.input_field :phone_number, as: :hidden, value: current_user.phone_number %>
     <% else %>
     Phone Number
