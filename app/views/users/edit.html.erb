@@ -34,10 +34,11 @@
 		          		<%= image_tag(@user.avatar_url,class: 'rounded-circle shadow',width: '200', height: '200') %>
 		          		<br>
 		          		<br>
-					     <%= f.input_field :remove_avatar, as: :hidden, value: "1",id: "user_remove_avatar", name: "user[remove_avatar]"  %>
-					     <%= f.button :submit, "Remove", class: "btn btn-sm btn-danger mt-0 mb-2" %>
+					     <%= f.input_field :remove_avatar, as: :hidden, value: "0",id: "user_remove_avatar", name: "user[remove_avatar]" %>
+					     <button class="btn btn-sm btn-danger mt-0 mb-2" id='avatarRemove'>Remove</button>
+					     
 			      	<% else %>
-			          <%= image_tag( "http://hannsaa.com/userfiles/avatars/default.jpg", class: 'rounded-circle',width: '200', height: '200') %>
+			          <%= image_tag( "http://hannsaa.com/userfiles/avatars/default.jpg", class: 'rounded-circle',width: '200', height: '200', id: "image_upload_preview") %>
 		      	
 				         <br>
 				         <br>
@@ -88,17 +89,36 @@
 </div>
 
 <script>
+// preview image upload function
+function readURL(input) {
+    if (user_avatar.files && user_avatar.files[0]) {
+        var reader = new FileReader();
 
+        reader.onload = function (e) {
+            $('#image_upload_preview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(user_avatar.files[0]);
+    }
+}
+// if avatar image file is selected call preview function and shows avatar button
 $("#user_avatar").on('change', function() {
      $("#avatarButton").show();
+     readURL(this);
 });
 
-<% if !@user.avatar? %>
+// submit form on click from avatar button
 $("#avatarButton").click(function(){
 	$("#edit_user_<%= @user.id %>").submit();
 });
-<% end %>
 
+// change the value to remove avatar in active record
+$("#avatarRemove").click(function(){
+	$("#user_remove_avatar").val(1);
+	$("#edit_user_<%= @user.id %>").submit();
+});
+
+// submit form from required fields only if values change
 $(document).ready(function() {
 	$("#edit_user_<%= @user.id %> :input").on('change',function() {
 	$("#secondSubmit").show();
@@ -111,4 +131,5 @@ if ($("#edit_user_<%= @user.id %>").data("changed")) {
    	$("#edit_user_<%= @user.id %>").submit();
    });
 };
+
 </script>
