@@ -49,17 +49,9 @@
 </section>
 
 <!-- Team -->
-<section class="bg-light py-5" id="team">
+<section class="py-5" id="team" style="background-color: #eef4f5;">
   <%= render :partial => "welcome/team" %>
 </section>
-
-<!-- Instagram gallery -->
-<section id="gallery" class="text-center py-5">
-  <h2 class="section-heading text-uppercase">Gallery</h2>
-  <h3 class="section-subheading text-muted">Become one of our models.</h3>
-  <div id="instagram-feed" class="instagram_feed scrolling-wrapper"></div>
-</section>
-
 
 <!-- Booking Button show/hide -->
 <script>
@@ -73,10 +65,4 @@
         el.style.display = 'block';
   } 
  
-</script>
-<!-- instagram jquery script load -->
-<script>
-$(document).ready(function(){
-    $.instagramFeed();
-});
 </script>

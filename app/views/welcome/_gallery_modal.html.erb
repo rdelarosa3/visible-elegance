@@ -1,0 +1,23 @@
+<style>
+#galleryView .modal-dialog {
+    max-width: max-content!important;
+    margin-left: -20px;
+  }
+#galleryView  .modal-content {
+    background-color: rgba(255,255,255,0);
+}
+</style>
+<div class="modal fade" id="galleryView" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+ <!--      <div>
+        <button class="close mr-auto pt-1 pr-4"  data-dismiss="modal">&times;</button>     
+      </div>  -->
+      <div class="modal-body" id="galleryPartial">
+
+       <%= render partial: '/welcome/instafeed' %>
+
+      </div>
+    </div>
+  </div>
+</div>
