@@ -98,16 +98,12 @@
     <!-- navbar brand section and toggle section -->
     <%= link_to "Visible Elegance", root_path, class: "navbar-brand  js-scroll-trigger font-weight-bold " %>
     <button class="navbar-toggler navbar-toggler-right mr-2" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      Menu
+    <i class="fas fa-bars" style="color: #34b6ce;"></i>
       <% if logged_in? %>
         <% if pending_reservations > 0 && (current_user.admin? || current_user.operator?) %>
-          <i class="fas fa-bars"></i>
-          <i class="fas fa-bell ring" style="color:red;"></i>
-        <% else %>
-          <i class="fas fa-bars"></i>
+          
+          <i class="fas fa-bell ring" style="color:red;font-size: 1rem;"></i>
         <% end %>
-      <% else %>
-        <i class="fas fa-bars"></i>
       <% end %>
     </button>
 
@@ -138,10 +134,6 @@
 
      <!-- custom links if logged in    -->
         <% if logged_in? %>
-          <li class="nav-item">
-            <%= link_to 'Sign out', logout_path, class: "nav-link", method: :delete %>
-          </li>
-
           <!-- user section  -->
           <% if current_user.avatar? %>
             <li class="nav-item user-avatar dropdown" id="userNotify"> 
@@ -159,11 +151,12 @@
           <% end %>
 
               <div class="dropdown-menu" aria-labelledby="navbar-dropdown">
-                <!-- admin or operator custom links-->
-                <span>User</span>
+        
+                <!-- <span> </span> -->
                 <%= link_to 'Profile', current_user, class: "nav-item nav-link" %>
-                <div class="dropdown-divider"></div>
+                
                 <% if current_user.admin? || current_user.operator? %>
+                  <div class="dropdown-divider"></div>
                   <span>Admin</span>
                   <%= link_to "Reservations", reservations_path, class: "nav-item nav-link" %>
                   <% if pending_reservations > 0 %>
@@ -172,12 +165,10 @@
                     </span> 
                   <% end %>
                   <%= link_to "Schedule", schedule_path, class: "nav-item nav-link" %>
-                <% end %>
-                <% if current_user.operator? %>
-                <div class="dropdown-divider"></div>
-                  <span>Operator</span>
-                  <%= link_to "Dashboard", rails_admin_path, class: "nav-item nav-link" %>
-                <% end %>
+                  <% if current_user.operator? %>
+                    <%= link_to "Dashboard", rails_admin_path, class: "nav-item nav-link" %>
+                  <% end %>
+                  <% end %>
                 <div class="dropdown-divider"></div>
                 <%= link_to 'Sign out', logout_path, class: "nav-link nav-item", method: :delete %>
               </div>
