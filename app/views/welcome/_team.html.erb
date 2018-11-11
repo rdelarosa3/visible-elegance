@@ -1,3 +1,11 @@
+<style>
+@media (min-width: 500px){
+#memberRow{
+flex-wrap: unset!important;
+overflow-x: auto;
+}
+}
+</style>
 <div class="container">
   <div class="row">
     <div class="col-lg-12 text-center">
@@ -7,7 +15,7 @@
   </div>
 
   <!-- list each member that is stylist from database -->
-  <div class="row">
+  <div class="row" id="memberRow">
     <% @staff.each do |stylist|%>
       <div class="col-sm-4">
         <div class="team-member">
