@@ -10,7 +10,7 @@ class Reservation < ApplicationRecord
   validates :stylist_id, presence: { message: "Stylist not selected." }
   validates :service, presence: { message: "Service not selected." }
   validates :reservation_date, :reservation_time, presence: { message: "Time not selected." }
-  validates :phone_number, presence: { message: "Please provide a callback number."}
+  validates :phone_number, presence: { message: "Please provide a callback number."}, numericality: { only_integer: true }, length: { minimum: 10, maximum: 15, message: 'Please provide callback number with area code' }
   validate :verify_time
   validate :verify_day
   validate :check_overlapping_appointments,:unless => Proc.new {|c| c.stylist_id.nil? || c.reservation_time.nil? || c.force_create == true}
