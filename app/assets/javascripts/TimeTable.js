@@ -942,10 +942,10 @@ class TimeTable{    // eslint-disable-line no-unused-vars
             if(this.v.option["selectBox"]){
                 // Required to create selecttag as string (Why?)
                 let select = this.createSelectBox(INDEX[i],NAMES[i]);
-                nameColumn = (`<td class="TimeTable__name">${select}<button class="deleteRow js-deleteButton" data-nameid="${INDEX[i]}">x</button></td>`);
+                nameColumn = (`<td class="TimeTable__name">${select}</td>`);
                 //console.log(toString(this.selectbox));
             }else{
-                nameColumn = (`<td class="TimeTable__name">${NAMES[i]}<button class="deleteRow js-deleteButton" data-nameid="${INDEX[i]}">x</button></td>`);
+                nameColumn = (`<td class="TimeTable__name">${NAMES[i]}</td>`);
             }
             td.prepend($(nameColumn));
         }
@@ -1074,7 +1074,7 @@ class TimeTable{    // eslint-disable-line no-unused-vars
         // Crate row
         let row = $("<tr></tr>", {class: "js-tdata TimeTable__row"});
         // Create Name Column
-        $(row).append("<td class=\"TimeTable__name\"><button class=\"deleteRow js-deleteButton\"\">x</button></td>");
+        $(row).append("<td class=\"TimeTable__name\"></td>");
         // Craete Table Data
         const COLUMNS = this.c.countColumns(this.v.startTime, this.v.endTime, this.v.divTime);
         for(let j = 0; j < COLUMNS; j++){
@@ -1386,16 +1386,16 @@ class CanvasT extends CalculationT{
                     left : toolTipToDisplay.x,
                     top : toolTipToDisplay.y + yToMove
                 });
-            let deleteButton = $("<button class=\"toolTipDelete\">x</button>");
-            // Add Event to delete bar and also Tool tip
-            $(deleteButton).on("click", ()=>{
-                this.stage.removeChild(shape);
-                $("#timeTableToolTip").remove();
-                $(shape).off("click");
-                this.deleteShiftData(time, index);
-                this.stageUpdate();
-            });
-            $(dom).append(deleteButton);
+            // let deleteButton = $("<button class=\"toolTipDelete\">x</button>");
+            // // Add Event to delete bar and also Tool tip
+            // $(deleteButton).on("click", ()=>{
+            //     this.stage.removeChild(shape);
+            //     $("#timeTableToolTip").remove();
+            //     $(shape).off("click");
+            //     this.deleteShiftData(time, index);
+            //     this.stageUpdate();
+            // });
+            // $(dom).append(deleteButton);
             $(".TimeTable").append(dom);
         });
     }

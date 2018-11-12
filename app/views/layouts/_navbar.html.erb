@@ -1,5 +1,13 @@
 <style>
-
+.navbar #navbar-dropdown:hover + .dropdown-menu{
+    display:block;
+}
+.dropdown-menu:hover{
+    display:block;
+}
+#userNotify span:hover + .dropdown-menu{
+    display:block;
+}
 .dropdown-menu {
     padding: 40px;
     font-size: inherit;
@@ -77,6 +85,7 @@
    @media (max-height: 568px){
     .navbar-nav .dropdown-menu {
       position: absolute;
+      width: 100%;
      }
      .navbar-collapse {
       overflow-y: auto;
@@ -87,9 +96,35 @@
   }
   @media (min-width:992px) and (max-width:1350px){
     .dropdown-menu{
-      margin-left: -70px!important;
+      /*margin-left: -70px!important;*/
     }
   }
+@media (min-width: 992px){
+  .navbar-nav .dropdown-menu:before {
+    position: absolute;
+    z-index: -5;
+    bottom: 101%;
+    left: 20px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    content: '';
+    transform: rotate(-45deg) translateY(1rem);
+    border-radius: .2rem;
+    background: #212529;
+    box-shadow: none;
+    border-right: solid white 1px;
+    border-top: solid white 1px;
+  }
+  .dropdown-menu {
+    margin-left: -11px;
+    margin-top: 3px;
+    padding-right: 12px;
+    width: 200px;
+    border: solid white 1px;
+    z-index: 2000;
+  }
+}
 </style>
 
 <nav class="navbar navbar-expand-lg shadow navbar-dark fixed-top" id="mainNav">

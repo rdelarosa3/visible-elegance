@@ -64,7 +64,7 @@ class User < ApplicationRecord
 
 	# title to create relation for booking appointment
 	def self.stylist
-  		User.where(role: :admin)
+  		User.where(role: [:admin,:operator])
   	end
 
   	# scope to find customers 

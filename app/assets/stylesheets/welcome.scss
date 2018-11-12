@@ -286,8 +286,13 @@
     cursor: pointer !important;
     transition: all ease-out .15s !important;
     outline: none !important;
+    margin-top: -3px!important;
 }
-
+@media (max-width: 500px){
+  .booking-top-bar-button {
+  margin-top: -10px !important;
+  }
+}
 .form-border{
   padding: 10px;
 }
