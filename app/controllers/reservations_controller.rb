@@ -123,6 +123,7 @@ class ReservationsController < ApplicationController
   end
 
   def schedule
+
     if params[:reservation]
 
       if params[:reservation][:date_on] != "" 
@@ -130,10 +131,10 @@ class ReservationsController < ApplicationController
         @schedule = Date.parse("#{@date}")
       end
     else
-      @date = Date.today
+      @date = Date.today.strftime('%Y-%m-%d')
       @schedule = Date.today
     end
-
+ 
   end
 
   private

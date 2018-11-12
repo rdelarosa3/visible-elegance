@@ -16,8 +16,3 @@
 $("#loyaltyCard").html("<%= j render(partial: '/users/loyalty_card') %>");
 <% end %>
 
-$(document).click(function(e) {
-if (!$(e.target).is('.panel-body')) {
-    $('.collapse').collapse('hide');      
-  }
-});
