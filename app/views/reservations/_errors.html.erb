@@ -4,6 +4,17 @@
 			<center style="color:red;"><%= x.last.last.to_s.gsub('must exist', '') %></center> 
 		<% end %>
 		<br>
+		 <center><a href="#" data-target="#sign-in" data-toggle="modal" class="text-success text-underline font-weight-bold" style="display:none;" id="errorSign"><u>Sign In</u></a></center>
 	</div>
 	
 <% end %>
+
+
+<script>
+	$(document).ready(function() {
+		if ($('#reservationPartial')[0].innerText.includes('sign in')){
+			$('#errorSign').show();
+		}
+	});
+				
+</script>

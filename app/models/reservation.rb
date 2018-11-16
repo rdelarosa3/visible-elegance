@@ -10,9 +10,10 @@ class Reservation < ApplicationRecord
   validates :stylist_id, presence: { message: "Stylist not selected." }
   validates :service, presence: { message: "Service not selected." }
   validates :reservation_date, :reservation_time, presence: { message: "Time not selected." }
-  validates :phone_number, presence: { message: "Please provide a callback number."}, numericality: { only_integer: true }, length: { minimum: 10, maximum: 15, message: 'Please provide callback number with area code' }
-  validate :verify_time
   validate :verify_day
+  validate :verify_time
+  validates :phone_number, presence: { message: "Please provide a callback number."}, numericality: { only_integer: true }, length: { minimum: 10, maximum: 15, message: 'Please provide callback number with area code' }
+  validate :verify_login
   validate :check_overlapping_appointments,:unless => Proc.new {|c| c.stylist_id.nil? || c.reservation_time.nil? || c.force_create == true}
   before_create :verify_phone
 
@@ -59,9 +60,11 @@ class Reservation < ApplicationRecord
       if day.strftime("%A") == "Sunday"
           errors.add(:verify_day, "We are closed on Sunday's")
       else
-        stylist.off_days.map do |scheduled|
-          if day.strftime("%A") == scheduled.day_off
-            errors.add(:verify_day, "Stylist not available on this day")
+        if !stylist_id.nil?
+          stylist.off_days.map do |scheduled|
+            if day.strftime("%A") == scheduled.day_off
+              errors.add(:verify_day, "Stylist not available on this day")
+            end
           end
         end
       end
@@ -121,6 +124,12 @@ class Reservation < ApplicationRecord
     end
   end
 
+
+  def verify_login
+    unless user_id != 0
+      errors.add(:verify_login, 'Please sign in to make reservation.')
+    end
+  end
   ################## RESERVATION UPDATES #################################
 
   # if reservation is updated changes status to modified
@@ -147,7 +156,5 @@ class Reservation < ApplicationRecord
     ReservationMailer.status_email(self).deliver
     end
   end
-
-
 
 end

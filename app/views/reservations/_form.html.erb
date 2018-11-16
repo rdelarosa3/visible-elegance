@@ -83,6 +83,8 @@ width:100%!important;
         <%= f.input_field :email, as: :hidden, value: current_user.email %>
       </div>
       <% end %>
+    <% else %>
+       <%= f.input_field :user_id, as: :hidden, value: 0 %> 
     <% end %>
 
     What service would you like?
@@ -112,12 +114,12 @@ width:100%!important;
 
   <div class="form-actions">
     <!-- if user is logged in allow reservation request else have user log in -->
-    <% if logged_in? %>
+     <!-- if logged_in? %> -->
       <%= f.button :submit, 'Submit', class: "btn btn-danger btn-block mb-1" %>
       <p class="hint-text text-center small text text-muted">Our staff members will contact you soon.</p>
-    <% else %>
-      <a href="#" data-target="#sign-in" data-toggle="modal" class="btn btn-block btn-danger">Submit</a>
-    <% end %>
+     <!-- else %> -->
+      <!-- <a href="#" data-target="#sign-in" data-toggle="modal" class="btn btn-block btn-danger">Submit</a> -->
+     <!-- end %> -->
   </div>
 <% end %>    
 
@@ -192,8 +194,6 @@ $("#reservation_user_id").change(function() {
   });
 <% end %>
 
-
-
 $(document).ready(function() {
   $('select#reservation_user_id').select2({
     placeholder: "Choose a person",
@@ -206,6 +206,14 @@ $(document).ready(function() {
   });
 });
 
+</script>
 
-// $('#reservation_reservation_date').dateDropper();
+<script>
+<% if !logged_in? %>
+$(document).ready(function() {
+  $( "#select2-reservation_service_id-container" ).click(function() {
+    $('#sign-in').modal('show');
+  });
+});
+<% end %>
 </script>
