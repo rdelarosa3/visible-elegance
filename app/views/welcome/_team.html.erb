@@ -22,7 +22,7 @@ overflow-x: auto;
           <% if  stylist.avatar? %>
             <%= image_tag(stylist.avatar_url, class: ' mx-auto rounded-circle',width: '255', height: '255', alt: "") %>
           <% else %>
-            <%= image_tag( "https://s3.amazonaws.com/ve-salon/default_avatar.jpg", class: 'mx-auto rounded-circle',width: '255', height: '255', alt: "") %>
+            <%= image_tag( "default_avatar.jpg", class: 'mx-auto rounded-circle',width: '255', height: '255', alt: "") %>
           <% end %>
           <h4><%= stylist.first_name %></h4>
           <p class="text-muted"><%= stylist.title.name if !stylist.title.nil? %></p>
