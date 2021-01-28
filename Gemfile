@@ -41,7 +41,7 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'popper_js', '~> 1.14', '>= 1.14.3'
 
 # rails form helper
-gem 'simple_form', '~> 4.0', '>= 4.0.1'
+gem 'simple_form', '~> 5.0'
 
 # image storage 
 gem 'carrierwave', '~> 1.2', '>= 1.2.3'
