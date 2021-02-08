@@ -44,7 +44,7 @@ gem 'popper_js', '~> 1.14', '>= 1.14.3'
 gem 'simple_form', '~> 4.0', '>= 4.0.1'
 
 # image storage 
-gem 'carrierwave', '~> 1.2', '>= 1.2.3'
+gem 'carrierwave', '~> 1.3'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
 gem "fog-aws"
 
